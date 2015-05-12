@@ -1,0 +1,92 @@
+" -----
+" color
+" -----
+
+function! ZenkakuSpace()
+  highlight ZenkakuSpace cterm=reverse
+endfunction
+
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd ColorScheme * call ZenkakuSpace()
+    autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
+  augroup END
+  call ZenkakuSpace()
+endif
+
+augroup HideCursorLineAtWinLeave
+  autocmd!
+  autocmd WinLeave * :set nocursorline
+  autocmd WinEnter,BufRead * :set cursorline
+augroup END
+
+
+" ----------
+" statusline
+" ----------
+
+" let g:current_git_branch=''
+" function! s:current_git_branch()
+  " let g:current_git_branch=''
+  " try
+    " silent! lcd %:p:h
+    " let branch = substitute(system('/usr/bin/env git symbolic-ref --short HEAD 2>/dev/null'), '[\r\n]', '', 'g')
+    " if (len(branch))
+      " let g:current_git_branch='[git:' . branch . ']'
+    " endif
+  " catch
+    " " do nothing
+  " endtry
+  " return g:current_git_branch
+" endfunction
+" autocmd BufEnter * :call s:current_git_branch()
+
+set laststatus=2
+let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
+
+" let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%{g:current_git_branch}%= %-14.(%l,%c%V%) U+%04B %P'
+let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) U+%04B %P'
+
+
+" --------
+" JunkFile
+" --------
+
+let g:junk_file_basedir=$HOME."/Documents/junk"
+function! s:open_junk_file()
+  if !exists('g:junk_file_basedir')
+    let g:junk_file_basedir = $HOME . '/.vim_junk'
+  endif
+  let l:junk_file_dir = g:junk_file_basedir . strftime('/%Y/%m')
+  if !isdirectory(l:junk_file_dir)
+    call mkdir(l:junk_file_dir, 'p')
+  endif
+  let l:filename = input('Junk Code: ', l:junk_file_dir . strftime('/%Y-%m-%d-%H%M%S.'))
+  if l:filename != ''
+    execute 'edit ' . l:filename
+  endif
+endfunction
+
+command! -nargs=0 JunkFile call s:open_junk_file()
+command! -nargs=0 JunkList execute "Unite file_rec:" . g:junk_file_basedir . " -buffer-name=junk_list"
+command! -nargs=0 JunkGrep execute "Unite grep:" . g:junk_file_basedir . ":-iHRn -no-quit"
+
+nnoremap [junkfile] <Nop>
+nmap     <Leader>j [junkfile]
+
+nnoremap <silent> [junkfile]f :<C-u>JunkFile<CR>
+nnoremap <silent> [junkfile]g :<C-u>JunkGrep<CR>
+
+
+" ------
+" Rename
+" ------
+
+command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
+
+nnoremap [rename] <Nop>
+nmap     <Leader>m [rename]
+
+nnoremap <expr>[rename]v ':Rename ' . bufname('%')
+

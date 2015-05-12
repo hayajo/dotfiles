@@ -1,0 +1,1 @@
+(req yaml-mode)

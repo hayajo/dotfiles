@@ -1,0 +1,38 @@
+[include]
+  # 1.7.10 or later
+  path = ~/.gitconfig.local
+[core]
+  excludesfile = ~/.gitignore
+  autoCRLF = false
+  editor = vim
+[color]
+  ui = auto
+[push]
+  # push only the current branch
+  default = tracking
+[branch]
+  autosetuprebase = always
+[merge]
+  # 1.7.6 or later
+  ff = false
+[pull]
+  # 1.7.9 or later
+  rebase = true
+[alias]
+  aliases = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
+  br = branch
+  ci = commit
+  co = checkout
+  dc = diff --cached
+  df = diff
+  graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+  st = status
+  sfu = submodule foreach "git checkout master;  git pull"
+  tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
+  keep = "!find . -type d -name .git -prune -o -type d -empty -print0 | xargs -0 -t -i touch {}/.gitkeep"
+  ignore = "!f() { local s=$1; shift; while [ $# -gt 0 ]; do s=$s,$1; shift; done; curl http://gitignore.io/api/$s ; }; f"
+  root = rev-parse --show-toplevel
+[github]
+  user = hayajo
+[ghq]
+  root = ~/src

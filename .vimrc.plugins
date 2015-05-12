@@ -1,0 +1,259 @@
+" --------------------
+" Shougo/neobundle.vim
+" --------------------
+
+filetype plugin indent off
+
+if has('vim_starting')
+  set rtp+=$HOME/.vim/bundle/neobundle.vim
+  call neobundle#begin(expand('~/.vim/bundle'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
+endif
+
+NeoBundle "Shougo/vimproc", {
+      \ 'build' : {
+      \ 'mac' : 'make -f make_mac.mak',
+      \ 'unix' : 'make -f make_unix.mak',
+      \ } }
+NeoBundle "Shougo/unite.vim"
+NeoBundle 'Shougo/neomru.vim', {
+      \ 'depends': 'Shougo/unite.vim',
+      \ }
+NeoBundle "tacroe/unite-mark", {
+      \ 'depends': 'Shougo/unite.vim',
+      \ }
+NeoBundle "Shougo/neocomplete"
+NeoBundle "tpope/vim-surround"
+NeoBundle "rgarver/Kwbd.vim"
+NeoBundle "The-NERD-Commenter"
+NeoBundle "thinca/vim-quickrun"
+NeoBundle "thinca/vim-ref"
+NeoBundle "jpo/vim-railscasts-theme"
+NeoBundle "mattn/emmet-vim"
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'lambdalisue/vim-gista'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'osyo-manga/vim-brightest'
+
+filetype plugin indent on
+
+NeoBundleCheck
+
+
+" ----------------
+" Shougo/unite.vim
+" ----------------
+
+" let g:unite_source_history_yank_enable = 1
+" let g:unite_source_history_yank_file = expand('~/.yank_history')
+let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
+
+nnoremap [unite] <Nop>
+nmap     <Space> [unite]
+
+nnoremap <silent> [unite]<Space> :<C-u>Unite buffer file_mru directory_mru<CR>
+nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
+nnoremap <silent> [unite]F       :<C-u>Unite file_rec/async<CR>
+nnoremap <silent> [unite]/       :<C-u>Unite grep:.<CR>
+nnoremap <silent> [unite]g       :<C-u>Unite file_rec/git<CR>
+nnoremap <silent> [unite]G       :<C-u>Unite gista<CR>
+nnoremap <silent> [unite]y       :<C-u>Unite register<CR>
+nnoremap <silent> [unite]m       :<C-u>Unite mark<CR>
+nnoremap <silent> [unite]r       <Plug>(unite_restart)
+
+" Like ctrlp.vim settings.
+call unite#custom#profile('default', 'context', {
+      \   'start_insert': 1,
+      \   'winheight': 10,
+      \   'direction': 'botright',
+      \   'update_time': 10,
+      \   'prompt': '> ',
+      \ })
+call unite#custom#source('file', 'matchers', "matcher_default")
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  nmap <buffer> q <Plug>(unite_all_exit)
+  nmap <buffer> <Esc><Esc> <Plug>(unite_all_exit)
+  imap <buffer> <Esc><Esc> <Esc><Plug>(unite_all_exit)
+
+  nmap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+
+  imap <silent><buffer> <Esc> <Plug>(unite_insert_leave)
+
+  nnoremap <buffer><expr> <C-j> unite#do_action('split')
+  inoremap <buffer><expr> <C-j> unite#do_action('split')
+  nnoremap <buffer><expr> <C-l> unite#do_action('vsplit')
+  inoremap <buffer><expr> <C-l> unite#do_action('vsplit')
+
+  nnoremap <buffer><expr> <C-d> unite#do_action('wipeout')
+  inoremap <buffer><expr> <C-d> unite#do_action('wipeout')
+
+  let unite = unite#get_current_unite()
+  if unite.buffer_name =~# '^files'
+    nnoremap <buffer><expr> c unite#do_action('copy')
+    nnoremap <buffer><expr> r unite#do_action('rename')
+  endif
+
+  highlight link uniteStatusNormal StatusLine
+  highlight link uniteStatusHead StatusLine
+  highlight link uniteStatusSourceNames StatusLine
+  highlight link uniteStatusSourceCandidates StatusLine
+  highlight link uniteStatusMessage StatusLine
+  highlight link uniteStatusLineNR StatusLine
+endfunction
+
+
+" ------------------
+" Shougo/neocomplete
+" ------------------
+
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType perl setlocal omnifunc=perlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType vim setlocal omnifunc=complete#CompleteCSS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+
+" -------------
+" NERDCommenter
+" -------------
+
+let g:NERDCreateDefaultMappings=0
+let g:NERDSpaceDelims=1
+
+nmap <Leader>cc <Plug>NERDCommenterToggle
+vmap <Leader>cc <Plug>NERDCommenterToggle
+nmap <Leader>cd <Plug>NERDCommenterAppend
+vmap <Leader>cd <Plug>NERDCommenterAppend
+
+
+" -------------
+" rgarver/Kwbd.vim
+" ----------------
+
+nnoremap <Leader>bd :Kwbd<CR>
+
+
+" -------------
+" thinca/vim-quickrun
+" -------------------
+
+nnoremap <Leader>qr :QuickRun<CR>
+
+
+" --------------
+" thinca/vim-ref
+" --------------
+
+if executable('lynx')
+  let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
+endif
+
+let g:ref_source_webdict_sites = {
+      \ 'alc': {
+      \   'url': 'http://eow.alc.co.jp/search?q=%s',
+      \   'keyword_encoding': 'utf-8',
+      \   'cache': 1
+      \ },
+      \ 'codic': {
+      \   'url': 'http://codic.jp/search?q=%s',
+      \   'keyword_encoding': 'utf-8',
+      \   'cache': 1
+      \ } }
+
+function g:ref_source_webdict_sites.alc.filter(output)
+  return join( split(a:output, "\n")[40 :], "\n" )
+endfunction
+function g:ref_source_webdict_sites.codic.filter(output)
+  return join( split(a:output, "\n")[15 :], "\n" )
+endfunction
+
+nnoremap [ref] <Nop>
+nmap     <Leader>r [ref]
+
+nnoremap <expr>[ref]e ':Ref webdict alc ' . expand('<cword>')
+nnoremap <expr>[ref]c ':Ref webdict codic ' . expand('<cword>')
+nnoremap [ref]p :<C-u>Ref cpan<Space>
+
+
+" ------------------------
+" jpo/vim-railscasts-theme
+" ------------------------
+
+colorscheme railscasts
+
+highlight Normal     ctermbg=NONE guibg=NONE
+highlight NonText    ctermbg=NONE guibg=NONE
+highlight CursorLine cterm=bold ctermbg=0 gui=bold guibg=0
+
+
+" ---------------
+" mattn/emmet-vim
+" ---------------
+
+let g:user_emmet_settings = { 'lang': "ja" }
+
+
+" -----------------------
+" plasticboy/vim-markdown
+" -----------------------
+
+let g:vim_markdown_folding_disabled=1
+
+
+" ------------
+" fatih/vim-go
+" ------------
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+autocmd FileType go nmap <Leader>gl :GoLint<CR>
+autocmd FileType go nmap <Leader>gi :GoImports<CR>
+autocmd FileType go nmap <Leader>gd :GoDoc<CR>
+autocmd FileType go nmap <Leader>gr :GoRename<CR>
+
+
+" ------------------------
+" osyo-manga/vim-brightest
+" ------------------------
+
+let g:brightest#highlight = {
+      \   "group" : "BrightestReverse"
+      \}
+let g:brightest#pattern = '\k\+'
+" let g:brightest#ignore_syntax_list = [ "Statement" ]
+" let g:brightest#enable_on_CursorHold = 1
+let g:brightest#enable_highlight_all_window = 1

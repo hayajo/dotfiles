@@ -1,0 +1,11 @@
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+
+(cond ((eq system-type 'darwin)
+       (require 'ucs-normalize)
+       (set-file-name-coding-system 'utf-8-hfs)
+       (setq locale-coding-system 'utf-8-hfs))
+      ((eq system-type 'w32)
+       (set-file-name-coding-system 'cp932)
+       (setq locale-coding-system 'cp932))
+      (t nil))
