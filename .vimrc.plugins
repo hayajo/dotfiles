@@ -6,10 +6,14 @@ filetype plugin indent off
 
 if has('vim_starting')
   set rtp+=$HOME/.vim/bundle/neobundle.vim
-  call neobundle#begin(expand('~/.vim/bundle'))
-  NeoBundleFetch 'Shougo/neobundle.vim'
-  call neobundle#end()
+  if &compatible
+    set nocompatible
+  endif
 endif
+
+call neobundle#begin(expand('~/.vim/bundle'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle "Shougo/vimproc", {
       \ 'build' : {
@@ -37,6 +41,8 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'lambdalisue/vim-gista'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'osyo-manga/vim-brightest'
+
+call neobundle#end()
 
 filetype plugin indent on
 
