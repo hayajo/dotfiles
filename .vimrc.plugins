@@ -33,7 +33,6 @@ NeoBundle "rgarver/Kwbd.vim"
 NeoBundle "The-NERD-Commenter"
 NeoBundle "thinca/vim-quickrun"
 NeoBundle "thinca/vim-ref"
-NeoBundle "jpo/vim-railscasts-theme"
 NeoBundle "mattn/emmet-vim"
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'plasticboy/vim-markdown'
@@ -209,17 +208,6 @@ nmap     <Leader>r [ref]
 nnoremap <expr>[ref]e ':Ref webdict alc ' . expand('<cword>')
 nnoremap <expr>[ref]c ':Ref webdict codic ' . expand('<cword>')
 nnoremap [ref]p :<C-u>Ref cpan<Space>
-
-
-" ------------------------
-" jpo/vim-railscasts-theme
-" ------------------------
-
-colorscheme railscasts
-
-highlight Normal     ctermbg=NONE guibg=NONE
-highlight NonText    ctermbg=NONE guibg=NONE
-highlight CursorLine cterm=bold ctermbg=0 gui=bold guibg=0
 
 
 " ---------------
