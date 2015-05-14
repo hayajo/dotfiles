@@ -54,6 +54,7 @@ set virtualedit+=block
 set whichwrap=h,l
 set wildchar=<tab>
 set wildmode=list:full
+set number
 
 let mapleader=','
 
