@@ -75,3 +75,9 @@ which boot2docker >/dev/null 2>&1
 if [ $? -eq 0 ]; then
   eval $(boot2docker shellinit 2>/dev/null)
 fi
+
+# direnv
+which direnv >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+  eval "$(direnv hook zsh)"
+fi
