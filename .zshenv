@@ -50,7 +50,7 @@ fi
 if [ -d "$HOME/.pyenv" ]; then
   export PYENV_HOME="$HOME/.pyenv"
   export PATH="$PYENV_HOME/bin:$PATH"
-  eval "$(rbenv init -)"
+  eval "$(pyenv init -)"
 fi
 
 # nodebrew
