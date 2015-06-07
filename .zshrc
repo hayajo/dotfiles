@@ -458,5 +458,7 @@ alias ag='ag -S --pager="less -R"'
 
 alias git-root='git rev-parse && cd `git rev-parse --show-toplevel`'
 
+alias vi=vim
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
