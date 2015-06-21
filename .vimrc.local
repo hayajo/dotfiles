@@ -4,7 +4,7 @@
 
 set t_Co=256
 set background=dark
-colorscheme elflord
+colorscheme desert
 
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=reverse
