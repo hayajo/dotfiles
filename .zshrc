@@ -118,12 +118,12 @@ local MAGENTA=$'%{\e[35m%}'
 
 case ${UID} in
     0)
-        PROMPT="%B${GREEN}[%*] ${RED}%n${DEFAULT}%b@%m %~# "
+        PROMPT="%B${GREEN}[%*] ${RED}%n${DEFAULT}%b@%m %~"$'\n'"%C# "
         PROMPT2="%_ # "
         SPROMPT="'%B${RED}%r${DEFAULT}%b' is correct? [n,y,a,e]: "
         ;;
     *)
-        PROMPT="%B${GREEN}[%*] ${CYAN}%n${DEFAULT}%b@%m %~$ "
+        PROMPT="%B${GREEN}[%*] ${CYAN}%n${DEFAULT}%b@%m %~"$'\n'"%C$ "
         PROMPT2="%_ $ "
         SPROMPT="'%B${RED}%r${DEFAULT}%b' is correct? [n,y,a,e]: "
         ;;
