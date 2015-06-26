@@ -56,7 +56,7 @@ set wildchar=<tab>
 set wildmode=list:full
 set number
 
-let mapleader=','
+let mapleader="\<Space>"
 
 nnoremap ; :
 vnoremap ; :
@@ -72,6 +72,8 @@ nnoremap gk  k
 nnoremap gj  j
 vnoremap gk  k
 vnoremap gj  j
+
+nmap <Leader><Leader> V
 
 nnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
 nnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
@@ -94,6 +96,14 @@ nnoremap <Leader>s :<C-u>%s///g<Left><Left><Left>
 vnoremap <Leader>s :s///g<Left><Left><Left>
 
 nnoremap <Leader>e :e.<CR>
+
+" システムのクリップボードにコピー＆ペースト
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
