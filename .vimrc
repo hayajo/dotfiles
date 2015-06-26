@@ -56,7 +56,7 @@ set wildchar=<tab>
 set wildmode=list:full
 set number
 
-let mapleader=','
+let mapleader="\<Space>"
 
 nnoremap ; :
 vnoremap ; :
