@@ -97,6 +97,14 @@ vnoremap <Leader>s :s///g<Left><Left><Left>
 
 nnoremap <Leader>e :e.<CR>
 
+" システムのクリップボードにコピー＆ペースト
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 inoremap <C-n> <Down>
