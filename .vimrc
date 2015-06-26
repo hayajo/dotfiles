@@ -73,6 +73,8 @@ nnoremap gj  j
 vnoremap gk  k
 vnoremap gj  j
 
+nmap <Leader><Leader> V
+
 nnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
 nnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
 vnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
