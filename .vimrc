@@ -56,6 +56,7 @@ set wildchar=<tab>
 set wildmode=list:full
 set number
 set clipboard+=unnamed
+set mouse=a
 
 let mapleader=","
 

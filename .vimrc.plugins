@@ -57,10 +57,10 @@ NeoBundleCheck
 let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
 
 nnoremap [unite] <Nop>
-nmap     <Leader> [unite]
+nmap     <Space> [unite]
 
-nnoremap <silent> [unite]h       :<C-u>Unite buffer file_mru directory_mru<CR>
-nnoremap <silent> [unite]o       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
+nnoremap <silent> [unite]<Space>       :<C-u>Unite buffer file_mru directory_mru<CR>
+nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
 " nnoremap <silent> [unite]O       :<C-u>Unite file_rec/async<CR>
 nnoremap <silent> [unite]/       :<C-u>Unite grep:.<CR>
 " nnoremap <silent> [unite]g       :<C-u>Unite file_rec/git<CR>
