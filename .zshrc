@@ -107,11 +107,11 @@ setopt share_history
 
 case ${UID} in
     0)
-        PROMPT="[%F{red}%n%F{cyan}@%m%f %F{yellow}%c%f]# "
+        PROMPT="%F{green}%*%f [%F{red}%n%f %F{yellow}%c%f]# "
         PROMPT2="%_ # "
         ;;
     *)
-        PROMPT="[%F{cyan}%n@%m%f %F{yellow}%c%f]$ "
+        PROMPT="%F{green}%*%f [%F{cyan}%n%f %F{yellow}%c%f]$ "
         PROMPT2="%_ $ "
         ;;
 esac
