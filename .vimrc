@@ -58,6 +58,7 @@ set number
 set clipboard+=unnamed
 set mouse=a
 
+
 let mapleader=","
 
 nnoremap ; :
