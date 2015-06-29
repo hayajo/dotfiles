@@ -57,7 +57,7 @@ set wildmode=list:full
 set number
 set clipboard+=unnamed
 
-let mapleader="\<Space>"
+let mapleader=","
 
 nnoremap ; :
 vnoremap ; :
