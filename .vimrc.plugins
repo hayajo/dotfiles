@@ -128,6 +128,11 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -231,13 +236,15 @@ let g:vim_markdown_folding_disabled=1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:gocomplete#system_function = 'vimproc#system'
 
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType go nmap <Leader>gl :GoLint<CR>
-autocmd FileType go nmap <Leader>gi :GoImports<CR>
+autocmd FileType go nmap <Leader>gi :GoImports 
 autocmd FileType go nmap <Leader>gd :GoDoc<CR>
 autocmd FileType go nmap <Leader>gr :GoRename<CR>
+autocmd FileType go nmap <Leader>gv :GoVet<CR>
 
 
 " ------------------------
