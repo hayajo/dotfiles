@@ -212,7 +212,6 @@ nmap     <Leader>r [ref]
 
 nnoremap <expr>[ref]ej ':Ref webdict alc ' . expand('<cword>')
 nnoremap <expr>[ref]ee ':Ref webdict oxfordlearnersdictionaries ' . expand('<cword>')
-nnoremap [ref]p :<C-u>Ref cpan<Space>
 
 
 " ---------------
