@@ -194,8 +194,8 @@ let g:ref_source_webdict_sites = {
       \   'keyword_encoding': 'utf-8',
       \   'cache': 1
       \ },
-      \ 'codic': {
-      \   'url': 'http://codic.jp/search?q=%s',
+      \ 'oxfordlearnersdictionaries': {
+      \   'url': 'http://www.oxfordlearnersdictionaries.com/definition/english/%s',
       \   'keyword_encoding': 'utf-8',
       \   'cache': 1
       \ } }
@@ -203,15 +203,15 @@ let g:ref_source_webdict_sites = {
 function g:ref_source_webdict_sites.alc.filter(output)
   return join( split(a:output, "\n")[40 :], "\n" )
 endfunction
-function g:ref_source_webdict_sites.codic.filter(output)
-  return join( split(a:output, "\n")[15 :], "\n" )
+function g:ref_source_webdict_sites.oxfordlearnersdictionaries.filter(output)
+  return join( split(a:output, "\n")[23 :], "\n" )
 endfunction
 
 nnoremap [ref] <Nop>
 nmap     <Leader>r [ref]
 
-nnoremap <expr>[ref]e ':Ref webdict alc ' . expand('<cword>')
-nnoremap <expr>[ref]c ':Ref webdict codic ' . expand('<cword>')
+nnoremap <expr>[ref]ej ':Ref webdict alc ' . expand('<cword>')
+nnoremap <expr>[ref]ee ':Ref webdict oxfordlearnersdictionaries ' . expand('<cword>')
 nnoremap [ref]p :<C-u>Ref cpan<Space>
 
 
