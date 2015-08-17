@@ -85,6 +85,6 @@ fi
 # docker-machine
 which docker-machine >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-  (docker-machine ls -q | grep -q dev) && eval "$(docker-machine env dev)"
+  (docker-machine ls -q | grep -q default) && eval "$(docker-machine env default)"
 fi
 
