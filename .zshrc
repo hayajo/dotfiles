@@ -39,6 +39,7 @@ setopt pushd_ignore_dups
 setopt pushd_minus
 setopt pushd_silent
 setopt extended_glob
+setopt interactivecomments
 
 stty stop undef
 
