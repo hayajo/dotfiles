@@ -44,7 +44,7 @@ call neobundle#end()
 
 filetype plugin indent on
 
-" NeoBundleCheck
+NeoBundleCheck
 
 
 " ----------------
@@ -254,6 +254,6 @@ let g:brightest#highlight = {
       \   "group" : "BrightestReverse"
       \}
 let g:brightest#pattern = '\k\+'
-" let g:brightest#ignore_syntax_list = [ "Statement" ]
+let g:brightest#ignore_syntax_list = [ "Statement" ]
 " let g:brightest#enable_on_CursorHold = 1
 let g:brightest#enable_highlight_all_window = 1

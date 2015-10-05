@@ -36,7 +36,7 @@ set novisualbell
 set nowildmenu
 set nowrap
 set nowrapscan
-set number
+set nonumber
 set pastetoggle=<F10>
 set ruler
 set scrolloff=5
@@ -49,7 +49,6 @@ set smarttab
 set softtabstop=2
 set splitbelow
 set splitright
-set t_Co=256
 set t_Co=256
 set t_vb=
 set tabstop=2
