@@ -34,7 +34,6 @@ NeoBundle "The-NERD-Commenter"
 NeoBundle "thinca/vim-quickrun"
 NeoBundle "thinca/vim-ref"
 NeoBundle "mattn/emmet-vim"
-NeoBundle 'godlygeek/tabular'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'lambdalisue/vim-gista'
@@ -45,7 +44,7 @@ call neobundle#end()
 
 filetype plugin indent on
 
-NeoBundleCheck
+" NeoBundleCheck
 
 
 " ----------------
@@ -240,7 +239,8 @@ let g:gocomplete#system_function = 'vimproc#system'
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType go nmap <Leader>gl :GoLint<CR>
-autocmd FileType go nmap <Leader>gi :GoImports 
+autocmd FileType go nmap <Leader>gi :GoImport 
+autocmd FileType go nmap <Leader>gI :GoImports<CR>
 autocmd FileType go nmap <Leader>gd :GoDoc<CR>
 autocmd FileType go nmap <Leader>gr :GoRename<CR>
 autocmd FileType go nmap <Leader>gv :GoVet<CR>
