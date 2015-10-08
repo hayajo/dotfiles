@@ -39,6 +39,7 @@ NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'lambdalisue/vim-gista'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'osyo-manga/vim-brightest'
+NeoBundle 'terryma/vim-expand-region'
 
 call neobundle#end()
 
@@ -257,3 +258,11 @@ let g:brightest#pattern = '\k\+'
 let g:brightest#ignore_syntax_list = [ "Statement" ]
 " let g:brightest#enable_on_CursorHold = 1
 let g:brightest#enable_highlight_all_window = 1
+
+
+" -------------------------
+" terryma/vim-expand-region
+" -------------------------
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
