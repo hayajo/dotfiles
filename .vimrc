@@ -105,7 +105,7 @@ colorscheme desert
   if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
   endif
-  if filereadable(expand('~/.vimrc.plugins'))
+  if filereadable(expand('~/.vimrc.neobundle')) && has('lua')
     source ~/.vimrc.plugins
   endif
 " endif
