@@ -53,12 +53,11 @@ if [ -d "$HOME/.pyenv" ]; then
   eval "$(pyenv init -)"
 fi
 
-# nodebrew
-[[ -d $HOME/.nodebrew ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-# npm
-if [ -e "$HOME/.npmrc" ]; then
-  export PATH="$HOME/.node_modules/bin:$PATH"
+# nvm
+if [ -e $(brew --prefix nvm)/nvm.sh ]; then
+  source $(brew --prefix nvm)/nvm.sh
+  test ! -d "$HOME/.nvm" && mkdir "$HOME/.nvm"
+  export NVM_DIR="$HOME/.nvm"
 fi
 
 # dart
