@@ -6,6 +6,11 @@ lowercase() {
   echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }
 
+# OSXの通知を使う
+grawl() {
+  reattach-to-user-namespace osascript -e "display notification \"$1\""
+}
+
 OS=`lowercase \`uname\``
 case $OS in
   "windowsnt")
