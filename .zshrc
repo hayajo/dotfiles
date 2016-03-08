@@ -48,48 +48,38 @@ umask 022
 # hook
 [[ -f "$HOME/.zsh_hook" ]] && source "$HOME/.zsh_hook"
 
-# plenv > perlbrew
-if [ -e "$HOME/.plenv" ]; then
+# plenv
+if [ -z "$PLENV_HOME" ]; then
   export PLENV_HOME="$HOME/.plenv"
   export PATH="$PLENV_HOME/bin:$PATH"
   eval "$(plenv init -)"
 fi
 
 # rbenv
-if [ -d "$HOME/.rbenv" ]; then
-  export RBENV_HOME="$HOME/.rbenv"
+if [ -z "$RBENV_HOME" ]; then
+  export RBENV_HOME="$HOME/.plenv"
   export PATH="$RBENV_HOME/bin:$PATH"
   eval "$(rbenv init -)"
 fi
 
 # pyenv
-if [ -d "$HOME/.pyenv" ]; then
-  export PYENV_HOME="$HOME/.pyenv"
+if [ -z "$PYENV_HOME" ]; then
+  export PYENV_HOME="$HOME/.plenv"
   export PATH="$PYENV_HOME/bin:$PATH"
   eval "$(pyenv init -)"
 fi
 
 # nvm
-if [ -e $(brew --prefix nvm)/nvm.sh ]; then
-  test ! -d "$HOME/.nvm" && mkdir "$HOME/.nvm"
+if [ -z "$NVM_DIR" ]; then
   export NVM_DIR="$HOME/.nvm"
   source $(brew --prefix nvm)/nvm.sh
 fi
 
-# dart
-if [ -d "$HOME/.dart-sdk" ]; then
-  export PATH="$HOME/.dart-sdk/bin:$PATH"
-fi
-
 # golang
-export GOPATH=$HOME
-export PATH="/usr/local/go/bin:$PATH"
-
-# # boot2docker
-# which boot2docker >/dev/null 2>&1
-# if [ $? -eq 0 ]; then
-  # eval $(boot2docker shellinit 2>/dev/null)
-# fi
+if [ -z "$GOPATH" ]; then
+  export GOPATH=$HOME
+  export PATH="$(brew --prefix go):$PATH"
+fi
 
 # direnv
 which direnv >/dev/null 2>&1
@@ -98,9 +88,8 @@ if [ $? -eq 0 ]; then
 fi
 
 # docker-machine
-which docker-machine >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-  (docker-machine ls -q | grep -q default) && eval "$(docker-machine env default)"
+if [ -z "$DOCKER_HOST" ]; then
+  eval "$(docker-machine env default)"
 fi
 
 # heroku
@@ -548,4 +537,4 @@ alias ag='ag -S --pager="less -R"'
 alias git-root='git rev-parse && cd `git rev-parse --show-toplevel`'
 
 alias vi=vim
-
+alias ssh='cat ~/.ssh/config.d/* > ~/.ssh/config; ssh'
