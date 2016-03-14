@@ -1,0 +1,63 @@
+# -*- mode: zsh -*-
+# vi: set ft=zsh foldmethod=marker:
+
+# tmuxじゃない場合はPATHを初期化する
+if [ -z "$TMUX" ]; then
+  PATH=
+  MANPATH=
+  eval `/usr/libexec/path_helper -s`
+  export PATH=$HOME/local/bin:$HOME/bin::$PATH
+fi
+
+# ssh-agent
+SSH_AGENT_FILE="$HOME/.ssh-agent-info"
+test -f $SSH_AGENT_FILE && source $SSH_AGENT_FILE > /dev/null
+if ! ssh-add -l >& /dev/null ; then
+  ssh-agent > $SSH_AGENT_FILE
+  source $SSH_AGENT_FILE
+  ssh-add
+fi
+
+# plenv
+if [ -z "$PLENV_HOME" ]; then
+  export PLENV_HOME="$HOME/.plenv"
+  eval "$(plenv init -)"
+fi
+
+# rbenv
+if [ -z "$RBENV_HOME" ]; then
+  export RBENV_HOME="$HOME/.rbenv"
+  eval "$(rbenv init -)"
+fi
+
+# pyenv
+if [ -z "$PYENV_HOME" ]; then
+  export PYENV_HOME="$HOME/.pyenv"
+  eval "$(pyenv init -)"
+fi
+
+# nvm
+if [ -z "$NVM_DIR" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  source $(brew --prefix nvm)/nvm.sh
+fi
+
+# golang
+if [ -z "$GOPATH" ]; then
+  export GOPATH=$HOME
+  export PATH="$(brew --prefix go):$PATH"
+fi
+
+# direnv
+type _direnv_hook > /dev/null
+if [ $? -eq 0 ]; then
+  eval "$(direnv hook zsh)"
+fi
+
+# docker-machine
+if [ -z "$DOCKER_HOST" ]; then
+  eval "$(docker-machine env default)"
+fi
+
+# heroku
+export PATH="/usr/local/heroku/bin:$PATH"
