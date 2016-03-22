@@ -157,7 +157,9 @@ alias ssh='cat ~/.ssh/config.d/* > ~/.ssh/config; ssh'
 
 # function
 # {{{
-source "$HOME/.zshrc.function"
+if [[ -f "$HOME/.zshrc.function" ]]; then
+  source "$HOME/.zshrc.function"
+fi
 # }}}
 
 # path
