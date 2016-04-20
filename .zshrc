@@ -114,6 +114,8 @@ bindkey -e
 bindkey "[3~" delete-char
 
 autoload history-search-end
+zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
+zle -la history-incremental-pattern-search-forward  && bindkey "^s" history-incremental-pattern-search-forward
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
