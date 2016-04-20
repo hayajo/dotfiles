@@ -48,6 +48,8 @@ endfunction
 
 command! -nargs=0 JunkFile call s:open_junk_file()
 
+nnoremap <Leader>jf :JunkFile<CR>
+
 " -----------------------
 " ファイル名変更
 " :Rename <new filename>
