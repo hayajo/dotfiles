@@ -155,6 +155,10 @@ alias ag='ag -S --pager="less -R"'
 alias vi=vim
 
 alias ssh='cat ~/.ssh/config.d/* > ~/.ssh/config; ssh'
+
+if [[ ! -z $(which colordiff) ]]; then
+  alias diff='colordiff'
+fi
 # }}}
 
 # function
