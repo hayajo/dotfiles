@@ -30,7 +30,7 @@ augroup END
 " :JunkFile
 " --------------------
 
-let g:junk_file_basedir=$HOME."/Documents/junk"
+let g:junk_file_basedir=$HOME."/Dropbox/Documents/junk"
 
 function! s:open_junk_file()
   if !exists('g:junk_file_basedir')

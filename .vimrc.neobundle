@@ -40,6 +40,7 @@ NeoBundle 'lambdalisue/vim-gista'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'osyo-manga/vim-brightest'
 NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'rust-lang/rust.vim'
 
 call neobundle#end()
 
