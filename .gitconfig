@@ -31,7 +31,8 @@
   df = diff
   graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
   st = status
-  sfu = submodule foreach "git checkout master;  git pull"
+  ; sfu = submodule foreach "git checkout master;  git pull"
+  sfu = submodule update --init --recursive
   tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
   keep = "!find . -type d -name .git -prune -o -type d -empty -print0 | xargs -0 -t -i touch {}/.gitkeep"
   ignore = "!f() { local s=$1; shift; while [ $# -gt 0 ]; do s=$s,$1; shift; done; curl http://gitignore.io/api/$s ; }; f"
