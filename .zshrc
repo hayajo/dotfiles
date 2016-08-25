@@ -1,8 +1,4 @@
-# -*- mode: zsh -*-
-# vi: set ft=zsh foldmethod=marker:
-
-# init
-# {{{
+# init {{{
 : ${OS:=linux}
 
 case "$OSTYPE" in
@@ -16,10 +12,9 @@ case "$OSTYPE" in
     OS=windows
     ;;
 esac
-# }}}
+# }}} init
 
-# options
-# {{{
+# options {{{
 setopt auto_cd
 setopt auto_param_slash
 setopt auto_pushd
@@ -56,17 +51,15 @@ setopt pushd_silent
 setopt share_history
 
 stty stop undef
-# }}}
+# }}} optons
 
-# history
-# {{{
+# history {{{
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-# }}}
+# }}} history
 
-# completion
-# {{{
+# completion {{{
 autoload -Uz compinit
 compinit
 
@@ -90,10 +83,9 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # add ssh_hosts
 [ -f ~/.ssh/config ] && _cache_hosts=(`perl -ne 'print "$1 " if(/^Host\s+(.+)$/)' ~/.ssh/config`)
-# }}}
+# }}} completion
 
-# prompt
-# {{{
+# prompt {{{
 case ${UID} in
     0)
         PROMPT="%F{green}%*%f [%F{red}%n%f %F{yellow}%c%f]# "
@@ -106,10 +98,9 @@ case ${UID} in
 esac
 
 SPROMPT="%B%F{red}%r%f%b is correct? [n,y,a,e]: "
-# }}}
+# }}} prompt
 
-# keybinds
-# {{{
+# keybinds {{{
 bindkey -e
 bindkey "[3~" delete-char
 
@@ -120,18 +111,16 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
-# }}}
+# }}} keybinds
 
-# word-style
-# {{{
+# word-style {{{
 autoload -Uz select-word-style
 select-word-style default
 zstyle ':zle:*' word-chars "*?_-.[]~=/&;!#$%^(){}<> "
 zstyle ':zle:*' word-style unspecified
-# }}}
+# }}} word-style
 
-# alias
-# {{{
+# alias {{{
 case "$OS" in
   freebsd|darwin)
     alias ls="ls -G -w"
@@ -159,33 +148,30 @@ alias ssh='cat ~/.ssh/config.d/* > ~/.ssh/config; ssh'
 if [[ ! -z $(which colordiff) ]]; then
   alias diff='colordiff'
 fi
-# }}}
+# }}} alias
 
-# function
-# {{{
+# functions {{{
 if [[ -f "$HOME/.zshrc.function" ]]; then
   source "$HOME/.zshrc.function"
 fi
-# }}}
+# }}} functions
 
-# path
-# {{{
+# path {{{
 if [ -z "$TMUX" ]; then
   export PATH=$HOME/local/bin:$HOME/bin::$PATH
   export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
 fi
-# }}}
+# }}} path
 
-# env
-# {{{
+# env {{{
 umask 022
 
 export EDITOR='vi'
 export LANG='ja_JP.UTF-8'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
-# }}}
+# }}} env
 
-# external rc
+# external_rc {{{
 if [[ -f "$HOME/.zshrc.$OS" ]]; then
   source "$HOME/.zshrc.$OS"
 fi
@@ -193,3 +179,8 @@ fi
 if [[ -f "$HOME/.zshrc.local" ]]; then
   source "$HOME/.zshrc.local"
 fi
+# }}} external_rc
+
+# vim: ft=zsh
+# vim: foldmethod=marker
+# vim: foldmarker={{{,}}}

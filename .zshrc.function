@@ -1,9 +1,5 @@
-# -*- mode: zsh -*-
-# vi: set ft=zsh foldmethod=marker:
-
-# Show buffer stack
+# コマンドラインスタックを表示する {{{
 # http://d.hatena.ne.jp/kei_q/20110308/1299594629
-# {{{
 function show_buffer_stack() {
   POSTDISPLAY="
 stack: $LBUFFER"
@@ -12,17 +8,15 @@ stack: $LBUFFER"
 
 zle -N show_buffer_stack
 bindkey "^[q" show_buffer_stack
-# }}}
+# }}} コマンドラインスタックを表示する
 
-# Print all history
-# {{{
+# ヒストリをすべて表示する {{{
 function history-all() {
   history -E 1
 }
-# }}}
+# }}} ヒストリをすべて表示する
 
-# Trash
-## {{{
+# ゴミ箱 {{{
 TRASHDIR=~/.trash
 
 function del() {
@@ -51,10 +45,9 @@ function del() {
 alias rm='del'
 alias trash-look="ls -al $TRASHDIR/ 2> /dev/null"
 alias trash-clean="/bin/rm -R -f $TRASHDIR/(*|.*)"
-# }}}
+# }}} ゴミ箱
 
-# VCS (git, svn, etc.)
-# {{{
+# VCS(git, svn, etc.)関連 {{{
 RPROMPT=""
 
 autoload -Uz vcs_info
@@ -231,10 +224,9 @@ function _update_vcs_info_msg() {
   RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-# }}}
+# }}} VCS(git, svn, etc.)関連
 
-# プログラミング原則
-# {{{
+# プログラミング原則 {{{
 programming_rules() {
   echo -e "\e[1mPrinciples of Programming\e[0m\n"
   while read line; do
@@ -254,4 +246,8 @@ EOM
 if [[ -z "$TMUX" ]]; then
   programming_rules
 fi
-# }}}
+# }}} プログラミング原則
+
+# vim: ft=zsh
+# vim: foldmethod=marker
+# vim: foldmarker={{{,}}}

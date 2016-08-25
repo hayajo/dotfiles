@@ -1,15 +1,13 @@
-# -*- mode: zsh -*-
-# vi: set ft=zsh foldmethod=marker:
-
-# tmuxじゃない場合はPATHを初期化する
+# tmuxじゃない場合はPATHを初期化する {{{
 if [ -z "$TMUX" ]; then
   PATH=
   MANPATH=
   eval `/usr/libexec/path_helper -s`
   export PATH=$HOME/local/bin:$HOME/bin::$PATH
 fi
+# }}} tmuxじゃない場合はPATHを初期化する
 
-# ssh-agent
+# ssh-agent {{{
 SSH_AGENT_FILE="$HOME/.ssh-agent-info"
 test -f $SSH_AGENT_FILE && source $SSH_AGENT_FILE > /dev/null
 if ! ssh-add -l >& /dev/null ; then
@@ -17,47 +15,60 @@ if ! ssh-add -l >& /dev/null ; then
   source $SSH_AGENT_FILE
   ssh-add
 fi
+# }}} ssh-agent
 
-# plenv
+# plenv {{{
 if [ -z "$PLENV_HOME" ]; then
   export PLENV_HOME="$HOME/.plenv"
   eval "$(plenv init -)"
 fi
+# }}} plenv
 
-# rbenv
+# rbenv {{{
 if [ -z "$RBENV_HOME" ]; then
   export RBENV_HOME="$HOME/.rbenv"
   eval "$(rbenv init -)"
 fi
+# }}} rbenv
 
-# pyenv
+# pyenv {{{
 if [ -z "$PYENV_HOME" ]; then
   export PYENV_HOME="$HOME/.pyenv"
   eval "$(pyenv init -)"
 fi
+# }}} pyenv
 
-# nvm
+# nvm {{{
 if [ -z "$NVM_DIR" ]; then
   export NVM_DIR="$HOME/.nvm"
   source $(brew --prefix nvm)/nvm.sh
 fi
+# }}} nvm
 
-# golang
+# golang {{{
 if [ -z "$GOPATH" ]; then
   export GOPATH=$HOME
   export PATH="$(brew --prefix go):$PATH"
 fi
+# }}} golang
 
-# direnv
+# direnv {{{
 type _direnv_hook > /dev/null
 if [ $? -eq 0 ]; then
   eval "$(direnv hook zsh)"
 fi
+# }}} direnv
 
-# docker-machine
+# docker-machine {{{
 if [ -z "$DOCKER_HOST" ]; then
   eval "$(docker-machine env default)"
 fi
+# }}} docker-machine
 
-# heroku
+# heroku {{{
 export PATH="/usr/local/heroku/bin:$PATH"
+# }}} heroku
+
+# vim: ft=zsh
+# vim: foldmethod=marker
+# vim: foldmarker={{{,}}}
