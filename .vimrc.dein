@@ -1,0 +1,229 @@
+" dein.vim {{{
+filetype plugin indent off
+
+if has('vim_starting')
+  set rtp+=$HOME/.vim/bundle/dein.vim
+  if &compatible
+    set nocompatible
+  endif
+endif
+
+if dein#load_state(expand('~/.vim/bundle'))
+  call dein#begin(expand('~/.vim/bundle'))
+
+  call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('scrooloose/nerdcommenter')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('rgarver/Kwbd.vim')
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('thinca/vim-ref')
+  call dein#add('tpope/vim-surround')
+  call dein#add('fatih/vim-go')
+  call dein#add('h1mesuke/vim-alignta')
+  call dein#add('plasticboy/vim-markdown')
+  call dein#add('rust-lang/rust.vim')
+  call dein#add('osyo-manga/vim-brightest')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/neomru.vim', {
+        \ 'depends': ['Shougo/unite.vim']})
+  if has('lua')
+    call dein#add('Shougo/neocomplete.vim')
+    call dein#add('ujihisa/neco-look', {
+          \ 'depends': ['neocomplete.vim']})
+  endif
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+
+if dein#check_install()
+  call dein#install()
+endif
+" }}} dein.vim
+
+" unite.vim {{{
+" let g:unite_source_history_yank_enable = 1
+" let g:unite_source_history_yank_file = expand('~/.yank_history')
+let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
+
+nnoremap [unite] <Nop>
+nmap     <Space> [unite]
+
+nnoremap <silent> [unite]<Space> :<C-u>Unite buffer file_mru directory_mru<CR>
+nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
+" nnoremap <silent> [unite]O       :<C-u>Unite file_rec/async<CR>
+nnoremap <silent> [unite]g       :<C-u>Unite grep:.<CR>
+" nnoremap <silent> [unit]g        :<C-u>Unite file_rec/git<CR>
+" nnoremap <silent> [unite]G       :<C-u>Unite gista<CR>
+nnoremap <silent> [unite]p       :<C-u>Unite register<CR>
+nnoremap <silent> [unite]m       :<C-u>Unite mark<CR>
+" nnoremap <silent> [unite]r       <Plug>(unite_restart)
+
+" Like ctrlp.vim settings.
+call unite#custom#profile('default', 'context', {
+      \   'start_insert': 1,
+      \   'winheight': 10,
+      \   'direction': 'botright',
+      \   'update_time': 10,
+      \   'prompt': '> ',
+      \ })
+call unite#custom#source('file', 'matchers', "matcher_default")
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  nmap <buffer> q          <Plug>(unite_all_exit)
+  nmap <buffer> <Esc><Esc> <Plug>(unite_all_exit)
+  imap <buffer> <Esc><Esc> <Esc><Plug>(unite_all_exit)
+
+  nmap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+
+  imap <silent><buffer> <Esc> <Plug>(unite_insert_leave)
+
+  nnoremap <buffer><expr> <C-j> unite#do_action('split')
+  inoremap <buffer><expr> <C-j> unite#do_action('split')
+  nnoremap <buffer><expr> <C-l> unite#do_action('vsplit')
+  inoremap <buffer><expr> <C-l> unite#do_action('vsplit')
+
+  nnoremap <buffer><expr> <C-d> unite#do_action('wipeout')
+  inoremap <buffer><expr> <C-d> unite#do_action('wipeout')
+
+  let unite = unite#get_current_unite()
+  if unite.buffer_name =~# '^files'
+    nnoremap <buffer><expr> c unite#do_action('copy')
+    nnoremap <buffer><expr> r unite#do_action('rename')
+  endif
+
+  " highlight link uniteStatusNormal StatusLine
+  " highlight link uniteStatusHead StatusLine
+  " highlight link uniteStatusSourceNames StatusLine
+  " highlight link uniteStatusSourceCandidates StatusLine
+  " highlight link uniteStatusMessage StatusLine
+  " highlight link uniteStatusLineNR StatusLine
+endfunction
+" }}} unite.vim
+
+" neocomplete.vim {{{
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+
+" すべてのfiletypeをtext-modeとし、英単語補完を有効化する
+let g:neocomplete#text_mode_filetypes = { "_" : 1 }
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType perl setlocal omnifunc=perlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompleteTags
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType vim setlocal omnifunc=complete#CompleteCSS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" }}} neocomplete.vim
+
+" nerdcommenter {{{
+let g:NERDCreateDefaultMappings=0
+let g:NERDSpaceDelims=1
+let g:NERDTrimTrailingWhitespace = 1
+
+nmap <Leader>cc <plug>NERDCommenterToggle
+vmap <Leader>cc <plug>NERDCommenterToggle
+nmap <Leader>cd <plug>NERDCommenterAppend
+vmap <Leader>cd <plug>NERDCommenterAppend
+" }}} nerdcommenter
+
+" Kwbd.vim {{{
+nnoremap <Leader>bd :Kwbd<CR>
+" }}} Kwbd.vim
+
+" vim-quickrun {{{
+nnoremap <Leader>qr :QuickRun<CR>
+" }}} vim-quickrun
+
+" vim-ref {{{
+if executable('lynx')
+  let g:ref_source_webdict_cmd = 'lynx -dump -nonumbers %s'
+endif
+
+let g:ref_source_webdict_sites = {
+      \ 'alc': {
+      \   'url': 'http://eow.alc.co.jp/search?q=%s',
+      \   'keyword_encoding': 'utf-8',
+      \   'cache': 1
+      \ },
+      \ 'oxfordlearnersdictionaries': {
+      \   'url': 'http://www.oxfordlearnersdictionaries.com/definition/english/%s',
+      \   'keyword_encoding': 'utf-8',
+      \   'cache': 1
+      \ } }
+
+function g:ref_source_webdict_sites.alc.filter(output)
+  return join( split(a:output, "\n")[40 :], "\n" )
+endfunction
+function g:ref_source_webdict_sites.oxfordlearnersdictionaries.filter(output)
+  return join( split(a:output, "\n")[23 :], "\n" )
+endfunction
+
+nnoremap [ref] <Nop>
+nmap     <Leader>r [ref]
+
+nnoremap <expr>[ref]ej ':Ref webdict alc ' . expand('<cword>')
+nnoremap <expr>[ref]ee ':Ref webdict oxfordlearnersdictionaries ' . expand('<cword>')
+" }}} vim-ref
+
+" emmet-vim {{{
+let g:user_emmet_settings = { 'lang': "ja" }
+" }}} emmet-vim
+
+" vim-markdown {{{
+let g:vim_markdown_folding_disabled=1
+" }}} vim-markdown
+
+" vim-go {{{
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:gocomplete#system_function = 'vimproc#system'
+
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+autocmd FileType go nmap <Leader>gl :GoLint<CR>
+autocmd FileType go nmap <Leader>gi :GoImport 
+autocmd FileType go nmap <Leader>gI :GoImports<CR>
+autocmd FileType go nmap <Leader>gd :GoDoc<CR>
+autocmd FileType go nmap <Leader>gr :GoRename<CR>
+autocmd FileType go nmap <Leader>gv :GoVet<CR>
+" }}} vim-go
+
+" vim-brightest {{{
+let g:brightest#pattern = '\k\+'
+let g:brightest#enable_highlight_all_window = 1
+" }}} vim-brightest
+
+" vim: foldmethod=marker
+" vim: foldmarker={{{,}}}

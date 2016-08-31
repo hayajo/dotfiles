@@ -11,6 +11,7 @@ bin/*
 
 .vim/bundle/
 !.vim/bundle/neobundle.vim
+!.vim/bundle/dein.vim
 
 *.elc
 .emacs.d/url/

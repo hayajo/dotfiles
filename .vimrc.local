@@ -1,7 +1,4 @@
-" ------------------
-" 全角スペースを表示
-" ------------------
-
+" 全角スペースを表示 {{{
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=reverse
 endfunction
@@ -14,22 +11,17 @@ if has('syntax')
   augroup END
   call ZenkakuSpace()
 endif
+" }}} 全角スペースを表示
 
-" --------------------------------------
-" ウィンドウ移動時にカーソル行表示を消す
-" --------------------------------------
-
+" ウィンドウ移動時にカーソル行表示を消す {{{
 augroup HideCursorLineAtWinLeave
   autocmd!
   autocmd WinLeave * :set nocursorline
   autocmd WinEnter,BufRead * :set cursorline
 augroup END
+" }}} ウィンドウ移動時にカーソル行表示を消す
 
-" --------------------
-" ジャンクファイル作成
-" :JunkFile
-" --------------------
-
+" ジャンクファイル作成 {{{
 let g:junk_file_basedir=$HOME."/Dropbox/Documents/junk"
 
 function! s:open_junk_file()
@@ -49,11 +41,11 @@ endfunction
 command! -nargs=0 JunkFile call s:open_junk_file()
 
 nnoremap <Leader>jf :JunkFile<CR>
+" }}} ジャンクファイル作成
 
-" -----------------------
-" ファイル名変更
-" :Rename <new filename>
-" -----------------------
-
+" ファイル名変更 {{{
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
+" }}} ファイル名変更
 
+" vim: foldmethod=marker
+" vim: foldmarker={{{,}}}

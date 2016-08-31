@@ -1,5 +1,6 @@
 syntax enable
 
+" options {{{
 set ambiwidth=double
 set autochdir
 set autoindent
@@ -60,7 +61,9 @@ set virtualedit+=block
 set whichwrap=h,l
 set wildchar=<tab>
 set wildmode=list:full
+" }}} options
 
+" keymaps {{{
 let mapleader=","
 
 nnoremap ; :
@@ -93,19 +96,29 @@ cnoremap <C-p> <Up>
 cnoremap <C-a> <Home>
 cnoremap <C-d> <Del>
 cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
+" }}} keymaps
 
+" statusline {{{
 let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
 let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) U+%04B %P'
+" }}} statusline
 
-let g:netrw_dirhistmax = 0
+" global_variables {{{
+let g:netrw_dirhistmax = 0 " .netrwhistを作成しないようにヒストリ数をゼロに設定
+" }}} global_variables
 
+" color {{{
 colorscheme desert
+" }}} color
 
-" if system("/usr/bin/id -u") > 0
+if $USER != "root"
   if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
   endif
-  if filereadable(expand('~/.vimrc.neobundle')) && has('lua')
-    source ~/.vimrc.neobundle
+  if filereadable(expand('~/.vimrc.dein')) && v:version >= 704
+    source ~/.vimrc.dein
   endif
-" endif
+endif
+
+" vim: foldmethod=marker
+" vim: foldmarker={{{,}}}
