@@ -108,7 +108,7 @@ let g:netrw_dirhistmax = 0 " .netrwhistを作成しないようにヒストリ�
 " }}} global_variables
 
 " color {{{
-colorscheme desert
+colorscheme elflord
 " }}} color
 
 if $USER != "root"
