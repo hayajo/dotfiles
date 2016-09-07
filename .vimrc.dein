@@ -208,16 +208,26 @@ let g:vim_markdown_folding_disabled=1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-let g:gocomplete#system_function = 'vimproc#system'
+let g:go_fmt_command = "goimports"
+" let g:gocomplete#system_function = 'vimproc#system'
 
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
-autocmd FileType go nmap <Leader>gl :GoLint<CR>
-autocmd FileType go nmap <Leader>gi :GoImport 
-autocmd FileType go nmap <Leader>gI :GoImports<CR>
-autocmd FileType go nmap <Leader>gd :GoDoc<CR>
-autocmd FileType go nmap <Leader>gr :GoRename<CR>
-autocmd FileType go nmap <Leader>gv :GoVet<CR>
+
+autocmd FileType go nmap <Leader>gi :GoImport
+
+autocmd FileType go nmap <leader>gr <Plug>(go-run)
+autocmd FileType go nmap <leader>gb <Plug>(go-build)
+autocmd FileType go nmap <leader>gt <Plug>(go-test)
+autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
+
+autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
+autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+
+autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
+autocmd FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+autocmd FileType go nmap <Leader>ge <Plug>(go-rename)
 " }}} vim-go
 
 " vim-brightest {{{
