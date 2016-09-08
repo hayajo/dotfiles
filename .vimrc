@@ -26,7 +26,7 @@ set ignorecase
 set incsearch
 set laststatus=2
 set list
-set listchars=tab:^\ ,trail:_,extends:>,precedes:<
+set listchars=tab:▸\ ,eol:¬
 set mouse=a
 set nobackup
 set nocompatible
@@ -37,7 +37,7 @@ set novisualbell
 set nowildmenu
 set nowrap
 set nowrapscan
-set nonumber
+"set number
 set pastetoggle=<F10>
 set ruler
 set scrolloff=5
@@ -108,7 +108,7 @@ let g:netrw_dirhistmax = 0 " .netrwhistを作成しないようにヒストリ�
 " }}} global_variables
 
 " color {{{
-colorscheme elflord
+colorscheme industry
 " }}} color
 
 " disable auto comment {{{
