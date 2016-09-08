@@ -111,6 +111,14 @@ let g:netrw_dirhistmax = 0 " .netrwhistを作成しないようにヒストリ�
 colorscheme elflord
 " }}} color
 
+" disable auto comment {{{
+augroup auto_comment_off
+  autocmd!
+  autocmd BufEnter * setlocal formatoptions-=r
+  autocmd BufEnter * setlocal formatoptions-=o
+augroup END
+" }}} disable auto comment
+
 if $USER != "root"
   if filereadable(expand('~/.vimrc.local'))
     source ~/.vimrc.local
