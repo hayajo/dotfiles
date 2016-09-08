@@ -26,7 +26,7 @@ set ignorecase
 set incsearch
 set laststatus=2
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:↲
 set mouse=a
 set nobackup
 set nocompatible
@@ -47,12 +47,12 @@ set showcmd
 set showmatch
 set smartcase
 set smarttab
-set softtabstop=2
+set softtabstop=4
 set splitbelow
 set splitright
 set t_Co=256
 set t_vb=
-set tabstop=2
+set tabstop=4
 set termencoding=utf-8
 set timeout timeoutlen=3000 ttimeoutlen=100
 set undodir=~/.vimundo
