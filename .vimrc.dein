@@ -214,7 +214,7 @@ let g:go_fmt_command = "goimports"
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 
-autocmd FileType go nmap <Leader>gi :GoImport
+autocmd FileType go nmap <Leader>gi :GoImport 
 
 autocmd FileType go nmap <leader>gr <Plug>(go-run)
 autocmd FileType go nmap <leader>gb <Plug>(go-build)
@@ -232,7 +232,7 @@ autocmd FileType go nmap <Leader>ge <Plug>(go-rename)
 
 " vim-brightest {{{
 let g:brightest#pattern = '\k\+'
-let g:brightest#enable_highlight_all_window = 1
+" let g:brightest#enable_highlight_all_window = 1
 " }}} vim-brightest
 
 " vim: foldmethod=marker
