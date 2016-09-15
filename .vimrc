@@ -89,6 +89,10 @@ inoremap <C-e> <End>
 inoremap <C-d> <Del>
 inoremap <C-k> <Esc>ld$a
 
+inoremap jk <Esc>
+vnoremap jk <Esc>
+cnoremap jk <Esc>
+
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 cnoremap <C-n> <Down>

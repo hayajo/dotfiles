@@ -77,6 +77,7 @@ function! s:unite_my_settings()
   nmap <buffer> q          <Plug>(unite_all_exit)
   nmap <buffer> <Esc><Esc> <Plug>(unite_all_exit)
   imap <buffer> <Esc><Esc> <Esc><Plug>(unite_all_exit)
+  imap <buffer> jk         <Esc><Plug>(unite_all_exit)
 
   nmap <buffer> <C-w> <Plug>(unite_delete_backward_path)
   imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
