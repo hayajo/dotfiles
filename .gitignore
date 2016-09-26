@@ -9,9 +9,7 @@ Thumbs.db
 bin/*
 !bin/git-now
 
-.vim/bundle/
-!.vim/bundle/neobundle.vim
-!.vim/bundle/dein.vim
+.vim/plugged/
 
 *.elc
 .emacs.d/url/
