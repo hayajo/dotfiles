@@ -9,6 +9,7 @@ set listchars=tab:»\ ,eol:¬
 " set completeopt=menuone,preview
 set completeopt=menuone
 set hlsearch
+set noswapfile
 
 set ignorecase
 set smartcase
@@ -90,6 +91,7 @@ call plug#end()
 " }}} junegunn/vim-plug
 
 " {{{ scrooloose/nerdcommenter
+let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 let g:NERDTrimTrailingWhitespace=1
 
@@ -107,6 +109,10 @@ let g:go_fmt_command="goimports"
 
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
+autocmd FileType go nmap <Leader>gi :GoImport
+autocmd FileType go nmap <leader>gr <Plug>(go-run)
+autocmd FileType go nmap <leader>gb <Plug>(go-build)
+autocmd FileType go nmap <leader>gt <Plug>(go-test)
 " }}} fatih/vim-go
 
 " {{{ Shougo/unite.vim
