@@ -9,7 +9,11 @@ Thumbs.db
 bin/*
 !bin/git-now
 
-.vim/plugged/
+.vim
+!.vim/after/
+!.vim/autoload/
+!.vim/ftdetect/
+!.vim/syntax/
 
 *.elc
 .emacs.d/url/

@@ -22,6 +22,9 @@ set tabstop=4
 
 set hidden
 
+set wildmenu
+set wildmode=longest,full
+
 let mapleader=","
 
 nnoremap ; :
@@ -36,6 +39,9 @@ cnoremap <C-a> <Home>
 cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+
+nnoremap <expr> <Space>f ":e " . (expand("%:p") == "" ? getcwd() : expand("%:p"))
+nnoremap <Space><Space> :ls<CR>:buf 
 
 " {{{ color
 set t_Co=256
@@ -85,7 +91,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
-Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
+" Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
 if has('lua')
     Plug 'ujihisa/neco-look' | Plug 'Shougo/neocomplete.vim'
 endif
@@ -111,36 +117,37 @@ let g:go_fmt_command="goimports"
 
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
-autocmd FileType go nmap <Leader>gi :GoImport
+autocmd FileType go nmap <Leader>gi :GoImport 
+autocmd FileType go nmap <Leader>gl :GoLint<CR>
 autocmd FileType go nmap <leader>gr <Plug>(go-run)
 autocmd FileType go nmap <leader>gb <Plug>(go-build)
 autocmd FileType go nmap <leader>gt <Plug>(go-test)
 " }}} fatih/vim-go
 
-" {{{ Shougo/unite.vim
-nnoremap [unite] <Nop>
-nmap     <Space> [unite]
+" " {{{ Shougo/unite.vim
+" nnoremap [unite] <Nop>
+" nmap     <Space> [unite]
 
-nnoremap <silent> [unite]<Space> :<C-u>Unite buffer file_mru directory_mru<CR>
-nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
+" nnoremap <silent> [unite]<Space> :<C-u>Unite buffer file_mru directory_mru<CR>
+" nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
 
-call unite#custom#profile('default', 'context', {
-      \   'start_insert': 1,
-      \   'winheight': 10,
-      \   'direction': 'botright',
-      \ })
-" call unite#custom#source('file', 'matchers', "matcher_default")
+" call unite#custom#profile('default', 'context', {
+      " \   'start_insert': 1,
+      " \   'winheight': 10,
+      " \   'direction': 'botright',
+      " \ })
+" " call unite#custom#source('file', 'matchers', "matcher_default")
 
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  imap <buffer> <Esc><Esc> <Esc><Plug>(unite_all_exit)
-  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer><expr> <C-s> unite#do_action('below')
-  imap <buffer><expr> <C-v> unite#do_action('right')
-endfunction
-" }}} Shougo/unite.vim
+" autocmd FileType unite call s:unite_my_settings()
+" function! s:unite_my_settings()
+  " imap <buffer> <Esc><Esc> <Esc><Plug>(unite_all_exit)
+  " imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  " imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+  " imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  " imap <buffer><expr> <C-s> unite#do_action('below')
+  " imap <buffer><expr> <C-v> unite#do_action('right')
+" endfunction
+" " }}} Shougo/unite.vim
 
 " {{{ Shougo/neocomplete
 let g:acp_enableAtStartup=0

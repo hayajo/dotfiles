@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/imai.h/src/gitlab.water-cell.lan/provisioning/ansible_setup-deploy_configs/vagrant/deploy_configs/default/myapp'
-let g:netrw_dirhist_2='/Users/imai.h/src/gitlab.water-cell.lan/provisioning/ansible_setup-deploy_configs/vagrant/deploy_configs/default/myapp/configs'
-let g:netrw_dirhist_3='/Users/imai.h/Downloads/hoge/config/foo/bar'
-let g:netrw_dirhist_4='/Users/imai.h/Downloads/ansible_setup-deploy_configs'
-let g:netrw_dirhist_5='/Users/imai.h/.pit'
