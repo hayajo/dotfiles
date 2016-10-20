@@ -40,7 +40,7 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-nnoremap <expr> <Space>f ":e " . (expand("%:p") == "" ? getcwd() : expand("%:p"))
+nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd()."/" : expand("%:p"))
 nnoremap <Space><Space> :ls<CR>:buf 
 
 " {{{ color
