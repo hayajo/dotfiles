@@ -40,7 +40,7 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd()."/" : expand("%:p"))
+nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
 nnoremap <Space><Space> :ls<CR>:buf 
 
 " {{{ color
@@ -92,9 +92,9 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
 " Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
-if has('lua')
-    Plug 'ujihisa/neco-look' | Plug 'Shougo/neocomplete.vim'
-endif
+" if has('lua')
+    " Plug 'ujihisa/neco-look' | Plug 'Shougo/neocomplete.vim'
+" endif
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -149,31 +149,31 @@ autocmd FileType go nmap <leader>gt <Plug>(go-test)
 " endfunction
 " " }}} Shougo/unite.vim
 
-" {{{ Shougo/neocomplete
-let g:acp_enableAtStartup=0
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#enable_smart_case=1
-let g:neocomplete#sources#syntax#min_keyword_length=3
-let g:neocomplete#lock_buffer_name_pattern='\*ku\*'
+" " {{{ Shougo/neocomplete
+" let g:acp_enableAtStartup=0
+" let g:neocomplete#enable_at_startup=1
+" let g:neocomplete#enable_smart_case=1
+" let g:neocomplete#sources#syntax#min_keyword_length=3
+" let g:neocomplete#lock_buffer_name_pattern='\*ku\*'
 
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+" endfunction
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" if !exists('g:neocomplete#keyword_patterns')
+  " let g:neocomplete#keyword_patterns = {}
+" endif
+" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
-" }}} Shougo/neocomplete
+" if !exists('g:neocomplete#sources#omni#input_patterns')
+  " let g:neocomplete#sources#omni#input_patterns = {}
+" endif
+" let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+" " }}} Shougo/neocomplete
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
