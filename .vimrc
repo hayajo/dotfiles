@@ -91,10 +91,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
-" Plug 'Shougo/neomru.vim' | Plug 'Shougo/unite.vim'
-" if has('lua')
-    " Plug 'ujihisa/neco-look' | Plug 'Shougo/neocomplete.vim'
-" endif
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -123,57 +119,6 @@ autocmd FileType go nmap <leader>gr <Plug>(go-run)
 autocmd FileType go nmap <leader>gb <Plug>(go-build)
 autocmd FileType go nmap <leader>gt <Plug>(go-test)
 " }}} fatih/vim-go
-
-" " {{{ Shougo/unite.vim
-" nnoremap [unite] <Nop>
-" nmap     <Space> [unite]
-
-" nnoremap <silent> [unite]<Space> :<C-u>Unite buffer file_mru directory_mru<CR>
-" nnoremap <silent> [unite]f       :<C-u>UniteWithBufferDir -buffer-name=files file file/new directory/new<CR>
-
-" call unite#custom#profile('default', 'context', {
-      " \   'start_insert': 1,
-      " \   'winheight': 10,
-      " \   'direction': 'botright',
-      " \ })
-" " call unite#custom#source('file', 'matchers', "matcher_default")
-
-" autocmd FileType unite call s:unite_my_settings()
-" function! s:unite_my_settings()
-  " imap <buffer> <Esc><Esc> <Esc><Plug>(unite_all_exit)
-  " imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  " imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-  " imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  " imap <buffer><expr> <C-s> unite#do_action('below')
-  " imap <buffer><expr> <C-v> unite#do_action('right')
-" endfunction
-" " }}} Shougo/unite.vim
-
-" " {{{ Shougo/neocomplete
-" let g:acp_enableAtStartup=0
-" let g:neocomplete#enable_at_startup=1
-" let g:neocomplete#enable_smart_case=1
-" let g:neocomplete#sources#syntax#min_keyword_length=3
-" let g:neocomplete#lock_buffer_name_pattern='\*ku\*'
-
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function()
-  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-" endfunction
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-" if !exists('g:neocomplete#keyword_patterns')
-  " let g:neocomplete#keyword_patterns = {}
-" endif
-" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" if !exists('g:neocomplete#sources#omni#input_patterns')
-  " let g:neocomplete#sources#omni#input_patterns = {}
-" endif
-" let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
-" " }}} Shougo/neocomplete
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
