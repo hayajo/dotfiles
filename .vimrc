@@ -25,7 +25,9 @@ set hidden
 set wildmenu
 set wildmode=longest,full
 
-let mapleader=","
+set updatetime=300
+
+let mapleader="\<Space>"
 
 nnoremap ; :
 vnoremap ; :
@@ -40,7 +42,7 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
+nnoremap <expr> <Space>o ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
 nnoremap <Space><Space> :ls<CR>:buf 
 
 " {{{ color
@@ -58,8 +60,8 @@ let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %
 
 " {{{ netrw
 " let g:netrw_liststyle=3 " ツリー表示
-let g:netrw_altv=1
-let g:netrw_alto=1
+" let g:netrw_altv=1
+" let g:netrw_alto=1
 " }}} netrw
 
 " {{{ ジャンクファイル作成
@@ -91,6 +93,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
+Plug 'osyo-manga/vim-brightest'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -119,6 +122,13 @@ autocmd FileType go nmap <leader>gr <Plug>(go-run)
 autocmd FileType go nmap <leader>gb <Plug>(go-build)
 autocmd FileType go nmap <leader>gt <Plug>(go-test)
 " }}} fatih/vim-go
+
+" {{{ osyo-match/vim-brightest
+let g:brightest#highlight = {
+            \ "group": "BrightestReverse",
+            \ }
+let g:brightest#enable_on_CursorHold=1
+" }}} osyo-match/vim-brightest
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
