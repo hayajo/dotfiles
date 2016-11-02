@@ -42,7 +42,7 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-nnoremap <expr> <Space>o ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
+nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
 nnoremap <Space><Space> :ls<CR>:buf 
 
 " {{{ color
@@ -64,26 +64,6 @@ let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %
 " let g:netrw_alto=1
 " }}} netrw
 
-" {{{ ジャンクファイル作成
-function! s:open_junk_file()
-  if !exists('g:junk_file_basedir')
-    let g:junk_file_basedir=$HOME . '/.vim_junk'
-  endif
-  let l:junk_file_dir=g:junk_file_basedir . strftime('/%Y/%m')
-  if !isdirectory(l:junk_file_dir)
-    call mkdir(l:junk_file_dir, 'p')
-  endif
-  let l:filename=input('Junk Code: ', l:junk_file_dir . strftime('/%Y-%m-%d-%H%M%S.'))
-  if l:filename!=''
-    execute 'edit ' . l:filename
-  endif
-endfunction
-
-command! -nargs=0 JunkFile call s:open_junk_file()
-
-nnoremap <Leader>jf :JunkFile<CR>
-" }}} ジャンクファイル作成
-
 " {{{ junegunn/vim-plug
 if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/vim-plug.vim/
@@ -94,6 +74,7 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
 Plug 'osyo-manga/vim-brightest'
+Plug 'Shougo/junkfile.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -129,6 +110,10 @@ let g:brightest#highlight = {
             \ }
 let g:brightest#enable_on_CursorHold=1
 " }}} osyo-match/vim-brightest
+
+" {{{ Shougo/junkfile.vim
+nnoremap <Leader>jf :JunkfileOpen<CR>
+" }}} Shougo/junkfile.vim
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
