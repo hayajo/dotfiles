@@ -1,136 +1,134 @@
-syntax enable
-
-" options {{{
-set ambiwidth=double
-set autochdir
-set autoindent
-set autoread
-set background=dark
-set backspace=eol,indent,start
-set cindent
-set clipboard+=unnamed
-set cmdheight=1
-set complete+=k
-set completeopt=menuone,preview
-set cursorline
-set encoding=utf-8
-set expandtab
-set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932
-set fileformat=unix
-set fileformats=unix,dos,mac
-set helplang=en
-set hidden
-set history=2000
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set list
-set listchars=tab:▸\ ,eol:↲
-set mouse=a
-set nobackup
 set nocompatible
-set noerrorbells
-set noswapfile
-set notagbsearch
-set novisualbell
-set nowildmenu
-set nowrap
-set nowrapscan
-"set number
-set pastetoggle=<F10>
-set ruler
-set scrolloff=5
-set shiftround
-set shiftwidth=4
-set showcmd
-set showmatch
-set smartcase
-set smarttab
-set softtabstop=4
-set splitbelow
-set splitright
-set t_Co=256
-set t_vb=
-set tabstop=4
-set termencoding=utf-8
-set timeout timeoutlen=3000 ttimeoutlen=100
-set undodir=~/.vimundo
-set undofile
-set virtualedit+=block
-set whichwrap=h,l
-set wildchar=<tab>
-set wildmode=list:full
-" }}} options
 
-" keymaps {{{
-let mapleader=","
+set autochdir
+set backspace=indent,eol,start
+set clipboard=unnamed
+set cursorline
+set list
+set listchars=tab:»\ ,eol:¬
+" set completeopt=menuone,preview
+set completeopt=menuone
+set hlsearch
+set noswapfile
+
+set ignorecase
+set smartcase
+
+set autoindent
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+set hidden
+
+set wildmenu
+set wildmode=longest,full
+
+set updatetime=300
+
+let mapleader="\<Space>"
 
 nnoremap ; :
 vnoremap ; :
 
-nnoremap k  gk
-nnoremap j  gj
-vnoremap k  gk
-vnoremap j  gj
-nnoremap gk k
-nnoremap gj j
-vnoremap gk k
-vnoremap gj j
+inoremap <C-a> <Home>
+inoremap <C-b> <Home>
+inoremap <C-e> <End>
+inoremap <C-k> <Esc>ld$a
+
+cnoremap <C-a> <Home>
+cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-d> <Del>
-inoremap <C-k> <Esc>ld$a
+nnoremap <expr> <Space>o ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
+nnoremap <Space><Space> :ls<CR>:buf 
 
-inoremap jk <Esc>
-vnoremap jk <Esc>
-cnoremap jk <Esc>
+" {{{ color
+set t_Co=256
+syntax on
+colorscheme industry
+" }}} color
 
-cnoremap <C-f> <Right>
-cnoremap <C-b> <Left>
-cnoremap <C-n> <Down>
-cnoremap <C-p> <Up>
-cnoremap <C-a> <Home>
-cnoremap <C-d> <Del>
-cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
-" }}} keymaps
-
-" statusline {{{
+" {{{ statusline
+set cmdheight=1
+set laststatus=2
 let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
 let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) U+%04B %P'
 " }}} statusline
 
-" global_variables {{{
-let g:netrw_dirhistmax = 0 " .netrwhistを作成しないようにヒストリ数をゼロに設定
-" }}} global_variables
+" {{{ netrw
+" let g:netrw_liststyle=3 " ツリー表示
+" let g:netrw_altv=1
+" let g:netrw_alto=1
+" }}} netrw
 
-" color {{{
-colorscheme industry
-" }}} color
-
-" disable auto comment {{{
-augroup auto_comment_off
-  autocmd!
-  autocmd BufEnter * setlocal formatoptions-=r
-  autocmd BufEnter * setlocal formatoptions-=o
-augroup END
-" }}} disable auto comment
-
-if $USER != "root"
-  if filereadable(expand('~/.vimrc.local'))
-    source ~/.vimrc.local
+" {{{ ジャンクファイル作成
+function! s:open_junk_file()
+  if !exists('g:junk_file_basedir')
+    let g:junk_file_basedir=$HOME . '/.vim_junk'
   endif
-  if filereadable(expand('~/.vimrc.dein')) && v:version >= 704
-    source ~/.vimrc.dein
+  let l:junk_file_dir=g:junk_file_basedir . strftime('/%Y/%m')
+  if !isdirectory(l:junk_file_dir)
+    call mkdir(l:junk_file_dir, 'p')
   endif
+  let l:filename=input('Junk Code: ', l:junk_file_dir . strftime('/%Y-%m-%d-%H%M%S.'))
+  if l:filename!=''
+    execute 'edit ' . l:filename
+  endif
+endfunction
+
+command! -nargs=0 JunkFile call s:open_junk_file()
+
+nnoremap <Leader>jf :JunkFile<CR>
+" }}} ジャンクファイル作成
+
+" {{{ junegunn/vim-plug
+if has('vim_starting')
+	set runtimepath+=~/.vim/bundle/vim-plug.vim/
 endif
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'tpope/vim-surround'
+Plug 'fatih/vim-go'
+Plug 'osyo-manga/vim-brightest'
+call plug#end()
+" }}} junegunn/vim-plug
+
+" {{{ scrooloose/nerdcommenter
+let g:NERDCreateDefaultMappings=0
+let g:NERDSpaceDelims=1
+let g:NERDTrimTrailingWhitespace=1
+
+nmap <Leader>cc <plug>NERDCommenterToggle
+vmap <Leader>cc <plug>NERDCommenterToggle
+nmap <Leader>cd <plug>NERDCommenterAppend
+vmap <Leader>cd <plug>NERDCommenterAppend
+" }}} scrooloose/nerdcommenter
+
+" {{{ fatih/vim-go
+let g:go_highlight_functions=1
+let g:go_highlight_methods=1
+let g:go_highlight_structs=1
+let g:go_fmt_command="goimports"
+
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+autocmd FileType go nmap <Leader>gi :GoImport 
+autocmd FileType go nmap <Leader>gl :GoLint<CR>
+autocmd FileType go nmap <leader>gr <Plug>(go-run)
+autocmd FileType go nmap <leader>gb <Plug>(go-build)
+autocmd FileType go nmap <leader>gt <Plug>(go-test)
+" }}} fatih/vim-go
+
+" {{{ osyo-match/vim-brightest
+let g:brightest#highlight = {
+            \ "group": "BrightestReverse",
+            \ }
+let g:brightest#enable_on_CursorHold=1
+" }}} osyo-match/vim-brightest
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
