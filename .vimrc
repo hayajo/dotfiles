@@ -8,8 +8,9 @@ set list
 set listchars=tab:»\ ,eol:¬
 " set completeopt=menuone,preview
 set completeopt=menuone
-set hlsearch
+"set hlsearch
 set noswapfile
+set number
 
 set ignorecase
 set smartcase
