@@ -50,6 +50,8 @@ nnoremap <Space><Space> :ls<CR>:buf
 set t_Co=256
 syntax on
 colorscheme industry
+highlight PmenuSel ctermfg=0 ctermbg=13 guibg=Magenta
+highlight Pmenu ctermfg=242 ctermbg=233 guibg=DarkGrey
 " }}} color
 
 " {{{ statusline
