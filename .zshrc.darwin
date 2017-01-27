@@ -39,10 +39,22 @@ fi
 # }}} pyenv
 
 # nvm {{{
-if [ -z "$NVM_DIR" ]; then
-  export NVM_DIR="$HOME/.nvm"
-fi
-source $NVM_DIR/nvm.sh
+eval_nvm() {
+  if [ -z "$NVM_DIR" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    source $NVM_DIR/nvm.sh
+  fi
+}
+nvm() {
+  unset -f nvm
+  eval_nvm
+  nvm "$@"
+}
+node() {
+  unset -f node
+  eval_nvm
+  node "$@"
+}
 # }}} nvm
 
 # golang {{{
