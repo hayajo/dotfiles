@@ -44,7 +44,7 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
 nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
-nnoremap <Space><Space> :ls<CR>:buf 
+nnoremap <Space><Space> :MRU<CR>
 
 " {{{ color
 set t_Co=256
@@ -78,6 +78,7 @@ Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
 Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
+Plug 'yegappan/mru'
 call plug#end()
 " }}} junegunn/vim-plug
 
