@@ -28,7 +28,9 @@ set wildmode=longest,full
 
 set updatetime=300
 
-let mapleader="\<Space>"
+" let mapleader="\<Space>"
+let mapleader=","
+nmap <Leader>bd :bdelete<CR>
 
 nnoremap ; :
 vnoremap ; :
@@ -42,9 +44,6 @@ cnoremap <C-a> <Home>
 cnoremap <C-k> <C-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
-
-nnoremap <expr> <Space>f ":e ".(expand("%:p") == "" ? getcwd() : expand("%:p:h"))."/"
-nnoremap <Space><Space> :MRU<CR>
 
 " {{{ color
 set t_Co=256
@@ -65,6 +64,7 @@ let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %
 " let g:netrw_liststyle=3 " ツリー表示
 " let g:netrw_altv=1
 " let g:netrw_alto=1
+let g:netrw_keepdir=0
 " }}} netrw
 
 " {{{ junegunn/vim-plug
@@ -78,7 +78,7 @@ Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
 Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
-Plug 'yegappan/mru'
+Plug 'kien/ctrlp.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -118,6 +118,20 @@ let g:brightest#enable_on_CursorHold=1
 " {{{ Shougo/junkfile.vim
 nnoremap <Leader>jf :JunkfileOpen<CR>
 " }}} Shougo/junkfile.vim
+
+" {{{ kien/ctrlp.vim
+let g:ctrlp_map='<Nop>'
+let g:ctrlp_max_files =100000
+let g:ctrlp_max_depth=10
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_match_window='bottom,order:btt,min:1,max:10,results:50'
+nnoremap <silent> <Space>f :CtrlPCurWD<CR>
+nnoremap <silent> <Space>F :CtrlPRoot<CR>
+nnoremap <silent> <Space><Space> :CtrlPMRUFiles<CR>
+set splitright
+set splitbelow
+" }}} kien/ctrlp.vim
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
