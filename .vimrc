@@ -126,8 +126,10 @@ let g:ctrlp_max_depth=10
 let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_mruf_max=500
 let g:ctrlp_match_window='bottom,order:btt,min:1,max:10,results:50'
+let g:ctrlp_open_new_file='r'
 nnoremap <silent> <Space>f :CtrlPCurWD<CR>
 nnoremap <silent> <Space>F :CtrlPRoot<CR>
+nnoremap <silent> <Space>d :CtrlPDir<CR>
 nnoremap <silent> <Space><Space> :CtrlPMRUFiles<CR>
 set splitright
 set splitbelow
