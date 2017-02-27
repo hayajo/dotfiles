@@ -35,7 +35,6 @@ setopt list_rows_first
 setopt list_types
 setopt long_list_jobs
 setopt magic_equal_subst
-setopt mark_dirs
 setopt multios
 setopt no_beep
 # setopt noclobber
