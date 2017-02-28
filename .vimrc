@@ -79,7 +79,7 @@ Plug 'fatih/vim-go'
 Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
 Plug 'kien/ctrlp.vim'
-Plug 'mattn/ctrlp-filer'
+Plug 'hayajo/ctrlp-filer', {'branch': 'mine'}
 call plug#end()
 " }}} junegunn/vim-plug
 
