@@ -39,6 +39,7 @@ setopt multios
 setopt no_beep
 # setopt noclobber
 setopt nolistbeep
+setopt nonomatch
 setopt numeric_glob_sort
 setopt path_dirs
 setopt print_eightbit
