@@ -130,6 +130,7 @@ let g:ctrlp_match_window='bottom,order:btt,min:1,max:10,results:50'
 let g:ctrlp_open_new_file='r'
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
 nnoremap <silent> <Space><Space> :CtrlPMRUFiles<CR>
+nnoremap <silent> <Space>r :CtrlPRoot<CR>
 nnoremap <silent> <Space>f :CtrlPFiler<CR>
 set splitright
 set splitbelow
