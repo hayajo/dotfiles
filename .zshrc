@@ -75,17 +75,17 @@ export PATH=$HOME/bin:$PATH
 
 # direnv
 which direnv >/dev/null 2>&1
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 ]]; then
   eval "$(direnv hook zsh)"
 fi
 
 # docker-machine
-if [ -z "$DOCKER_HOST" ]; then
+if [[ -z "$DOCKER_HOST" ]]; then
   eval "$(docker-machine env default)"
 fi
 
 # gplang
-if [ -z "$GOPATH" ]; then
+if [[ -z "$GOPATH" ]]; then
   export GOPATH=$HOME
   export PATH="$(brew --prefix go):$PATH"
 fi
@@ -97,35 +97,23 @@ if [[ -z "$PLENV_HOME" ]]; then
 fi
 
 ## rbenv
-if [ -z "$RBENV_HOME" ]; then
+if [[ -z "$RBENV_HOME" ]]; then
   export RBENV_HOME="$HOME/.rbenv"
   eval "$(rbenv init -)"
 fi
 
 ## pyenv
-if [ -z "$PYENV_HOME" ]; then
+if [[ -z "$PYENV_HOME" ]]; then
   export PYENV_HOME="$HOME/.pyenv"
   eval "$(pyenv init -)"
 fi
 
-## nvm {{{
-eval_nvm() {
-  if [ -z "$NVM_DIR" ]; then
-    export NVM_DIR="$HOME/.nvm"
-    source $NVM_DIR/nvm.sh
-  fi
-}
-nvm() {
-  unset -f nvm
-  eval_nvm
-  nvm "$@"
-}
-node() {
-  unset -f node
-  eval_nvm
-  node "$@"
-}
-# }}}
+## nodenv
+if [[ -z "$NODENV_HOME" ]]; then
+  export NODENV_HOME="$HOME/.nodenv"
+  eval "$(nodenv init -)"
+fi
+
 
 # }}}
 
