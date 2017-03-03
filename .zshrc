@@ -1,6 +1,147 @@
-# init {{{
-: ${OS:=linux}
+# zshrc
 
+autoload -Uz colors
+colors
+
+# 環境変数 {{{
+export LANG='ja_JP.UTF-8'
+# }}}
+
+# 履歴 {{{
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+# }}}
+
+# キーバインド {{{
+bindkey -e # emacs風キーバインドにする
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+# }}}
+
+# 単語の区切り文字を設定する {{{
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars "*?_-.[]~=/&;!#$%^(){}<> "
+zstyle ':zle:*' word-style unspecified
+# }}}
+
+# 補完を有効にする {{{
+autoload -Uz compinit
+compinit
+## 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+## ../ の後は今いるディレクトリを補完しない
+zstyle ':completion:*' ignore-parents parent pwd ..
+## sudo の後ろでコマンド名を補完する
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+## ps コマンドのプロセス名補完
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+# }}}
+
+# プロンプト表示 {{{
+PROMPT='%F{green}%*%f [%F{cyan}%n%f %F{yellow}%c%f]$ '
+# }}}
+
+# オプション {{{
+setopt no_beep # ビープを無効にする
+setopt interactive_comments # '#'以降をコメントとする
+setopt auto_param_slash # ディレクトリ名の補完で末尾に'/'を付加する
+setopt auto_cd # ディレクトリ名だけでcdする
+setopt auto_pushd # 自動的にpushdする
+setopt pushd_ignore_dups # 重複したディレクトリをpushdしない
+setopt magic_equal_subst # '='の後はパス名として補完する
+# setopt nonomatch # ファイル名の補間に失敗してもエラーとせずコマンドを起動する
+setopt extended_history # 履歴に開始時刻、終了時刻が記載する
+setopt inc_append_history # 入力後直ちに履歴に登録する
+setopt share_history # zsh間で履歴を共有する
+setopt hist_ignore_all_dups # 重複したコマンドを履歴に残さない
+setopt hist_save_nodups # 重複するコマンドがあったら古い方を削除する
+setopt hist_ignore_space # スペースから始まるコマンドは履歴に残さない
+setopt hist_reduce_blanks # 履歴保存時に不要な空白を削除する
+setopt extended_glob # 高機能なワイルドカード展開を使用する
+setopt print_eight_bit # 日本語ファイル名を表示可能にする
+# }}}
+
+# alias {{{
+alias ls="ls -lGF"
+alias tmux="tmux attach -d || tmux"
+alias ag="ag -S --pager='less -R'"
+alias vi="vim -u NONE -N"
+# }}}
+
+# PATH {{{
+export PATH=$HOME/bin:$PATH
+
+# direnv
+which direnv >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+  eval "$(direnv hook zsh)"
+fi
+
+# docker-machine
+if [ -z "$DOCKER_HOST" ]; then
+  eval "$(docker-machine env default)"
+fi
+
+# gplang
+if [ -z "$GOPATH" ]; then
+  export GOPATH=$HOME
+  export PATH="$(brew --prefix go):$PATH"
+fi
+
+## plenv
+if [[ -z "$PLENV_HOME" ]]; then
+  export PLENV_HOME="$HOME/.plenv"
+  eval "$(plenv init -)"
+fi
+
+## rbenv
+if [ -z "$RBENV_HOME" ]; then
+  export RBENV_HOME="$HOME/.rbenv"
+  eval "$(rbenv init -)"
+fi
+
+## pyenv
+if [ -z "$PYENV_HOME" ]; then
+  export PYENV_HOME="$HOME/.pyenv"
+  eval "$(pyenv init -)"
+fi
+
+## nvm {{{
+eval_nvm() {
+  if [ -z "$NVM_DIR" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    source $NVM_DIR/nvm.sh
+  fi
+}
+nvm() {
+  unset -f nvm
+  eval_nvm
+  nvm "$@"
+}
+node() {
+  unset -f node
+  eval_nvm
+  node "$@"
+}
+# }}}
+
+# }}}
+
+# 外部設定ファイルのロード {{{
+## ゴミ箱
+if [[ -f ~/.zshrc.trash ]]; then
+  source ~/.zshrc.trash
+fi
+
+## vcs_info
+if [[ -f ~/.zshrc.vcs_info ]]; then
+  source ~/.zshrc.vcs_info
+fi
+
+## OS固有の設定
+: ${OS:=linux}
 case "$OSTYPE" in
   darwin*)
     OS=darwin
@@ -12,174 +153,15 @@ case "$OSTYPE" in
     OS=windows
     ;;
 esac
-# }}} init
-
-# options {{{
-setopt auto_cd
-setopt auto_param_slash
-setopt auto_pushd
-# setopt complete_aliases
-setopt correct
-setopt extended_glob
-setopt extended_history
-setopt glob_complete
-setopt hist_expand
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt hist_no_store
-setopt hist_reduce_blanks
-setopt inc_append_history
-setopt interactivecomments
-setopt list_packed
-setopt list_rows_first
-setopt list_types
-setopt long_list_jobs
-setopt magic_equal_subst
-setopt multios
-setopt no_beep
-# setopt noclobber
-setopt nolistbeep
-setopt nonomatch
-setopt numeric_glob_sort
-setopt path_dirs
-setopt print_eightbit
-setopt print_exit_value
-unsetopt promptcr
-setopt pushd_ignore_dups
-setopt pushd_minus
-setopt pushd_silent
-setopt share_history
-
-stty stop undef
-# }}} optons
-
-# history {{{
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
-# }}} history
-
-# completion {{{
-autoload -Uz compinit
-compinit
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-[ -x /usr/bin/dircolors ] && eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-# zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# add ssh_hosts
-[ -f ~/.ssh/config ] && _cache_hosts=(`perl -ne 'print "$1 " if(/^Host\s+(.+)$/)' ~/.ssh/config`)
-# }}} completion
-
-# prompt {{{
-case ${UID} in
-    0)
-        PROMPT="%F{green}%*%f [%F{red}%n%f %F{yellow}%c%f]# "
-        PROMPT2="%_ # "
-        ;;
-    *)
-        PROMPT="%F{green}%*%f [%F{cyan}%n%f %F{yellow}%c%f]$ "
-        PROMPT2="%_ $ "
-        ;;
-esac
-
-SPROMPT="%B%F{red}%r%f%b is correct? [n,y,a,e]: "
-# }}} prompt
-
-# keybinds {{{
-bindkey -e
-bindkey "[3~" delete-char
-
-autoload history-search-end
-zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
-zle -la history-incremental-pattern-search-forward  && bindkey "^s" history-incremental-pattern-search-forward
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-# }}} keybinds
-
-# word-style {{{
-autoload -Uz select-word-style
-select-word-style default
-zstyle ':zle:*' word-chars "*?_-.[]~=/&;!#$%^(){}<> "
-zstyle ':zle:*' word-style unspecified
-# }}} word-style
-
-# alias {{{
-case "$OS" in
-  freebsd|darwin)
-    alias ls="ls -G -w"
-    ;;
-  linux)
-    alias ls="ls --color=auto"
-    alias pbcopy="xsel --clipboard --input"
-    alias open="xdg-open"
-    ;;
-esac
-
-alias tmux='tmux attach -d || tmux'
-alias dpkg='COLUMNS=${COLUMNS:-80} dpkg'
-
-alias ipl='perl -de1'
-alias cpanm-installdeps='cpanm -Llocal --installdeps'
-alias cpanm-exec='perl -Mlib::core::only -Mlib=local/lib/perl5'
-
-alias ag='ag -S --pager="less -R"'
-
-alias vi=vim
-
-alias ssh='cat ~/.ssh/config.d/* > ~/.ssh/config; ssh'
-
-if [[ ! -z $(which colordiff) ]]; then
-  alias diff='colordiff'
-fi
-# }}} alias
-
-# functions {{{
-if [[ -f "$HOME/.zshrc.function" ]]; then
-  source "$HOME/.zshrc.function"
-fi
-# }}} functions
-
-# path {{{
-if [ -z "$TMUX" ]; then
-  export PATH=$HOME/local/bin:$HOME/bin::$PATH
-  export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
-fi
-# }}} path
-
-# env {{{
-umask 022
-
-export EDITOR='vi'
-export LANG='ja_JP.UTF-8'
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
-# }}} env
-
-# external_rc {{{
-if [[ -f "$HOME/.zshrc.$OS" ]]; then
-  source "$HOME/.zshrc.$OS"
+if [[ -f ~/.zshrc.$OS ]]; then
+  source ~/.zshrc.$OS
 fi
 
-if [[ -f "$HOME/.zshrc.local" ]]; then
-  source "$HOME/.zshrc.local"
+## ローカル設定
+if [[ -f ~/.zshrc.local ]]; then
+  source ~/.zshrc.local
 fi
-# }}} external_rc
+# }}}
 
 # vim: ft=zsh
 # vim: foldmethod=marker
