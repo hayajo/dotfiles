@@ -51,7 +51,7 @@ setopt auto_cd # ディレクトリ名だけでcdする
 setopt auto_pushd # 自動的にpushdする
 setopt pushd_ignore_dups # 重複したディレクトリをpushdしない
 setopt magic_equal_subst # '='の後はパス名として補完する
-# setopt nonomatch # ファイル名の補間に失敗してもエラーとせずコマンドを起動する
+#setopt nonomatch # ワイルドカードの補完に失敗してもエラーとせずコマンド引数として渡す
 setopt extended_history # 履歴に開始時刻、終了時刻が記載する
 setopt inc_append_history # 入力後直ちに履歴に登録する
 setopt share_history # zsh間で履歴を共有する
