@@ -124,14 +124,17 @@ nnoremap <Leader>jf :JunkfileOpen<CR>
 let g:ctrlp_map='<Nop>'
 let g:ctrlp_max_files =100000
 let g:ctrlp_max_depth=10
-let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_mruf_max=500
 let g:ctrlp_match_window='bottom,order:btt,min:1,max:10,results:50'
 let g:ctrlp_open_new_file='r'
+let g:ctrlp_lazy_update = 1
+let g:ctrlp_use_caching=0
+let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
 nnoremap <silent> <Space><Space> :CtrlPMRUFiles<CR>
 nnoremap <silent> <Space>r :CtrlPRoot<CR>
 nnoremap <silent> <Space>f :CtrlPFiler<CR>
+nnoremap <silent> <Space>d :CtrlPCurWD<CR>
 set splitright
 set splitbelow
 " }}} kien/ctrlp.vim
