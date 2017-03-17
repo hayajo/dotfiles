@@ -8,7 +8,7 @@ set list
 set listchars=tab:»\ ,eol:¬
 " set completeopt=menuone,preview
 set completeopt=menuone
-set hlsearch
+"set hlsearch
 set noswapfile
 set number
 
@@ -76,7 +76,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
-Plug 'osyo-manga/vim-brightest'
+" Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'hayajo/ctrlp-filer', {'branch': 'mine'}
