@@ -68,6 +68,7 @@ alias ls="ls -lGF"
 alias tmux="tmux attach -d || tmux"
 alias ag="ag -S --pager='less -R'"
 alias vi="vim -u NONE -N"
+alias gr="cd $(git root)"
 # }}}
 
 # PATH {{{
