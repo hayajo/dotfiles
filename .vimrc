@@ -73,13 +73,14 @@ if has('vim_starting')
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
-Plug 'vim-scripts/YankRing.vim'
+"Plug 'vim-scripts/YankRing.vim'
 Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
-" Plug 'osyo-manga/vim-brightest'
+Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'hayajo/ctrlp-filer', {'branch': 'mine'}
+Plug 'Shougo/vinarise.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -111,9 +112,10 @@ autocmd FileType go nmap <leader>gt <Plug>(go-test)
 
 " {{{ osyo-match/vim-brightest
 let g:brightest#highlight = {
-            \ "group": "BrightestReverse",
+            \ "group": "CursorColumn",
             \ }
 let g:brightest#enable_on_CursorHold=1
+let g:brightest#enable_highlight_all_window=1
 " }}} osyo-match/vim-brightest
 
 " {{{ Shougo/junkfile.vim
