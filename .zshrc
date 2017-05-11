@@ -41,6 +41,9 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 # プロンプト表示 {{{
 PROMPT='%F{green}%*%f [%F{cyan}%n%f %F{yellow}%c%f]$ '
+if [[ ! -z "$VIM" ]]; then
+    PROMPT='%F{magenta}(VIM)%f'$PROMPT
+fi
 # }}}
 
 # オプション {{{
