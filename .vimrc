@@ -56,7 +56,7 @@ highlight Pmenu ctermfg=242 ctermbg=233 guibg=DarkGrey
 " {{{ statusline
 set cmdheight=1
 set laststatus=2
-let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
+let ff_table={'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
 let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) U+%04B %P'
 " }}} statusline
 
@@ -111,7 +111,7 @@ autocmd FileType go nmap <leader>gt <Plug>(go-test)
 " }}} fatih/vim-go
 
 " {{{ osyo-match/vim-brightest
-let g:brightest#highlight = {
+let g:brightest#highlight={
             \ "group": "CursorColumn",
             \ }
 let g:brightest#enable_on_CursorHold=1
@@ -124,13 +124,13 @@ nnoremap <Leader>jf :JunkfileOpen<CR>
 
 " {{{ kien/ctrlp.vim
 let g:ctrlp_map='<Nop>'
-let g:ctrlp_working_path_mode = 'c'
-let g:ctrlp_max_files =100000
+let g:ctrlp_working_path_mode='c'
+let g:ctrlp_max_files=100000
 let g:ctrlp_max_depth=10
 let g:ctrlp_mruf_max=500
 let g:ctrlp_match_window='bottom,order:btt,min:1,max:10,results:50'
 let g:ctrlp_open_new_file='r'
-let g:ctrlp_lazy_update = 1
+let g:ctrlp_lazy_update=1
 let g:ctrlp_use_caching=0
 let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
