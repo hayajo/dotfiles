@@ -6,18 +6,15 @@
 Desktop.ini
 Thumbs.db
 
-bin/*
-!bin/git-now
-
-.vim
+.vim/*
 !.vim/after/
 !.vim/autoload/
 !.vim/ftdetect/
 !.vim/syntax/
 
 *.elc
-.emacs.d/url/
-.emacs.d/auto-save-alist/
+.emacs.d/url/*
+.emacs.d/auto-save-alist/*
 .emacs.d/elpa/*
 !.emacs.d/elpa/delete.me
 .emacs.d/ac-comphist.dat
