@@ -155,6 +155,12 @@ if [[ -f ~/.zshrc.local ]]; then
 fi
 # }}}
 
+# tmux特有の設定 {{{
+if [[ ! -z "$TMUX" ]]; then
+  alias osascript="reattach-to-user-namespace osascript"
+fi
+# }}}
+
 # vim: ft=zsh
 # vim: foldmethod=marker
 # vim: foldmarker={{{,}}}
