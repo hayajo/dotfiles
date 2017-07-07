@@ -81,6 +81,7 @@ Plug 'Shougo/junkfile.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'hayajo/ctrlp-filer', {'branch': 'mine'}
 Plug 'Shougo/vinarise.vim'
+Plug 'thinca/vim-quickrun'
 call plug#end()
 " }}} junegunn/vim-plug
 
