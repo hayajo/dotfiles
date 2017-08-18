@@ -137,7 +137,7 @@ set splitbelow
 
 command! -bang -nargs=* Ag
             \ call fzf#vim#ag(<q-args>,
-                \ fzf#vim#with_preview({'options': '--exact'}, 'right:50%:wrap'),
+                \ fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:wrap'),
                 \ 0)
 
 " vim: foldmethod=marker
