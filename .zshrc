@@ -75,7 +75,7 @@ alias gr='cd $(git root)'
 # }}}
 
 # PATH {{{
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:/usr/local/sbin:$PATH
 
 # direnv
 which direnv >/dev/null 2>&1

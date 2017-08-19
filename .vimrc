@@ -69,7 +69,6 @@ Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go'
 Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
-Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -115,30 +114,43 @@ let g:brightest#enable_highlight_all_window=1
 nnoremap <Leader>jf :JunkfileOpen<CR>
 " }}} Shougo/junkfile.vim
 
-" {{{ kien/ctrlp.vim
-let g:ctrlp_map='<Nop>'
-let g:ctrlp_working_path_mode='c'
-let g:ctrlp_match_window='bottom,order:btt,min:1,max:20,results:100'
-let g:ctrlp_open_new_file='r'
-let g:ctrlp_lazy_update=1
-
-if executable("ag")
-  let g:ctrlp_use_cacheing=0
-  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-endif
-
-nnoremap <silent> <Space>b :CtrlPBuffer<CR>
-nnoremap <silent> <Space><Space> :CtrlPMRU<CR>
-nnoremap <silent> <Space>f :CtrlP<CR>
-
+" {{{ junegunn/fzf
+nnoremap <silent> <Space><Space> :History<CR>
+nnoremap <silent> <Space>b :Buffers<CR>
+nnoremap <silent> <Space>d :DFiles<CR>
+nnoremap <silent> <Space>f :Files <C-R>=expand('%:h')<CR><CR>
 set splitright
 set splitbelow
-" }}} kien/ctrlp.vim
 
-command! -bang -nargs=* Ag
-            \ call fzf#vim#ag(<q-args>,
-                \ fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:wrap'),
-                \ 0)
+command! -bang -nargs=* Ag call fzf#vim#ag(
+            \ <q-args>,
+            \ fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:wrap'),
+            \ 0)
+
+" DFiles
+command! DFiles call s:dfiles_sink()
+
+let s:dfiles_sink_path = ''
+function! s:dfiles_sink(...)
+    let file = get(a:000, 0, ['', '.'])
+    if len(file) < 2 | return | endif
+    let s:dfiles_sink_path = fnamemodify(len(a:000) ? s:dfiles_sink_path . file[1] : file[1], ':p')
+    let cmd = get(
+                \ {'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'},
+                \ file[0],
+                \ 'e')
+    if isdirectory(s:dfiles_sink_path) && cmd == 'e'
+        " https://github.com/junegunn/fzf/wiki/Examples-(vim)#narrow-ag-results-within-vim
+        call fzf#run({
+                    \ 'source': 'ls -ap1 ' . s:dfiles_sink_path . ' | tail -n +2',
+                    \ 'sink*': function('s:dfiles_sink'),
+                    \ 'options': '-x +s --expect=ctrl-t,ctrl-v,ctrl-x --prompt=' . fnamemodify(s:dfiles_sink_path, ":~"),
+                    \ 'down': '40%'})
+    else
+        execute cmd s:dfiles_sink_path
+    endif
+endfunction
+" }}} junegunn/fzf
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
