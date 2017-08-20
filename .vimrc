@@ -128,26 +128,26 @@ command! -bang -nargs=* Ag call fzf#vim#ag(
             \ 0)
 
 " DFiles
-command! DFiles call s:dfiles_sink()
+command! DFiles call s:fzf_dfiles_sink()
 
-let s:dfiles_sink_path = ''
-function! s:dfiles_sink(...)
+let s:fzf_dfiles_sink_path = ''
+function! s:fzf_dfiles_sink(...)
     let file = get(a:000, 0, ['', '.'])
     if len(file) < 2 | return | endif
-    let s:dfiles_sink_path = fnamemodify(len(a:000) ? s:dfiles_sink_path . file[1] : file[1], ':p')
+    let s:fzf_dfiles_sink_path = fnamemodify(len(a:000) ? s:fzf_dfiles_sink_path . file[1] : file[1], ':p')
     let cmd = get(
                 \ {'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'},
                 \ file[0],
                 \ 'e')
-    if isdirectory(s:dfiles_sink_path) && cmd == 'e'
+    if isdirectory(s:fzf_dfiles_sink_path) && cmd == 'e'
         " https://github.com/junegunn/fzf/wiki/Examples-(vim)#narrow-ag-results-within-vim
         call fzf#run({
-                    \ 'source': 'ls -ap1 ' . s:dfiles_sink_path . ' | tail -n +2',
-                    \ 'sink*': function('s:dfiles_sink'),
-                    \ 'options': '-x +s --expect=ctrl-t,ctrl-v,ctrl-x --prompt=' . fnamemodify(s:dfiles_sink_path, ":~"),
+                    \ 'source': 'ls -ap1 ' . s:fzf_dfiles_sink_path . ' | tail -n +2',
+                    \ 'sink*': function('s:fzf_dfiles_sink'),
+                    \ 'options': '-x +s --expect=ctrl-t,ctrl-v,ctrl-x --prompt=' . fnamemodify(s:fzf_dfiles_sink_path, ":~"),
                     \ 'down': '40%'})
     else
-        execute cmd s:dfiles_sink_path
+        execute cmd s:fzf_dfiles_sink_path
     endif
 endfunction
 " }}} junegunn/fzf
