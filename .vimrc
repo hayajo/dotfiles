@@ -140,7 +140,6 @@ function! s:fzf_dfiles_sink(...)
                 \ file[0],
                 \ 'e')
     if isdirectory(s:fzf_dfiles_sink_path) && cmd == 'e'
-        " https://github.com/junegunn/fzf/wiki/Examples-(vim)#narrow-ag-results-within-vim
         call fzf#run({
                     \ 'source': 'ls -ap1 ' . s:fzf_dfiles_sink_path . ' | tail -n +2',
                     \ 'sink*': function('s:fzf_dfiles_sink'),
