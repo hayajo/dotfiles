@@ -71,6 +71,7 @@ Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
+Plug 'h1mesuke/vim-alignta'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -117,8 +118,8 @@ nnoremap <Leader>jf :JunkfileOpen<CR>
 " {{{ junegunn/fzf
 nnoremap <silent> <Space><Space> :History<CR>
 nnoremap <silent> <Space>b :Buffers<CR>
-nnoremap <silent> <Space>d :DFiles<CR>
-nnoremap <silent> <Space>f :Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <silent> <Space>f :DFiles<CR>
+nnoremap <silent> <C-p> :GFiles<CR>
 set splitright
 set splitbelow
 
