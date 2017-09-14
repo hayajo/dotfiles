@@ -12,6 +12,7 @@ unlet! b:current_syntax
 syn keyword Todo TODO
 syn match hclString "\".\{-}\""
 syn region hclComment display oneline start='\%\(^\|\s\)#' end='$' contains=Todo
+syn region hclComment display start='\%\(^\|\s\)/\*' end='\*/' contains=Todo
 
 " Highlight
 hi link hclString String
