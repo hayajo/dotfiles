@@ -36,6 +36,7 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 
 " {{{ color
+set background=dark
 set t_Co=256
 syntax on
 " colorscheme industry
