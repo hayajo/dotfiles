@@ -72,6 +72,8 @@ alias tmux="tmux attach -d || tmux"
 alias ag="ag -S --pager='less -R'"
 alias vi="vim -u NONE -N"
 alias gr='cd $(git root)'
+alias trans-ej='trans {en=ja}'
+alias trans-je='trans {ja=en}'
 # }}}
 
 # PATH {{{
