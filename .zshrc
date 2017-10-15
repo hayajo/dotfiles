@@ -77,7 +77,7 @@ alias trans-je='trans {ja=en}'
 # }}}
 
 # PATH {{{
-export PATH=$HOME/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/sbin:$PATH
 
 # direnv
 which direnv >/dev/null 2>&1
