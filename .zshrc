@@ -163,6 +163,16 @@ if [[ ! -z "$TMUX" ]]; then
 fi
 # }}}
 
+# 関数 {{{
+function growl() {
+  local s="display notification \"$1\" with title \"$2\""
+  test -z "$2" && s="$s sound name \"\""
+  osascript -e "$s"
+  test -z "$2" || say "$2"
+}
+# }}}
+
+
 # vim: ft=zsh
 # vim: foldmethod=marker
 # vim: foldmarker={{{,}}}
