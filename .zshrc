@@ -74,6 +74,7 @@ alias vi="vim -u NONE -N"
 alias gr='cd $(git root)'
 alias trans-ej='trans {en=ja}'
 alias trans-je='trans {ja=en}'
+alias repo='cd $(ghq list -p | fzf --ansi)'
 # }}}
 
 # PATH {{{
