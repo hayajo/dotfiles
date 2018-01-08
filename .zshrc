@@ -85,11 +85,6 @@ if [[ $? -eq 0 ]]; then
   eval "$(direnv hook zsh)"
 fi
 
-# docker-machine
-if [[ -z "$DOCKER_HOST" ]]; then
-  eval "$(docker-machine env default)"
-fi
-
 # gplang
 if [[ -z "$GOPATH" ]]; then
   export GOPATH=$HOME
