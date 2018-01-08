@@ -5,6 +5,7 @@ colors
 
 # 環境変数 {{{
 export LANG='ja_JP.UTF-8'
+export XDG_DATA_HOME=/usr/local/share
 # }}}
 
 # 履歴 {{{
