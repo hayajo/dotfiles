@@ -174,7 +174,7 @@ function growl() {
 }
 
 ## open file or dir with Visual Studio Code
-function code() {
+function vscode() {
     VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
 }
 # }}}
