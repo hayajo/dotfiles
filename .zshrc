@@ -131,6 +131,11 @@ if [[ -f ~/.zshrc.vcs_info ]]; then
   source ~/.zshrc.vcs_info
 fi
 
+## httpstatus
+if [[ -f ~/.zshrc.httpstatus ]]; then
+  source ~/.zshrc.httpstatus
+fi
+
 ## OS固有の設定
 : ${OS:=linux}
 case "$OSTYPE" in
