@@ -6,6 +6,14 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+alias vi="vim -u NONE -N"
+alias tmux="tmux attach -d || tmux"
+alias ag="ag -S --pager='less -R'"
+alias trans-ej='trans {en=ja}'
+alias trans-je='trans {ja=en}'
+alias gr='cd $(git root)'
+alias repo='cd $(ghq list -p | fzf --ansi)'
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
