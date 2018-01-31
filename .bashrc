@@ -36,3 +36,11 @@ GIT_PS1_SHOWSTASHSTATE=1
 
 PS1='[\[\033[0;36m\]\u\[\033[0m\] \[\033[0;33m\]\W\[\033[0m\]$(__git_ps1 " \[\033[0;32m\](%s)\[\033[0m\]")]\$ '
 
+# Display notification
+# usage: gworl [MESSAGE] [TITLE]
+function growl() {
+  local s="display notification \"$1\" with title \"$2\""
+  test -z "$2" && s="$s sound name \"\""
+  osascript -e "$s"
+  test -z "$2" || say "$2"
+}
