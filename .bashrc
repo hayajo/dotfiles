@@ -8,6 +8,10 @@ alias mv='mv -i'
 
 export PROMPT_COMMAND='history -a; history -r'
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 if [ -f ~/.intpurc ]; then
 	. ~/.inputrc
 fi
