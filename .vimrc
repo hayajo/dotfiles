@@ -24,6 +24,7 @@ set matchtime=1
 set wildmode=list,full
 set display=lastline
 set pumheight=10
+set completeopt=menuone
 
 " let mapleader="\<Space>"
 let mapleader=","
