@@ -44,3 +44,9 @@ function growl() {
   osascript -e "$s"
   test -z "$2" || say "$2"
 }
+
+# Open file or dir with Visual Studio Code
+# usage: vscode [FILE or DIR]
+function vscode() {
+    VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
+}
