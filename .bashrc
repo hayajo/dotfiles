@@ -23,6 +23,10 @@ if [ -f ~/.intpurc ]; then
 	. ~/.inputrc
 fi
 
+if [ -f ~/.bashrc.functions ]; then
+	. ~/.bashrc.functions
+fi
+
 export PROMPT_COMMAND='history -a; history -r'
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -35,18 +39,3 @@ GIT_PS1_SHOWUNTRACKEDFILES=
 GIT_PS1_SHOWSTASHSTATE=1
 
 PS1='[\[\033[0;36m\]\u\[\033[0m\] \[\033[0;33m\]\W\[\033[0m\]$(__git_ps1 " \[\033[0;32m\](%s)\[\033[0m\]")]\$ '
-
-# Display notification
-# usage: gworl [MESSAGE] [TITLE]
-function growl() {
-  local s="display notification \"$1\" with title \"$2\""
-  test -z "$2" && s="$s sound name \"\""
-  osascript -e "$s"
-  test -z "$2" || say "$2"
-}
-
-# Open file or dir with Visual Studio Code
-# usage: vscode [FILE or DIR]
-function vscode() {
-    VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
-}
