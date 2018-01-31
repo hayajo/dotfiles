@@ -28,9 +28,6 @@ set completeopt=menuone
 
 let mapleader=","
 
-nnoremap ; :
-vnoremap ; :
-
 nnoremap Y y$
 nnoremap + <C-a>
 nnoremap - <C-x>
