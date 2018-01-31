@@ -6,6 +6,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+export PROMPT_COMMAND='history -a; history -r'
+
 if [ -f ~/.intpurc ]; then
 	. ~/.inputrc
 fi
