@@ -159,5 +159,11 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 
 source $VIMRUNTIME/macros/matchit.vim
 
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
