@@ -20,11 +20,11 @@ if [ -f /etc/bashrc ]; then
 fi
 
 if [ -f ~/.intpurc ]; then
-	. ~/.inputrc
+  . ~/.inputrc
 fi
 
 if [ -f ~/.bashrc.functions ]; then
-	. ~/.bashrc.functions
+  . ~/.bashrc.functions
 fi
 
 export PROMPT_COMMAND='history -a; history -r'
