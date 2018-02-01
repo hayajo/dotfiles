@@ -19,3 +19,5 @@ eval "$(plenv init -)"
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(nodenv init -)"
+
+export HISTTIMEFORMAT='%F %T '
