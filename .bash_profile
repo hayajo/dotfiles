@@ -8,6 +8,7 @@ fi
 # User specific environment and startup programs
 
 PATH=$HOME/bin:$PATH
+PATH=/usr/local/share/git-core/contrib/diff-highlight:/usr/local/sbin:$PATH
 
 export PATH
 
