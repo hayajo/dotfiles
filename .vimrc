@@ -157,5 +157,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 " }}} maralla/completor.vim
 
+source $VIMRUNTIME/macros/matchit.vim
+
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
