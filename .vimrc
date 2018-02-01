@@ -12,7 +12,7 @@ set updatetime=300
 set incsearch
 set ignorecase
 set smartcase
-set hlsearch
+" set hlsearch
 set autoindent
 set expandtab
 set shiftwidth=4
