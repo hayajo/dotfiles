@@ -37,6 +37,8 @@
   keep = "!find . -type d -name .git -prune -o -type d -empty -print0 | xargs -0 -t -I@ touch @/.gitkeep"
   ignore = "!f() { local s=$1; shift; while [ $# -gt 0 ]; do s=$s,$1; shift; done; curl http://gitignore.io/api/$s ; }; f"
   root = rev-parse --show-toplevel
+[commit]
+  template = ~/.gitmessage
 [github]
   user = hayajo
 [ghq]
