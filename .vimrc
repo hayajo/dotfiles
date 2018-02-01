@@ -70,6 +70,7 @@ Plug 'Shougo/junkfile.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
 Plug 'h1mesuke/vim-alignta'
+Plug 'maralla/completor.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -149,6 +150,12 @@ function! s:fzf_dfiles_sink(...)
     endif
 endfunction
 " }}} junegunn/fzf
+
+" {{{ maralla/completor.vim
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+" }}} maralla/completor.vim
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
