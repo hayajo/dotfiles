@@ -165,5 +165,8 @@ augroup CursorLine
   au WinLeave * setlocal nocursorline
 augroup END
 
+autocmd InsertEnter * highlight  CursorLine ctermbg=24
+autocmd InsertLeave * highlight  CursorLine ctermbg=None ctermfg=None
+
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
