@@ -116,8 +116,10 @@ nnoremap <Leader>jf :JunkfileOpen<CR>
 
 " {{{ junegunn/fzf
 nnoremap <silent> <Space><Space> :History<CR>
+nnoremap <silent> <Space>a :Ag<CR>
 nnoremap <silent> <Space>b :Buffers<CR>
 nnoremap <silent> <Space>f :DFiles<CR>
+nnoremap <silent> <Space>m :Marks<CR>
 nnoremap <silent> <Space>r :Repos<CR>
 nnoremap <silent> <C-p> :GFiles<CR>
 set splitright
