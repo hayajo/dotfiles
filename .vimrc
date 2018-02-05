@@ -118,6 +118,7 @@ nnoremap <Leader>jf :JunkfileOpen<CR>
 nnoremap <silent> <Space><Space> :History<CR>
 nnoremap <silent> <Space>b :Buffers<CR>
 nnoremap <silent> <Space>f :DFiles<CR>
+nnoremap <silent> <Space>r :Repos<CR>
 nnoremap <silent> <C-p> :GFiles<CR>
 set splitright
 set splitbelow
@@ -148,6 +149,16 @@ function! s:fzf_dfiles_sink(...)
     else
         execute cmd s:fzf_dfiles_sink_path
     endif
+endfunction
+
+" Repos
+command! Repos call s:fzf_repos_sink()
+
+function! s:fzf_repos_sink(...)
+    call fzf#run({
+                \ 'source': 'ghq list -p',
+                \ 'sink': 'e',
+                \ 'down': '40%'})
 endfunction
 " }}} junegunn/fzf
 
