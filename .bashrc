@@ -1,5 +1,3 @@
-# .bashrc
-
 # User specific aliases and functions
 
 stty werase undef
