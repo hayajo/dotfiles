@@ -10,14 +10,19 @@ export HISTTIMEFORMAT='%F %T '
 PATH=$HOME/bin:$PATH
 PATH=/usr/local/share/git-core/contrib/diff-highlight:/usr/local/sbin:$PATH
 
+_cmd_exists() {
+  local cmd=${1:?"${FUNCNAME[0]}: cmd not specified"}
+  which $cmd 2>&1 >/dev/null
+}
+
+_cmd_exists plenv && eval "$(plenv init -)"
+_cmd_exists rbenv && eval "$(rbenv init -)"
+_cmd_exists pyenv && eval "$(pyenv init -)"
+_cmd_exists nodenv && eval "$(nodenv init -)"
+_cmd_exists direnv && eval "$(direnv hook bash)"
+_cmd_exists ssh-agent && test -z "$SSH_AUTH_SOCK" && eval "$(ssh-agent)"
+
 export GOPATH=$HOME
 PATH="$GOPATH/bin:$(brew --prefix go)/bin:$PATH"
 
-eval "$(direnv hook bash)"
-eval "$(plenv init -)"
-eval "$(rbenv init -)"
-eval "$(pyenv init -)"
-eval "$(nodenv init -)"
-
 export PATH
-
