@@ -102,6 +102,7 @@ autocmd FileType go nmap <Leader>gl :GoLint<CR>
 autocmd FileType go nmap <leader>gr <Plug>(go-run)
 autocmd FileType go nmap <leader>gb <Plug>(go-build)
 autocmd FileType go nmap <leader>gt <Plug>(go-test)
+autocmd FileType go nmap gp :GoDefPop<CR>
 " }}} fatih/vim-go
 
 " {{{ osyo-match/vim-brightest
