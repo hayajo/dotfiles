@@ -6,6 +6,8 @@ fi
 # User specific environment and startup programs
 
 export HISTTIMEFORMAT='%F %T '
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 
 PATH=$HOME/bin:$PATH
 PATH=/usr/local/share/git-core/contrib/diff-highlight:/usr/local/sbin:$PATH
