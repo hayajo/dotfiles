@@ -6,6 +6,7 @@ bind '"\C-w": unix-filename-rubout'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias ls='ls -FG'
 
 alias vi="vim -u NONE -N"
 alias tmux="tmux attach -d || tmux"
