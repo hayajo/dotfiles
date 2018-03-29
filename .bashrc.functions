@@ -77,3 +77,28 @@ function httpstatus() {
 511 Network Authentication Required 
 EOF
 }
+
+function mkr-hosts() {
+  if [ -z "$(which mkr)" ]; then
+    echo 'mkr command not found' >&2
+    return 127
+  fi
+
+  local cache=~/.cache/mkr-hosts/cache
+  local ttl=1440
+
+  if [ -n "$MACKEREL_APIKEY" ]; then
+    cache="$cache.$MACKEREL_APIKEY"
+  fi
+
+  if [ ! -r $cache -o -n "$(find \"$cache\" -mmin +$ttl 2>/dev/null)" ]; then
+    local cache_dir=$(dirname "$cache")
+    mkdir -p "$cache_dir"
+    chmod 700 "$cache_dir"
+
+    mkr hosts -f '{{range .}}{{.Name}}{{"\n"}}{{end}}' | tee "$cache"
+    chmod 600 "$cache"
+  else
+    cat "$cache"
+  fi
+}
