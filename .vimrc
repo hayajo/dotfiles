@@ -72,6 +72,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'h1mesuke/vim-alignta'
 Plug 'maralla/completor.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'derekwyatt/vim-scala'
 call plug#end()
 " }}} junegunn/vim-plug
 
