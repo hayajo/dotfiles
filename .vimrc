@@ -73,6 +73,7 @@ Plug 'h1mesuke/vim-alignta'
 Plug 'maralla/completor.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'derekwyatt/vim-scala'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
