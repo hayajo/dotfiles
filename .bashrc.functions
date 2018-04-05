@@ -78,6 +78,10 @@ function httpstatus() {
 EOF
 }
 
+function repo() {
+  cd $(ghq list -p | fzf --ansi --query="$1")
+}
+
 function mkr-hosts() {
   if [ -z "$(which mkr)" ]; then
     echo 'mkr command not found' >&2
