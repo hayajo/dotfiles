@@ -1,45 +1,51 @@
-[include]
-  # 1.7.10 or later
-  path = ~/.gitconfig.local
 [core]
+  editor = vim
   excludesfile = ~/.gitignore
   autoCRLF = false
-  editor = vim
-[color]
-  ui = auto
-[push]
-  # push only the current branch
-  default = tracking
-[branch]
-  autosetuprebase = always
-[merge]
-  # 1.7.6 or later
-  ff = false
-[pull]
-  # 1.7.9 or later
-  rebase = true
-[pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+  ignorecase = false
+
 [alias]
-  aliases = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
+  aliase = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
   br = branch
   ci = commit
   co = checkout
   dc = diff --cached
   df = diff
   graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
-  st = status
-  ; sfu = submodule foreach "git checkout master;  git pull"
-  sfu = submodule update --init --recursive
-  tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
-  keep = "!find . -type d -name .git -prune -o -type d -empty -print0 | xargs -0 -t -I@ touch @/.gitkeep"
-  ignore = "!f() { local s=$1; shift; while [ $# -gt 0 ]; do s=$s,$1; shift; done; curl http://gitignore.io/api/$s ; }; f"
   root = rev-parse --show-toplevel
+  sfu = submodule update --init --recursive
+  st = status
+  tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
+  branch-clean = "!git branch --merged | grep -v '*' | xargs -I % git branch -d %"
+
+[push]
+  default = upstream
+
+[branch]
+  autosetuprebase = always
+
+[merge]
+  ff = folse
+
+[pull]
+  rebase = true
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = auto
+  pager = true
+
+[color "advice"]
+  hint = green
+
 [commit]
   template = ~/.gitmessage
+
+[include]
+  path = ~/.gitconfig.local
+
 [github]
   user = hayajo
-[ghq]
-  root = ~/src

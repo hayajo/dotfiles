@@ -1,6 +1,0 @@
-(setq show-paren-deley 0)
-(show-paren-mode t)
-(setq show-paren-style 'expression)
-(set-face-background 'show-paren-match-face nil)
-(set-face-foreground 'show-paren-match-face nil)
-(set-face-bold-p 'show-paren-match-face t)

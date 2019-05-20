@@ -1,0 +1,12 @@
+#!/bin/sh
+
+WIDTH=${1:-$(stty size | cut -d' ' -f2)}
+
+base_width=120
+status_line=" #(LANG=C date +'%m/%d(%a) %H:%M:%S') #[default]"
+
+if [ $WIDTH -ge $base_width ]; then
+  status_line=" WiFi: #(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep ' SSID:' | awk '{print \$2}') | Bat: #(/usr/bin/pmset -g ps | awk 'NR==2 {print \$3}' | tr -d ';') | ${status_line}"
+fi
+
+echo $status_line
