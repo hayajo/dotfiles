@@ -75,6 +75,7 @@ Plug 'thiagoalessio/rainbow_levels.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-unimpaired'
 Plug 'cocopon/iceberg.vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -213,6 +214,10 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 " }}} haya14busa/incsearch.vim
+
+" {{{  airblade/vim-gitgutter
+let g:gitgutter_highlight_lines = 1
+ " airblade/vim-gitgutter }}}
 
 source $VIMRUNTIME/macros/matchit.vim
 
