@@ -215,10 +215,6 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 " }}} haya14busa/incsearch.vim
 
-" {{{  airblade/vim-gitgutter
-let g:gitgutter_highlight_lines = 1
- " airblade/vim-gitgutter }}}
-
 source $VIMRUNTIME/macros/matchit.vim
 
 " vim: foldmethod=marker
