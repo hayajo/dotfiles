@@ -55,6 +55,10 @@ alias ag="ag -S --pager='less -R'"
 alias tej='trans {en=ja}'
 alias tje='trans {ja=en}'
 
+alias g='git'
+alias d='docker'
+alias k='kubectl'
+
 PS1='\[\e[1;32m\][\u \W$(__git_ps1)]\$ \[\e[m\]'
 
 eval "$(direnv hook bash)"
