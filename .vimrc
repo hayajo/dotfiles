@@ -28,6 +28,7 @@ let mapleader=","
 
 nmap \E :vsplit<CR>:e %:p:h<CR>
 nmap \e :e %:p:h<CR>
+nmap \n :set number!<CR>
 nmap \r :RainbowLevelsToggle<CR>
 nmap \s :set spell!<CR>
 nmap \w :set wrap!<CR>
