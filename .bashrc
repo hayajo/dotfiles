@@ -59,6 +59,8 @@ alias g='git'
 alias d='docker'
 alias k='kubectl'
 
-PS1='\[\e[1;32m\][\u \W$(__git_ps1)]\$ \[\e[m\]'
+export PROMPT_COMMAND="hasjobs=\$(jobs -p); ${PROMPT_COMMAND}"
+export PROMPT_DIRTRIM=2
+PS1='${hasjobs:+[\j] }\[\e[1;32m\]\w$(__git_ps1)\$ \[\e[m\]'
 
 eval "$(direnv hook bash)"
