@@ -22,7 +22,8 @@ set smartcase
 set softtabstop=4
 set tabstop=4
 set updatetime=300
-set wildmode=list,full
+set wildmenu
+set wildmode=longest:full,full
 
 let mapleader=","
 
