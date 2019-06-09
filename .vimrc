@@ -41,6 +41,30 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 nnoremap Y y$
 
+" Emacs-like keybinds in inert mode
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap ƒ <C-Right> " <Alt-f>
+inoremap ∫ <C-Left> " <Alt-b>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Del>
+inoremap <C-h> <BS>
+inoremap <C-k> <C-o>C
+
+" Emacs-like keybinds in command-line mode
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+cnoremap <C-h> <BS>
+cnoremap <C-k> <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
+
 " {{{ statusline
 set cmdheight=1
 set laststatus=2
