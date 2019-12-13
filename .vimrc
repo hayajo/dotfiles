@@ -15,6 +15,7 @@ set nocompatible
 set noswapfile
 set number
 set pumheight=10
+set relativenumber
 set scrolloff=999 " always keep the cursor centered
 set shiftwidth=4
 set showmatch
@@ -24,14 +25,16 @@ set tabstop=4
 set updatetime=300
 set wildmenu
 set wildmode=longest:full,full
+" set spelllang=en,cjk
 
 let mapleader=","
 
 nmap \E :vsplit<CR>:e %:p:h<CR>
 nmap \e :e %:p:h<CR>
 nmap \n :set number!<CR>
-nmap \r :RainbowLevelsToggle<CR>
-nmap \s :set spell!<CR>
+nmap \i :IndentGuidesToggle<CR>
+" nmap \s :set spell!<CR>
+nmap \s <Plug>(spelunker-toggle)
 nmap \w :set wrap!<CR>
 nmap \x :cclose<CR>
 
@@ -65,12 +68,7 @@ cnoremap <C-d> <Del>
 cnoremap <C-h> <BS>
 cnoremap <C-k> <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
 
-" {{{ statusline
-set cmdheight=1
-set laststatus=2
-let ff_table={'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
-let &statusline='%<%f %h%m%r%w[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) U+%04B %P'
-" }}} statusline
+nmap <Leader>bd :bdelete<CR>
 
 " {{{ netrw
 let g:netrw_alto=1
@@ -97,11 +95,19 @@ Plug 'tpope/vim-fugitive'
 Plug 'derekwyatt/vim-scala'
 Plug 'leafgarland/typescript-vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'thiagoalessio/rainbow_levels.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-unimpaired'
 Plug 'cocopon/iceberg.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'kamykn/spelunker.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tomasiser/vim-code-dark'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'dense-analysis/ale'
+Plug 'fszymanski/fzf-quickfix', {'on': 'Quickfix'}
+Plug 'andymass/vim-matchup'
+Plug 'terryma/vim-expand-region'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -112,7 +118,9 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-colorscheme iceberg
+" colorscheme iceberg
+colorscheme codedark
+let g:airline_theme = 'codedark'
 " }}} color
 
 " {{{ scrooloose/nerdcommenter
@@ -175,6 +183,7 @@ nnoremap <silent> <Space>f :DFiles<CR>
 nnoremap <silent> <Space>g :GGrep<CR>
 nnoremap <silent> <Space>m :Marks<CR>
 nnoremap <silent> <Space>r :Repos<CR>
+nnoremap <silent> <Space>q :Quickfix<CR>
 nnoremap <silent> <C-p> :GFiles<CR>
 
 set splitright
@@ -241,7 +250,44 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 " }}} haya14busa/incsearch.vim
 
+" {{{ vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+" }}} vim-airline/vim-airline
+
+" {{{ dense-analysis/ale
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+" let g:ale_linters = {
+" \   'markdown': ['markdownlint'],
+" \}
+" }}} dense-analysis/ale
+
+" {{{ airblade/vim-gitgutter
+nmap ]h <Plug>(GitGutterNextHunk)<Plug>(GitGutterPreviewHunk)
+nmap [h <Plug>(GitGutterPrevHunk)<Plug>(GitGutterPreviewHunk)
+
+" カーソルがhunkに移動したときに変更をプレビューする
+au CursorMoved * if exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active(bufnr('')) |
+    \   if gitgutter#hunk#in_hunk(line('.')) |
+    \       if getwinvar(winnr("#"), "&pvw") == 0 |
+    \           call gitgutter#hunk#preview() |
+    \       endif |
+    \   else |
+    \       pclose |
+    \   endif |
+    \ endif
+" }}} airblade/vim-gitgutter
+
+
+" {{{ terryma/vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+" }}} terryma/vim-expand-region
+
 source $VIMRUNTIME/macros/matchit.vim
+
+au FileType yaml :IndentGuidesEnable
+au FileType yaml,js,javascript,json,html,xml,markdown setlocal ts=2 sts=2 sw=2 expandtab
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
