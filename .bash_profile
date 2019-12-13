@@ -17,7 +17,7 @@ export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 
-export PATH=${HOME}/go/bin:/usr/local/sbin:${PATH}
+export PATH=${HOME}/bin:${HOME}/go/bin:/usr/local/sbin:${PATH}
 
 cmd_exists() {
   local cmd="${1:?"${FUNCNAME[0]}: cmd not specified"}"
