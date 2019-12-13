@@ -25,7 +25,7 @@
   autosetuprebase = always
 
 [merge]
-  ff = folse
+  ff = false
 
 [pull]
   rebase = true
