@@ -59,6 +59,8 @@ alias g='git'
 alias d='docker'
 alias k='kubectl'
 
+alias mktemp='gmktemp'
+
 export PROMPT_COMMAND="hasjobs=\$(jobs -p); ${PROMPT_COMMAND}"
 export PROMPT_DIRTRIM=2
 PS1='${hasjobs:+[\j] }\[\e[1;32m\]\w$(__git_ps1)\$ \[\e[m\]'
