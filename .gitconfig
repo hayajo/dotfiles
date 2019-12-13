@@ -28,7 +28,7 @@
   ff = false
 
 [pull]
-  rebase = true
+  rebase = false
 
 [color]
   diff = auto
