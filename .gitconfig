@@ -49,3 +49,7 @@
 
 [github]
   user = hayajo
+
+[ghq]
+root = ~/go/src
+root = ~/ghq
