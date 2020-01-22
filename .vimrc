@@ -15,7 +15,6 @@ set nocompatible
 set noswapfile
 set number
 set pumheight=10
-set relativenumber
 set scrolloff=999 " always keep the cursor centered
 set shiftwidth=4
 set showmatch
