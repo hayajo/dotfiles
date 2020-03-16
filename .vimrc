@@ -107,6 +107,7 @@ Plug 'dense-analysis/ale'
 Plug 'fszymanski/fzf-quickfix', {'on': 'Quickfix'}
 Plug 'andymass/vim-matchup'
 Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-rhubarb'
 call plug#end()
 " }}} junegunn/vim-plug
 
