@@ -25,8 +25,14 @@ export PROMPT_COMMAND="share_history; ${PROMPT_COMMAND}"
 export FZF_DEFAULT_OPTS="--height 40% --border --color=dark"
 
 function share_history() {
+  if which tac >/dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+
   history -a
-  tail -r "${HISTFILE}" | awk '!a[$0]++' | tail -r > "${HISTFILE}.tmp"
+  "${tac}" "${HISTFILE}" | awk '!a[$0]++' | "${tac}" > "${HISTFILE}.tmp"
   [ -f "${HISTFILE}.tmp" ] && mv "${HISTFILE}"{.tmp,} && history -c && history -r
 }
 
