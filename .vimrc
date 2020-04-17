@@ -267,15 +267,15 @@ nmap ]h <Plug>(GitGutterNextHunk)<Plug>(GitGutterPreviewHunk)
 nmap [h <Plug>(GitGutterPrevHunk)<Plug>(GitGutterPreviewHunk)
 
 " カーソルがhunkに移動したときに変更をプレビューする
-au CursorMoved * if exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active(bufnr('')) |
-    \   if gitgutter#hunk#in_hunk(line('.')) |
-    \       if getwinvar(winnr("#"), "&pvw") == 0 |
-    \           call gitgutter#hunk#preview() |
-    \       endif |
-    \   else |
-    \       pclose |
-    \   endif |
-    \ endif
+" au CursorMoved * if exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active(bufnr('')) |
+    " \   if gitgutter#hunk#in_hunk(line('.')) |
+    " \       if getwinvar(winnr("#"), "&pvw") == 0 |
+    " \           call gitgutter#hunk#preview() |
+    " \       endif |
+    " \   else |
+    " \       pclose |
+    " \   endif |
+    " \ endif
 " }}} airblade/vim-gitgutter
 
 
@@ -288,6 +288,8 @@ source $VIMRUNTIME/macros/matchit.vim
 
 au FileType yaml :IndentGuidesEnable
 au FileType yaml,js,javascript,json,html,xml,markdown setlocal ts=2 sts=2 sw=2 expandtab
+
+let g:github_enterprise_urls = ['https://ghe.admin.h']
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
