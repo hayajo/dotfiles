@@ -14,8 +14,8 @@ shopt -s cmdhist
 
 export HISTFILE=~/.bash.log
 export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=10000
-export HISTFILESIZE=10000
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 
 PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}
 export PATH=${HOME}/bin:${HOME}/go/bin:${PATH}
