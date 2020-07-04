@@ -156,12 +156,14 @@ let g:go_list_type = "quickfix"
 
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
+autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <Leader>gi :GoImport 
 autocmd FileType go nmap <Leader>gl :GoLint<CR>
-autocmd FileType go nmap <leader>gr <Plug>(go-run)
 autocmd FileType go nmap <leader>gb <Plug>(go-build)
+autocmd FileType go nmap <leader>gr <Plug>(go-run)
+autocmd FileType go nmap <leader>gs <Plug>(go-def-split)
 autocmd FileType go nmap <leader>gt <Plug>(go-test)
-autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>gv <Plug>(go-def-vertical)
 autocmd FileType go nmap gp :GoDefPop<CR>
 " }}} fatih/vim-go
 
@@ -179,31 +181,35 @@ nnoremap <Leader>jf :JunkfileOpen<CR>
 nnoremap <silent> <Space><Space> :History<CR>
 nnoremap <silent> <Space>a :Ag<CR>
 nnoremap <silent> <Space>b :Buffers<CR>
+nnoremap <silent> <Space>d :BD<CR>
 nnoremap <silent> <Space>f :DFiles<CR>
 nnoremap <silent> <Space>g :GGrep<CR>
 nnoremap <silent> <Space>m :Marks<CR>
-nnoremap <silent> <Space>r :Repos<CR>
+nnoremap <silent> <Space>r :Ghq<CR>
 nnoremap <silent> <Space>q :Quickfix<CR>
 nnoremap <silent> <C-p> :GFiles<CR>
 
 set splitright
 set splitbelow
 
+let g:fzf_preview_window = 'right:60%:wrap'
+" let $FZF_DEFAULT_OPTS = '--reverse'
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
 command! -bang -nargs=* Ag call fzf#vim#ag(
             \ <q-args>,
-            \ fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:wrap'),
+            \ fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}),
             \ 0
             \ )
 command! -bang -nargs=* GGrep call fzf#vim#grep(
             \ 'git grep --line-number '.shellescape(<q-args>),
             \ 0,
-            \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0], 'options': '--exact --delimiter : --nth 3..'}, 'right:50%:wrap'),
+            \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0], 'options': '--exact --delimiter : --nth 3..'}),
             \ <bang>0
             \ )
-"
+
 " DFiles
 command! DFiles call s:fzf_dfiles_sink()
-
 let s:fzf_dfiles_sink_path = ''
 function! s:fzf_dfiles_sink(...)
     let file = get(a:000, 0, ['', '.'])
@@ -215,26 +221,40 @@ function! s:fzf_dfiles_sink(...)
                 \ 'e'
                 \ )
     if isdirectory(s:fzf_dfiles_sink_path) && cmd == 'e'
-        call fzf#run({
+        call fzf#run(fzf#wrap({
                     \ 'source': 'ls -ap1 ' . s:fzf_dfiles_sink_path . ' | tail -n +2',
                     \ 'sink*': function('s:fzf_dfiles_sink'),
-                    \ 'options': '-x +s --expect=ctrl-t,ctrl-v,ctrl-x --prompt=' . fnamemodify(s:fzf_dfiles_sink_path, ":~"),
-                    \ 'down': '40%'
-                    \ })
+                    \ 'options': '-x +s --expect=ctrl-t,ctrl-v,ctrl-x --prompt=' . fnamemodify(s:fzf_dfiles_sink_path, ":~")
+                    \ }))
     else
         execute cmd s:fzf_dfiles_sink_path
     endif
 endfunction
 
-" Repos
-command! Repos call s:fzf_repos_sink()
-
-function! s:fzf_repos_sink(...)
-    call fzf#run({
+" Ghq
+command! Ghq call s:fzf_ghq_sink()
+function! s:fzf_ghq_sink(...)
+    call fzf#run(fzf#wrap({
                 \ 'source': 'ghq list -p',
-                \ 'sink': 'e',
-                \ 'down': '40%'
-                \ })
+                \ 'sink': 'e'
+                \ }))
+endfunction
+
+" BD (delete buffers)
+" https://github.com/junegunn/fzf.vim/pull/733#issuecomment-559720813
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all'
+\ }))
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
 endfunction
 " }}} junegunn/fzf
 
@@ -257,9 +277,10 @@ let g:airline#extensions#tabline#enabled = 1
 " {{{ dense-analysis/ale
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-" let g:ale_linters = {
-" \   'markdown': ['markdownlint'],
-" \}
+let g:ale_linters = {
+\   'markdown': ['markdownlint', 'textlint'],
+\   'dockerfile': ['hadolint'],
+\}
 " }}} dense-analysis/ale
 
 " {{{ airblade/vim-gitgutter
