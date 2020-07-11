@@ -23,6 +23,7 @@ cmd_exists plenv && eval "$(plenv init -)"
 cmd_exists rbenv && eval "$(rbenv init -)"
 cmd_exists pyenv && eval "$(pyenv init -)"
 cmd_exists nodenv && eval "$(nodenv init -)"
+cmd_exists direnv && eval "$(direnv hook bash)"
 cmd_exists ssh-agent && [ -z "${SSH_AUTH_SOCK}" ] && eval "$(ssh-agent)"
 
 cmd_exists brew && BREW_PREFIX="$(brew --prefix)" && export BREW_PREFIX
