@@ -15,7 +15,7 @@ set nocompatible
 set noswapfile
 set number
 set pumheight=10
-set scrolloff=999 " always keep the cursor centered
+" set scrolloff=999 " always keep the cursor centered. fzf_layoutのwindowと相性が悪いので注意.
 set shiftwidth=4
 set showmatch
 set smartcase
@@ -192,9 +192,9 @@ nnoremap <silent> <C-p> :GFiles<CR>
 set splitright
 set splitbelow
 
-let g:fzf_preview_window = 'right:60%:wrap'
 " let $FZF_DEFAULT_OPTS = '--reverse'
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Comment' } }
 
 command! -bang -nargs=* Ag call fzf#vim#ag(
             \ <q-args>,
