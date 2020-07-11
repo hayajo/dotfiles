@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-# Get the aliases and functions
-
-[ -f ~/.bashrc ] && source ~/.bashrc
-
-# User specific environment and startup programs
-
-# shellcheck source=/dev/null
-[ -f "$(brew --prefix)/etc/bash_completion" ] && source "$(brew --prefix)/etc/bash_completion"
+# macOS の警告文を表示しない
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 shopt -s cmdhist
 
@@ -31,3 +25,8 @@ cmd_exists rbenv && eval "$(rbenv init -)"
 cmd_exists pyenv && eval "$(pyenv init -)"
 cmd_exists nodenv && eval "$(nodenv init -)"
 cmd_exists ssh-agent && [ -z "${SSH_AUTH_SOCK}" ] && eval "$(ssh-agent)"
+
+cmd_exists brew && BREW_PREFIX="$(brew --prefix)" && export BREW_PREFIX
+FZF_PREFIX="$(brew --prefix fzf)" && export FZF_PREFIX
+
+[ -f "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
