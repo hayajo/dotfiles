@@ -108,6 +108,7 @@ Plug 'fszymanski/fzf-quickfix', {'on': 'Quickfix'}
 Plug 'andymass/vim-matchup'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-rhubarb'
+Plug 'skanehira/translate.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
