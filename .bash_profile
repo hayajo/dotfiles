@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck source=/dev/null
+# shellcheck disable=SC1090
 
 # Get the aliases and functions
 
