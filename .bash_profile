@@ -6,7 +6,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 shopt -s cmdhist
 
-export HISTFILE=~/.bash.log
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=100000
 export HISTFILESIZE=100000
