@@ -13,7 +13,7 @@ set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 set matchtime=1
 set nocompatible
 set noswapfile
-set number
+" set number
 set pumheight=10
 " set scrolloff=999 " always keep the cursor centered. fzf_layoutのwindowと相性が悪いので注意.
 set shiftwidth=4
