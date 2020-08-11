@@ -122,6 +122,8 @@ set termguicolors
 " colorscheme iceberg
 colorscheme codedark
 let g:airline_theme = 'codedark'
+highlight clear Cursorline
+highlight CursorLine gui=underline cterm=underline
 " }}} color
 
 " {{{ scrooloose/nerdcommenter
