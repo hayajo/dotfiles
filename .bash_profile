@@ -30,4 +30,6 @@ cmd_exists ssh-agent && [ -z "${SSH_AUTH_SOCK}" ] && eval "$(ssh-agent)"
 cmd_exists brew && BREW_PREFIX="$(brew --prefix)" && export BREW_PREFIX
 FZF_PREFIX="$(brew --prefix fzf)" && export FZF_PREFIX
 
+export JAVA_HOME=`/usr/libexec/java_home -v 11`
+
 [ -f "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
