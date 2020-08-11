@@ -50,7 +50,7 @@ alias d='docker'
 alias k='kubectl'
 alias v='view'
 
-alias mktemp='gmktemp'
+alias mktemp='gmktemp -p ~/tmp'
 
 if [ -n "${BREW_PREFIX}" ] && [ -f "${BREW_PREFIX}/etc/bash_completion" ]; then
   source "${BREW_PREFIX}/etc/bash_completion"
