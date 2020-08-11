@@ -12,7 +12,8 @@ export HISTFILESIZE=100000
 
 PATH=/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}
 export PATH=${HOME}/bin:${HOME}/go/bin:${PATH}
-export PATH="${PATH}:${HOME}/.krew/bin"
+export PATH="${HOME}/.krew/bin:${PATH}"
+export PATH="${HOME}/.plenv/bin:${PATH}"
 
 cmd_exists() {
   local cmd="${1:?"${FUNCNAME[0]}: cmd not specified"}"
