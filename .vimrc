@@ -13,7 +13,7 @@ set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 set matchtime=1
 set nocompatible
 set noswapfile
-" set number
+set number
 set pumheight=10
 " set scrolloff=999 " always keep the cursor centered. fzf_layoutのwindowと相性が悪いので注意.
 set shiftwidth=4
@@ -26,7 +26,8 @@ set wildmenu
 set wildmode=longest:full,full
 " set spelllang=en,cjk
 
-let mapleader=","
+" let mapleader=","
+let mapleader="\<Space>"
 
 nmap \E :vsplit<CR>:e %:p:h<CR>
 nmap \e :e %:p:h<CR>
@@ -88,7 +89,7 @@ Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
-Plug 'h1mesuke/vim-alignta'
+" Plug 'h1mesuke/vim-alignta'
 Plug 'maralla/completor.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'derekwyatt/vim-scala'
@@ -109,6 +110,8 @@ Plug 'andymass/vim-matchup'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-rhubarb'
 Plug 'skanehira/translate.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'LeafCage/yankround.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -162,35 +165,47 @@ autocmd FileType go :match goErr /\<err\>/
 autocmd FileType go nmap <Leader>gc <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <Leader>gi :GoImport 
 autocmd FileType go nmap <Leader>gl :GoLint<CR>
-autocmd FileType go nmap <leader>gb <Plug>(go-build)
-autocmd FileType go nmap <leader>gr <Plug>(go-run)
-autocmd FileType go nmap <leader>gs <Plug>(go-def-split)
-autocmd FileType go nmap <leader>gt <Plug>(go-test)
-autocmd FileType go nmap <leader>gv <Plug>(go-def-vertical)
+autocmd FileType go nmap <Leader>gb <Plug>(go-build)
+autocmd FileType go nmap <Leader>gr <Plug>(go-run)
+autocmd FileType go nmap <Leader>gs <Plug>(go-def-split)
+autocmd FileType go nmap <Leader>gt <Plug>(go-test)
+autocmd FileType go nmap <Leader>gv <Plug>(go-def-vertical)
 autocmd FileType go nmap gp :GoDefPop<CR>
 " }}} fatih/vim-go
 
 " {{{ osyo-match/vim-brightest
-let g:brightest#highlight={"group": "BrightestUnderline"}
+" let g:brightest#highlight={"group": "BrightestUnderline"}
+let g:brightest#highlight={"group": "BrightestReverse"}
 let g:brightest#enable_on_CursorHold=1
-let g:brightest#enable_highlight_all_window=1
+" let g:brightest#enable_highlight_all_window=1
+let g:brightest#enable_highlight_all_window=0
 " }}} osyo-match/vim-brightest
 
 " {{{ Shougo/junkfile.vim
-nnoremap <Leader>jf :JunkfileOpen<CR>
+nnoremap <Leader><Space> :JunkfileOpen<CR>
 " }}} Shougo/junkfile.vim
 
 " {{{ junegunn/fzf
-nnoremap <silent> <Space><Space> :History<CR>
-nnoremap <silent> <Space>a :Ag<CR>
-nnoremap <silent> <Space>b :Buffers<CR>
-nnoremap <silent> <Space>d :BD<CR>
-nnoremap <silent> <Space>f :DFiles<CR>
-nnoremap <silent> <Space>g :GGrep<CR>
-nnoremap <silent> <Space>m :Marks<CR>
-nnoremap <silent> <Space>r :Ghq<CR>
-nnoremap <silent> <Space>q :Quickfix<CR>
-nnoremap <silent> <C-p> :GFiles<CR>
+" nnoremap <silent> <Space><Space> :History<CR>
+" nnoremap <silent> <Space>a :Ag<CR>
+" nnoremap <silent> <Space>b :Buffers<CR>
+" nnoremap <silent> <Space>d :BD<CR>
+" nnoremap <silent> <Space>f :DFiles<CR>
+" nnoremap <silent> <Space>g :GGrep<CR>
+" nnoremap <silent> <Space>m :Marks<CR>
+" nnoremap <silent> <Space>r :Ghq<CR>
+" nnoremap <silent> <Space>q :Quickfix<CR>
+" nnoremap <silent> <C-p> :GFiles<CR>
+nnoremap <silent> <c-x><c-x> :History<CR>
+nnoremap <silent> <c-x><c-a> :Ag<CR>
+nnoremap <silent> <c-x><c-b> :Buffers<CR>
+nnoremap <silent> <c-x><c-d> :BD<CR>
+nnoremap <silent> <c-x><c-f> :DFiles<CR>
+nnoremap <silent> <c-x><c-g> :GGrep<CR>
+nnoremap <silent> <c-x><c-m> :Marks<CR>
+nnoremap <silent> <c-x><c-r> :Ghq<CR>
+nnoremap <silent> <c-x><c-q> :Quickfix<CR>
+nnoremap <silent> <c-x><C-p> :GFiles<CR>
 
 set splitright
 set splitbelow
@@ -307,6 +322,14 @@ nmap [h <Plug>(GitGutterPrevHunk)<Plug>(GitGutterPreviewHunk)
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 " }}} terryma/vim-expand-region
+
+" {{{ LeafCage/yankround.vim
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+let g:yankround_max_history = 50
+" }}} LeafCage/yankround.vim
 
 source $VIMRUNTIME/macros/matchit.vim
 
