@@ -70,6 +70,28 @@ cnoremap <C-k> <C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
 
 nmap <Leader>bd :bdelete<CR>
 
+if has("autocmd")
+  "ファイルタイプの検索を有効にする
+  filetype plugin on
+  "ファイルタイプに合わせたインデントを利用
+  filetype indent on
+  "sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtabの略
+  " autocmd FileType c           setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType html        setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType ruby        setlocal sw=2 sts=2 ts=2 et
+  " autocmd FileType js          setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType zsh         setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType scala       setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType json        setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType html        setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType css         setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType scss        setlocal sw=4 sts=4 ts=4 et
+  " autocmd FileType sass        setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType typescript  setlocal sw=2 sts=2 ts=2 et
+endif
+
+
 " {{{ netrw
 let g:netrw_alto=1
 let g:netrw_altv=1
@@ -105,13 +127,19 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'dense-analysis/ale'
-Plug 'fszymanski/fzf-quickfix', {'on': 'Quickfix'}
+" Plug 'fszymanski/fzf-quickfix', {'on': 'Quickfix'}
 Plug 'andymass/vim-matchup'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-rhubarb'
 Plug 'skanehira/translate.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'LeafCage/yankround.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'chr4/nginx.vim'
+Plug 'hashivim/vim-terraform'
+Plug 'easymotion/vim-easymotion'
+Plug 'google/vim-jsonnet'
+" Plug 'mattn/vim-chatgpt'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -182,7 +210,7 @@ let g:brightest#enable_highlight_all_window=0
 " }}} osyo-match/vim-brightest
 
 " {{{ Shougo/junkfile.vim
-nnoremap <Leader><Space> :JunkfileOpen<CR>
+" nnoremap <Leader><Space> :JunkfileOpen<CR>
 " }}} Shougo/junkfile.vim
 
 " {{{ junegunn/fzf
@@ -204,7 +232,7 @@ nnoremap <silent> <c-x><c-f> :DFiles<CR>
 nnoremap <silent> <c-x><c-g> :GGrep<CR>
 nnoremap <silent> <c-x><c-m> :Marks<CR>
 nnoremap <silent> <c-x><c-r> :Ghq<CR>
-nnoremap <silent> <c-x><c-q> :Quickfix<CR>
+" nnoremap <silent> <c-x><c-q> :Quickfix<CR>
 nnoremap <silent> <c-x><C-p> :GFiles<CR>
 
 set splitright
@@ -263,7 +291,7 @@ endfunction
 command! BD call fzf#run(fzf#wrap({
   \ 'source': s:list_buffers(),
   \ 'sink*': { lines -> s:delete_buffers(lines) },
-  \ 'options': '--multi --reverse --bind ctrl-a:select-all'
+  \ 'options': '--multi --bind ctrl-a:select-all'
 \ }))
 function! s:list_buffers()
   redir => list
@@ -337,6 +365,29 @@ au FileType yaml :IndentGuidesEnable
 au FileType yaml,js,javascript,json,html,xml,markdown setlocal ts=2 sts=2 sw=2 expandtab
 
 let g:github_enterprise_urls = ['https://ghe.admin.h']
+
+map <Leader> <Plug>(easymotion-prefix)
+
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
