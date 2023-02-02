@@ -1,56 +1,83 @@
 [core]
-  editor = vim
-  excludesfile = ~/.gitignore
-  autoCRLF = false
-  ignorecase = false
+    editor = vim
+    excludesfile = ~/.gitignore
+    autoCRLF = false
+    ignorecase = false
 
 [alias]
-  aliase = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
-  br = branch
-  ci = commit
-  co = checkout
-  dc = diff --cached
-  df = diff
-  graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
-  root = rev-parse --show-toplevel
-  sfu = submodule update --init --recursive
-  st = status
-  tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
-  branch-clean = "!git branch --merged | grep -v '*' | xargs -I % git branch -d %"
-  default-branch = "!git symbolic-ref --short refs/remotes/origin/HEAD | awk -F '/' '{print $NF}'"
+    alias = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
+    branch-clean = "!git branch --merged | grep -v '*' | xargs -I % git branch -d %"
+    default-branch = "!git symbolic-ref --short refs/remotes/origin/HEAD | awk -F '/' '{print $NF}'"
+    graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+    pull-clean = "!git switch `git default-branch` && git pull --prune && git branch-clean"
+    root = rev-parse --show-toplevel
+    sfu = submodule update --init --recursive
+    tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
+
+    ; ad = add
+    ; br = branch
+    ; co = commit
+    ; ch = checkout
+    ; di = diff
+    ; st = status
+    ; sw = switch
 
 [push]
-  default = upstream
+    default = upstream
 
 [branch]
-  autosetuprebase = always
+    autosetuprebase = always
 
 [merge]
-  ff = false
+    ff = false
 
 [pull]
-  rebase = false
+    rebase = false
 
 [color]
-  diff = auto
-  status = auto
-  branch = auto
-  interactive = auto
-  ui = auto
-  pager = true
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = auto
+    pager = true
 
 [color "advice"]
-  hint = green
+    hint = green
 
 [commit]
-  template = ~/.gitmessage
+    template = ~/.gitmessage
 
 [include]
-  path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
 
 [github]
-  user = hayajo
+    user = hayajo
 
 [ghq]
-root = ~/go/src
-root = ~/ghq
+    root = ~/go/src
+    root = ~/ghq
+
+[user]
+    name = hayajo
+    ; email = 848587+hayajo@users.noreply.github.com
+    email = hayajo_77@hatena.ne.jp
+
+[init]
+    defaultBranch = main
+
+; [pager]
+    ; diff = delta
+    ; log = delta
+    ; reflog = delta
+    ; show = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    side-by-side = true
+
+[interactive]
+    diffFilter = delta --color-only
