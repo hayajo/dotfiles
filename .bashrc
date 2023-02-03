@@ -92,4 +92,4 @@ if [ -n "${FZF_PREFIX}" ]; then
   export FZF_DEFAULT_OPTS="--height 40% --border --color=dark"
 fi
 
-eval "$(dt irenv hook bash)"
+eval "$(direnv hook bash)"
