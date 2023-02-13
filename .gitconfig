@@ -62,7 +62,7 @@
     name = hayajo
     email = 848587+hayajo@users.noreply.github.com
     ; email = hayajo_77@hatena.ne.jp
-	signingkey = /Users/hayato/.ssh/id_ed25519_github_sign.pub
+    signingkey = /Users/hayato/.ssh/id_ed25519_github_sign.pub
 
 [init]
     defaultBranch = main
@@ -84,4 +84,4 @@
     diffFilter = delta --color-only
 
 [gpg]
-	format = ssh
+    format = ssh
