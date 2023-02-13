@@ -68,10 +68,10 @@ alias edit='vim'
 
 alias kill-sshuttle="test -f ~/.config/sshuttle/sshuttle.pid && sudo kill -TERM \$(cat ~/.config/sshuttle/sshuttle.pid) && echo 'sshuttle Disconnected'"
 
-if [ -n "${BREW_PREFIX}" ]; then
+if [ -n "$HOMEBREW_PREFIX" ]; then
   __appends=""
-  if  [ -f "${BREW_PREFIX}/etc/bash_completion" ]; then
-    source "${BREW_PREFIX}/etc/bash_completion"
+  if  [ -f "${HOMEBREW_PREFIX}/etc/bash_completion" ]; then
+    source "${HOMEBREW_PREFIX}/etc/bash_completion"
     export PROMPT_DIRTRIM=2
     export GIT_PS1_SHOWDIRTYSTATE=1
     export GIT_PS1_SHOWUPSTREAM=1
