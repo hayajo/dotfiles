@@ -80,7 +80,9 @@ if [ -n "$HOMEBREW_PREFIX" ]; then
     __appends=${__appends}'\[\e[00;33m\]$(__git_ps1)'
   fi
 
-  which kubectl >/dev/null && __appends='\[\e[04;31m\]($(kubectl config current-context))'${__appends}
+  which kubectl >/dev/null \
+    && kubectl config current-context >/dev/null 2>&1 \
+    && __appends='\[\e[04;31m\]($(kubectl config current-context))'${__appends}
 
   # export PS1='\[\e[01;34m\]\w'${__appends}'\[\e[01;34m\] \$ \[\e[m\]'
   export PS1=${__appends}' \[\e[01;34m\]\w \$ \[\e[m\]'
