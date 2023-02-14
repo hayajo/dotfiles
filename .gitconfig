@@ -33,6 +33,7 @@
 
 [pull]
     rebase = false
+    ff = only
 
 [color]
     diff = auto
@@ -47,6 +48,7 @@
 
 [commit]
     template = ~/.gitmessage
+	gpgsign = true
 
 [include]
     path = ~/.gitconfig.local
@@ -85,3 +87,13 @@
 
 [gpg]
     format = ssh
+
+[fetch]
+	prune = true
+
+[rebase]
+	autostash = true
+	autosquash = true
+
+[grep]
+	lineNumber = true
