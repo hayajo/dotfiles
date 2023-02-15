@@ -3,6 +3,7 @@
     excludesfile = ~/.gitignore
     autoCRLF = false
     ignorecase = false
+    pager = delta
 
 [alias]
     alias = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
@@ -69,11 +70,11 @@
 [init]
     defaultBranch = main
 
-; [pager]
-    ; diff = delta
-    ; log = delta
-    ; reflog = delta
-    ; show = delta
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
 
 [delta]
     plus-style = "syntax #012800"
