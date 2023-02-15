@@ -26,5 +26,8 @@ export PATH=""${HOME}/.krew/bin:${PATH}""
 FZF_PREFIX="$(brew --prefix fzf)" && export FZF_PREFIX
 # JAVA_HOME="$(/usr/libexec/java_home -v 11)" && export JAVA_HOME
 
+# for fzf >= 0.36.0
+export RUNEWIDTH_EASTASIAN=0
+
 [ -f "${HOME}/.bashrc" ] && . "${HOME}/.bashrc"
 [ -f "${HOME}/.bashrc.local" ] && . "${HOME}/.bashrc.local"
