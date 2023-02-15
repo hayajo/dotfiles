@@ -9,7 +9,8 @@ set hidden
 set ignorecase
 set incsearch
 set list
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+" set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:>\ ,trail:~,extends:>,precedes:<,nbsp:%
 set matchtime=1
 set nocompatible
 set noswapfile
@@ -25,6 +26,7 @@ set updatetime=300
 set wildmenu
 set wildmode=longest:full,full
 " set spelllang=en,cjk
+set ambiwidth=double
 
 " let mapleader=","
 let mapleader="\<Space>"
