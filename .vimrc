@@ -153,8 +153,9 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 " colorscheme iceberg
-colorscheme codedark
+let g:codedark_transparent=1
 let g:airline_theme = 'codedark'
+colorscheme codedark
 highlight clear Cursorline
 highlight CursorLine gui=underline cterm=underline
 " }}} color
