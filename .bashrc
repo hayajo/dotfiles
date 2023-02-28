@@ -77,14 +77,15 @@ if [ -n "$HOMEBREW_PREFIX" ]; then
     export GIT_PS1_SHOWUPSTREAM=1
     export GIT_PS1_SHOWUNTRACKEDFILES=
     export GIT_PS1_SHOWSTASHSTATE=1
+    # shellcheck disable=SC2016
     __appends=${__appends}'\[\e[00;33m\]$(__git_ps1)'
   fi
 
+  # shellcheck disable=SC2016
   which kubectl >/dev/null \
     && kubectl config current-context >/dev/null 2>&1 \
     && __appends='\[\e[04;31m\]($(kubectl config current-context))'${__appends}
 
-  # export PS1='\[\e[01;34m\]\w'${__appends}'\[\e[01;34m\] \$ \[\e[m\]'
   export PS1=${__appends}' \[\e[01;34m\]\w \$ \[\e[m\]'
 fi
 
