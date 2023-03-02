@@ -70,8 +70,9 @@ alias kill-sshuttle="test -f ~/.config/sshuttle/sshuttle.pid && sudo kill -TERM 
 
 if [ -n "$HOMEBREW_PREFIX" ]; then
   __appends=""
-  if  [ -f "${HOMEBREW_PREFIX}/etc/bash_completion" ]; then
-    source "${HOMEBREW_PREFIX}/etc/bash_completion"
+  BASH_COMPLETION="${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  if  [ -r "$BASH_COMPLETION" ]; then
+    . "$BASH_COMPLETION"
     export PROMPT_DIRTRIM=2
     export GIT_PS1_SHOWDIRTYSTATE=1
     export GIT_PS1_SHOWUPSTREAM=1
