@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-echo "[DEBUG] eval zshrc"
+echo "[DEBUG] eval .zshrc"
 
 # like 'unix-filename-rubout' in bash.
 autoload -U select-word-style

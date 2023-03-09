@@ -2,7 +2,7 @@
 # shellcheck disable=SC1090,SC1091
 
 # DEBUG
-echo "[DEBUG] eval zprofile"
+echo "[DEBUG] eval .zprofile"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
