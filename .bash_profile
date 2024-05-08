@@ -30,20 +30,16 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
         . "$ASDF_PREFIX/etc/bash_completion.d/asdf.bash"
     fi
 
-    # git の環境変数を設定する
-    GIT_PREFIX=$(brew --prefix git)
-    test -d "$GIT_PREFIX" && export GIT_PREFIX
-
-    # fzf の環境変数を設定する
-    FZF_PREFIX=$(brew --prefix fzf)
-    test -d "$FZF_PREFIX" && export FZF_PREFIX
-
-    DIRENV_PREFIX=$(brew --prefix direnv)
-    test -d "$DIRENV_PREFIX" && export DIRENV_PREFIX
-
     # coreutils の libexec/gnubin を PATH に追加する
     COREUTILS_PREFIX=$(brew --prefix coreutils)
     test -d "$COREUTILS_PREFIX" && export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
+
+    # git の補完とプロンプト用の関数をロードする
+    GIT_PREFIX=$(brew --prefix git)
+    if [ -d "$GIT_PREFIX" ]; then
+        . "$GIT_PREFIX/etc/bash_completion.d/git-completion.bash"
+        . "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh"
+    fi
 }
 
 : "Configure PATH" && {
@@ -54,12 +50,12 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 : "Startup" && {
     # ssh-agent が起動していない場合は起動する
-    [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent)"
+    test -z "$SSH_AUTH_SOCK" && eval "$(ssh-agent)"
 }
 
 : "Load .bashrc" && {
     # .bashrc が存在する場合は読み込む
-    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+    test -r "$HOME/.bashrc" && . "$HOME/.bashrc"
     # .bashrc.local が存在する場合は読み込む
-    [ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"
+    test -r "$HOME/.bashrc.local" && . "$HOME/.bashrc.local"
 }
