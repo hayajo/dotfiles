@@ -43,10 +43,6 @@ function vscode {
 : "Configure Prompt" && {
     __ps1=""
 
-    # Homebrew の bash_completion を読み込む
-    BASH_COMPLETION="${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-    test -r "$BASH_COMPLETION" && . "$BASH_COMPLETION"
-
     # git のブランチ名を表示する
     if type __git_ps1 &>/dev/null; then
         export PROMPT_DIRTRIM=2
