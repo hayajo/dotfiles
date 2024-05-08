@@ -9,14 +9,13 @@ set hidden
 set ignorecase
 set incsearch
 set list
-" set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 set listchars=tab:>\ ,trail:~,extends:>,precedes:<,nbsp:%
 set matchtime=1
 set nocompatible
 set noswapfile
 set number
 set pumheight=10
-" set scrolloff=999 " always keep the cursor centered. fzf_layoutのwindowと相性が悪いので注意.
+set scrolloff=999 " always keep the cursor centered. fzf_layoutのwindowと相性が悪いので注意.
 set shiftwidth=4
 set showmatch
 set smartcase
@@ -25,17 +24,15 @@ set tabstop=4
 set updatetime=300
 set wildmenu
 set wildmode=longest:full,full
-" set spelllang=en,cjk
 set ambiwidth=double
+set autoread
 
-" let mapleader=","
 let mapleader="\<Space>"
 
 nmap \E :vsplit<CR>:e %:p:h<CR>
 nmap \e :e %:p:h<CR>
 nmap \n :set number!<CR>
 nmap \i :IndentGuidesToggle<CR>
-" nmap \s :set spell!<CR>
 nmap \s <Plug>(spelunker-toggle)
 nmap \w :set wrap!<CR>
 nmap \x :cclose<CR>
@@ -77,28 +74,14 @@ if has("autocmd")
   filetype plugin on
   "ファイルタイプに合わせたインデントを利用
   filetype indent on
-  "sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtabの略
-  " autocmd FileType c           setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType html        setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType ruby        setlocal sw=2 sts=2 ts=2 et
-  " autocmd FileType js          setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType zsh         setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType scala       setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType json        setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType html        setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType css         setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType scss        setlocal sw=4 sts=4 ts=4 et
-  " autocmd FileType sass        setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType typescript  setlocal sw=2 sts=2 ts=2 et
+  "NOTE: sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtabの略
+  autocmd FileType yaml,js,javascript,json,typescript,html,xml,markdown setlocal sw=2 sts=2 ts=2 et
 endif
 
 
 " {{{ netrw
-let g:netrw_alto=1
-let g:netrw_altv=1
 let g:netrw_keepdir=0
-let g:netrw_special_syntax= 1
+let g:netrw_special_syntax=1
 " }}} netrw
 
 " {{{ junegunn/vim-plug
@@ -108,12 +91,11 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'osyo-manga/vim-brightest'
 Plug 'Shougo/junkfile.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
-" Plug 'h1mesuke/vim-alignta'
 Plug 'maralla/completor.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'derekwyatt/vim-scala'
@@ -129,7 +111,6 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'dense-analysis/ale'
-" Plug 'fszymanski/fzf-quickfix', {'on': 'Quickfix'}
 Plug 'andymass/vim-matchup'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-rhubarb'
@@ -139,9 +120,7 @@ Plug 'LeafCage/yankround.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'chr4/nginx.vim'
 Plug 'hashivim/vim-terraform'
-Plug 'easymotion/vim-easymotion'
 Plug 'google/vim-jsonnet'
-" Plug 'mattn/vim-chatgpt'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -178,11 +157,6 @@ vmap <Leader>cd <plug>NERDCommenterAppend
 let g:go_highlight_functions=1
 let g:go_highlight_methods=1
 let g:go_highlight_structs=1
-" let g:go_highlight_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_function_calls = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
 
@@ -205,28 +179,12 @@ autocmd FileType go nmap gp :GoDefPop<CR>
 " }}} fatih/vim-go
 
 " {{{ osyo-match/vim-brightest
-" let g:brightest#highlight={"group": "BrightestUnderline"}
 let g:brightest#highlight={"group": "BrightestReverse"}
 let g:brightest#enable_on_CursorHold=1
-" let g:brightest#enable_highlight_all_window=1
 let g:brightest#enable_highlight_all_window=0
 " }}} osyo-match/vim-brightest
 
-" {{{ Shougo/junkfile.vim
-" nnoremap <Leader><Space> :JunkfileOpen<CR>
-" }}} Shougo/junkfile.vim
-
 " {{{ junegunn/fzf
-" nnoremap <silent> <Space><Space> :History<CR>
-" nnoremap <silent> <Space>a :Ag<CR>
-" nnoremap <silent> <Space>b :Buffers<CR>
-" nnoremap <silent> <Space>d :BD<CR>
-" nnoremap <silent> <Space>f :DFiles<CR>
-" nnoremap <silent> <Space>g :GGrep<CR>
-" nnoremap <silent> <Space>m :Marks<CR>
-" nnoremap <silent> <Space>r :Ghq<CR>
-" nnoremap <silent> <Space>q :Quickfix<CR>
-" nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <c-x><c-x> :History<CR>
 nnoremap <silent> <c-x><c-a> :Ag<CR>
 nnoremap <silent> <c-x><c-b> :Buffers<CR>
@@ -235,15 +193,12 @@ nnoremap <silent> <c-x><c-f> :DFiles<CR>
 nnoremap <silent> <c-x><c-g> :GGrep<CR>
 nnoremap <silent> <c-x><c-m> :Marks<CR>
 nnoremap <silent> <c-x><c-r> :Ghq<CR>
-" nnoremap <silent> <c-x><c-q> :Quickfix<CR>
 nnoremap <silent> <c-x><C-p> :GFiles<CR>
 
 set splitright
 set splitbelow
 
-" let $FZF_DEFAULT_OPTS = '--reverse'
-
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Comment' } }
+let g:fzf_layout = { 'down': '40%' } " `set scrolloff=xxx` を使うために down レイアウトに変更
 
 command! -bang -nargs=* Ag call fzf#vim#ag(
             \ <q-args>,
@@ -335,17 +290,6 @@ let g:ale_linters = {
 " {{{ airblade/vim-gitgutter
 nmap ]h <Plug>(GitGutterNextHunk)<Plug>(GitGutterPreviewHunk)
 nmap [h <Plug>(GitGutterPrevHunk)<Plug>(GitGutterPreviewHunk)
-
-" カーソルがhunkに移動したときに変更をプレビューする
-" au CursorMoved * if exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active(bufnr('')) |
-    " \   if gitgutter#hunk#in_hunk(line('.')) |
-    " \       if getwinvar(winnr("#"), "&pvw") == 0 |
-    " \           call gitgutter#hunk#preview() |
-    " \       endif |
-    " \   else |
-    " \       pclose |
-    " \   endif |
-    " \ endif
 " }}} airblade/vim-gitgutter
 
 
@@ -365,32 +309,6 @@ let g:yankround_max_history = 50
 source $VIMRUNTIME/macros/matchit.vim
 
 au FileType yaml :IndentGuidesEnable
-au FileType yaml,js,javascript,json,html,xml,markdown setlocal ts=2 sts=2 sw=2 expandtab
-
-let g:github_enterprise_urls = ['https://ghe.admin.h']
-
-map <Leader> <Plug>(easymotion-prefix)
-
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-
 
 " vim: foldmethod=marker
 " vim: foldmarker={{{,}}}
