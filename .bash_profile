@@ -30,6 +30,10 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
         . "$ASDF_PREFIX/etc/bash_completion.d/asdf.bash"
     fi
 
+    # git の環境変数を設定する
+    GIT_PREFIX=$(brew --prefix git)
+    test -d "$GIT_PREFIX" && export GIT_PREFIX
+
     # fzf の環境変数を設定する
     FZF_PREFIX=$(brew --prefix fzf)
     test -d "$FZF_PREFIX" && export FZF_PREFIX

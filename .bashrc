@@ -44,12 +44,15 @@
     test -r "$BASH_COMPLETION" && . "$BASH_COMPLETION"
 
     # git のブランチ名を表示する
-    brew --prefix git >/dev/null 2>&1 && {
+    test -n "$GIT_PREFIX" && {
         export PROMPT_DIRTRIM=2
         export GIT_PS1_SHOWDIRTYSTATE=1
         export GIT_PS1_SHOWUPSTREAM=1
         export GIT_PS1_SHOWUNTRACKEDFILES=
         export GIT_PS1_SHOWSTASHSTATE=1
+
+        . "$GIT_PREFIX/etc/bash_completion.d/git-completion.bash"
+        . "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh"
 
         # shellcheck disable=SC2016
         __appends=${__appends}'\[\e[00;33m\]$(__git_ps1)'
