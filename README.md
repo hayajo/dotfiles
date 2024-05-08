@@ -1,19 +1,11 @@
-dotfiles
-========
+# dotfiles
 
-Install
--------
+## Deploy
 
-Initialize submodule.
+```shell
+./setup.sh
+```
 
-    $ git submodule init; git submodule update
-
-deploy dotfiles.
-
-    $ ./setup.sh
-
-
-Vim
----
+## Vim
 
 Run `:PlugInstall` to install plugins.
