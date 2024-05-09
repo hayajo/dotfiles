@@ -41,6 +41,20 @@ function vscode {
 
 # プロンプトを設定する
 : "Configure Prompt" && {
+    : "FIXME" && {
+        # ~/.bash_profile でロードしても有効になるのはログインシェルだけなので ~/.bashrc でロードしている
+        # SEE ALSO: https://docs.brew.sh/Shell-Completion#configuring-completions-in-bash
+        BASH_COMPLETION="$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+        test -r "$BASH_COMPLETION" && . "$BASH_COMPLETION"
+
+        # なぜか git の completion だけロードされないので個別にロードする
+        GIT_PREFIX=$(brew --prefix git)
+        if [ -d "$GIT_PREFIX" ]; then
+            . "$GIT_PREFIX/etc/bash_completion.d/git-completion.bash"
+            . "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh"
+        fi
+    }
+
     __ps1=""
 
     # git のブランチ名を表示する

@@ -20,26 +20,18 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 }
 
 : "Setup Homebrew" && {
+    test -x "/opt/homebrew/bin/brew" || return
+
     # Homebrew の環境変数を設定する
-    [ -x "/opt/homebrew/bin/brew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
     # asdf の環境変数を設定する
     ASDF_PREFIX=$(brew --prefix asdf)
-    if [ -d "$ASDF_PREFIX" ]; then
-        . "$ASDF_PREFIX/libexec/asdf.sh"
-        . "$ASDF_PREFIX/etc/bash_completion.d/asdf.bash"
-    fi
+    test -d "$ASDF_PREFIX" && . "$ASDF_PREFIX/libexec/asdf.sh"
 
     # coreutils の libexec/gnubin を PATH に追加する
     COREUTILS_PREFIX=$(brew --prefix coreutils)
     test -d "$COREUTILS_PREFIX" && export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
-
-    # git の補完とプロンプト用の関数をロードする
-    GIT_PREFIX=$(brew --prefix git)
-    if [ -d "$GIT_PREFIX" ]; then
-        . "$GIT_PREFIX/etc/bash_completion.d/git-completion.bash"
-        . "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh"
-    fi
 }
 
 : "Configure PATH" && {
