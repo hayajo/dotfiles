@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090,SC1091
 
-[ -f /etc/bashrc ] && source /etc/bashrc
+: "Load /etc/bashrc" && {
+  test -r /etc/bashrc && . /etc/bashrc
+}
 
 function vscode {
+    (test $# -eq 1 && test -n "$1") || return
     VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@"
 }
 
