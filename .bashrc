@@ -10,13 +10,13 @@ function vscode {
     VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@"
 }
 
-: "Configure keybinds" && {
+: "Set keybinds" && {
     # Ctrl+w をファイル名に基づく単語削除に変更する
     stty werase undef
     bind '"\C-w": unix-filename-rubout'
 }
 
-: "Set Aiases" && {
+: "Define Aiases" && {
     alias rm='rm -i'
     alias cp='cp -i'
     alias mv='mv -i'
@@ -42,22 +42,22 @@ function vscode {
     alias t='cd "$(find ~/Desktop -maxdepth 1 -type d -name "tmp.*" | fzf --ansi)"'
 }
 
+: "Setup Completions" && {
+    # ~/.bash_profile でロードしても有効になるのはログインシェルだけなので ~/.bashrc でロードしている
+    # SEE ALSO: https://docs.brew.sh/Shell-Completion#configuring-completions-in-bash
+    BASH_COMPLETION="$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+    test -r "$BASH_COMPLETION" && . "$BASH_COMPLETION"
+
+    # なぜか git の completion だけロードされないので個別にロードする
+    GIT_PREFIX=$(brew --prefix git)
+    if [ -d "$GIT_PREFIX" ]; then
+        . "$GIT_PREFIX/etc/bash_completion.d/git-completion.bash"
+        . "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh"
+    fi
+}
+
 # プロンプトを設定する
-: "Configure Prompt" && {
-    : "FIXME" && {
-        # ~/.bash_profile でロードしても有効になるのはログインシェルだけなので ~/.bashrc でロードしている
-        # SEE ALSO: https://docs.brew.sh/Shell-Completion#configuring-completions-in-bash
-        BASH_COMPLETION="$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
-        test -r "$BASH_COMPLETION" && . "$BASH_COMPLETION"
-
-        # なぜか git の completion だけロードされないので個別にロードする
-        GIT_PREFIX=$(brew --prefix git)
-        if [ -d "$GIT_PREFIX" ]; then
-            . "$GIT_PREFIX/etc/bash_completion.d/git-completion.bash"
-            . "$GIT_PREFIX/etc/bash_completion.d/git-prompt.sh"
-        fi
-    }
-
+: "Setup Prompt" && {
     __ps1=""
 
     # git のブランチ名を表示する
