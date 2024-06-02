@@ -96,3 +96,8 @@ function vscode {
     type direnv &>/dev/null || return
     eval "$(direnv hook bash)"
 }
+
+: "Setup Docker" && {
+    # docker の環境は lima で構築する。インスタンス名は default とする。
+    export DOCKER_HOST=unix://$HOME/.lima/default/sock/docker.sock
+}
