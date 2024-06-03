@@ -20,18 +20,18 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 }
 
 : "Setup Homebrew" && {
-    test -x "/opt/homebrew/bin/brew" || return
+    test -x "/opt/homebrew/bin/brew" && {
+        # Homebrew の環境変数を設定する
+        eval "$(/opt/homebrew/bin/brew shellenv)"
 
-    # Homebrew の環境変数を設定する
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+        # asdf の環境変数を設定する
+        ASDF_PREFIX=$(brew --prefix asdf)
+        test -d "$ASDF_PREFIX" && . "$ASDF_PREFIX/libexec/asdf.sh"
 
-    # asdf の環境変数を設定する
-    ASDF_PREFIX=$(brew --prefix asdf)
-    test -d "$ASDF_PREFIX" && . "$ASDF_PREFIX/libexec/asdf.sh"
-
-    # coreutils の libexec/gnubin を PATH に追加する
-    COREUTILS_PREFIX=$(brew --prefix coreutils)
-    test -d "$COREUTILS_PREFIX" && export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
+        # coreutils の libexec/gnubin を PATH に追加する
+        COREUTILS_PREFIX=$(brew --prefix coreutils)
+        test -d "$COREUTILS_PREFIX" && export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
+    }
 }
 
 : "Configure PATH" && {

@@ -85,16 +85,18 @@ function vscode {
 
 : "Setup fzf" && {
     # インタラクティブシェルでのみ fzf を有効にする
-    type fzf &>/dev/null && [[ $- == *i* ]] || return
-    eval "$(fzf --bash)"
-    export FZF_DEFAULT_OPTS="--height 40% --border --color=dark"
-    # NOTE: for >= 0.36.0
-    export RUNEWIDTH_EASTASIAN=0
+    type fzf &>/dev/null && [[ $- == *i* ]] && {
+        eval "$(fzf --bash)"
+        export FZF_DEFAULT_OPTS="--height 40% --border --color=dark"
+        # NOTE: for >= 0.36.0
+        export RUNEWIDTH_EASTASIAN=0
+    }
 }
 
 : "Setup direnv" && {
-    type direnv &>/dev/null || return
-    eval "$(direnv hook bash)"
+    type direnv &>/dev/null && {
+        eval "$(direnv hook bash)"
+    }
 }
 
 : "Setup Docker" && {
