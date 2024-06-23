@@ -10,7 +10,7 @@
     branch-clean = "!git branch --merged | grep -v '*' | xargs -I % git branch -d %"
     default-branch = "!git symbolic-ref --short refs/remotes/origin/HEAD | awk -F '/' '{print $NF}'"
     graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
-    pull-clean = "!git switch `git default-branch` && git pull --prune && git branch-clean"
+    pull-clean = "!git switch `git default-branch` && git pull --prune && git sfu && git branch-clean"
     root = rev-parse --show-toplevel
     sfu = submodule update --init --recursive
     tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
