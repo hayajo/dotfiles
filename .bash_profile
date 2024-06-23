@@ -34,8 +34,13 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
     }
 }
 
+: "Setup krew" && {
+    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+}
+
 : "Configure PATH" && {
     # [ -d "$(go env GOPATH)" ] && PATH="$(go env GOPATH)/bin:$PATH" # Go のパスを追加する
+    type krew &>/dev/null && PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" # krew のパスを追加する
     PATH="$HOME/bin:$PATH" # 自作スクリプトのパスを追加する
     export PATH
 }
@@ -43,6 +48,12 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 : "Startup" && {
     # ssh-agent が起動していない場合は起動する
     test -z "$SSH_AUTH_SOCK" && eval "$(ssh-agent)"
+}
+
+: "Setup nodenv" && {
+    type nodenv &>/dev/null && {
+        eval "$(nodenv init - bash)"
+    }
 }
 
 : "Load .bashrc" && {
