@@ -99,7 +99,10 @@ function vscode {
     }
 }
 
-: "Setup Docker" && {
-    # docker の環境は lima で構築する。インスタンス名は default とする。
-    export DOCKER_HOST=unix://$HOME/.lima/default/sock/docker.sock
-}
+# : "Setup Docker" && {
+    # # docker の環境は lima で構築する。インスタンス名は default とする。
+    # export DOCKER_HOST=unix://$HOME/.lima/default/sock/docker.sock
+    # # docker で実行するアーキテクチャは x86_64 とする
+    # # NOTE: lima を vmType = vz (= aarch64) として構築しているため、指定しないと docker のイメージも aarch64 になってしまう
+    # # export DOCKER_DEFAULT_PLATFORM=linux/amd64
+# }
