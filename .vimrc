@@ -121,6 +121,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'chr4/nginx.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'google/vim-jsonnet'
+Plug 'github/copilot.vim'
 call plug#end()
 " }}} junegunn/vim-plug
 
@@ -305,6 +306,13 @@ nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 50
 " }}} LeafCage/yankround.vim
+
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true,
+    \ 'text': v:true,
+    \ }
 
 source $VIMRUNTIME/macros/matchit.vim
 
