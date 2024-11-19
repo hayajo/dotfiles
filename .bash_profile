@@ -58,6 +58,10 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
     }
 }
 
+: "Load bash-preexec" && {
+    test -f "$HOME/bash-preexec.sh" && . "$HOME/bash-preexec.sh"
+}
+
 : "Load .bashrc" && {
     # .bashrc が存在する場合は読み込む
     test -r "$HOME/.bashrc" && . "$HOME/.bashrc"
