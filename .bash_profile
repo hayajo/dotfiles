@@ -20,6 +20,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 }
 
 : "Setup Homebrew" && {
+    export HOMEBREW_NO_AUTO_UPDATE=1
     test -x "/opt/homebrew/bin/brew" && {
         # Homebrew の環境変数を設定する
         eval "$(/opt/homebrew/bin/brew shellenv)"
