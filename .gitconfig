@@ -16,6 +16,8 @@
     tarball = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
     find-pr = "!git-find-pr.sh $(git log --oneline | fzf | awk '{ print $1 }') "
     log-oneline = "!git log --oneline"
+    log-oneline-name = "!git log --oneline --name-only"
+    log-oneline-name-status = "!git log --oneline --name-status"
 
 [push]
     default = upstream
