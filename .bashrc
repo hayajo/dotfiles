@@ -25,6 +25,8 @@ function vscode {
     alias tmux="tmux attach -d || tmux"
     alias ag="ag -S --pager='less -R'"
 
+    alias vim='nvim'
+
     alias v="view"
     alias vi="vim -u NONE -N"
     alias e='edit'
