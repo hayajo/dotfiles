@@ -35,9 +35,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
     }
 }
 
-: "Setup krew" && {
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-}
+# : "Setup krew" && {
+    # export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# }
 
 : "Configure PATH" && {
     # [ -d "$(go env GOPATH)" ] && PATH="$(go env GOPATH)/bin:$PATH" # Go のパスを追加する
