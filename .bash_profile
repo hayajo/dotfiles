@@ -42,6 +42,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 : "Configure PATH" && {
     # [ -d "$(go env GOPATH)" ] && PATH="$(go env GOPATH)/bin:$PATH" # Go のパスを追加する
     type krew &>/dev/null && PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" # krew のパスを追加する
+    # type /opt/homebrew/opt/socket_vmnet/bin/socket_vmnet && PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket_vmnet のパスを追加する。lima の `--network="lima:shared` で使用する。
     PATH="$HOME/bin:$PATH" # 自作スクリプトのパスを追加する
     export PATH
 }
