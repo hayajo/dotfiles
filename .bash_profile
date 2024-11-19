@@ -4,32 +4,67 @@
 # macOS の警告文を表示しない
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-shopt -s cmdhist
+: "Configure Histroy" && {
+    # 複数行にまたがったコマンドを1行のヒストリに保存する
+    shopt -s cmdhist
+    # ヒストリに同じコマンドを連続して保存しない
+    export HISTCONTROL=ignoredups:erasedups
+    # ヒストリに保存するコマンド数を増やす
+    export HISTSIZE=100000
+    # ヒストリファイルに保存するコマンド数を増やす
+    export HISTFILESIZE=100000
 
-export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=100000
-export HISTFILESIZE=100000
+    # ヒストリファイルに保存する際に重複を削除する
+    shopt -u histappend
+    export PROMPT_COMMAND="history -a; history -c; history -r"
+}
 
-[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent)"
+: "Setup Homebrew" && {
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    test -x "/opt/homebrew/bin/brew" && {
+        # Homebrew の環境変数を設定する
+        eval "$(/opt/homebrew/bin/brew shellenv)"
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+        # asdf の環境変数を設定する
+        ASDF_PREFIX=$(brew --prefix asdf)
+        test -d "$ASDF_PREFIX" && . "$ASDF_PREFIX/libexec/asdf.sh"
 
-. "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
-. "${HOMEBREW_PREFIX}/opt/asdf/etc/bash_completion.d/asdf.bash"
+        # coreutils の libexec/gnubin を PATH に追加する
+        COREUTILS_PREFIX=$(brew --prefix coreutils)
+        test -d "$COREUTILS_PREFIX" && export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
+    }
+}
 
-GOPATH=$(go env GOPATH)
-export GOPATH
+# : "Setup krew" && {
+    # export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# }
 
-export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}"
-export PATH="${HOME}/bin:${PATH}"
-export PATH="${GOPATH}/bin:${PATH}"
-export PATH=""${HOME}/.krew/bin:${PATH}""
+: "Configure PATH" && {
+    # [ -d "$(go env GOPATH)" ] && PATH="$(go env GOPATH)/bin:$PATH" # Go のパスを追加する
+    type krew &>/dev/null && PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" # krew のパスを追加する
+    # type /opt/homebrew/opt/socket_vmnet/bin/socket_vmnet && PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket_vmnet のパスを追加する。lima の `--network="lima:shared` で使用する。
+    PATH="$HOME/bin:$PATH" # 自作スクリプトのパスを追加する
+    export PATH
+}
 
-FZF_PREFIX="$(brew --prefix fzf)" && export FZF_PREFIX
-# JAVA_HOME="$(/usr/libexec/java_home -v 11)" && export JAVA_HOME
+: "Startup" && {
+    # ssh-agent が起動していない場合は起動する
+    test -z "$SSH_AUTH_SOCK" && eval "$(ssh-agent)"
+}
 
-# for fzf >= 0.36.0
-export RUNEWIDTH_EASTASIAN=0
+: "Setup nodenv" && {
+    type nodenv &>/dev/null && {
+        eval "$(nodenv init - bash)"
+    }
+}
 
-[ -f "${HOME}/.bashrc" ] && . "${HOME}/.bashrc"
-[ -f "${HOME}/.bashrc.local" ] && . "${HOME}/.bashrc.local"
+: "Load bash-preexec" && {
+    test -f "$HOME/bash-preexec.sh" && . "$HOME/bash-preexec.sh"
+}
+
+: "Load .bashrc" && {
+    # .bashrc が存在する場合は読み込む
+    test -r "$HOME/.bashrc" && . "$HOME/.bashrc"
+    # .bashrc.local が存在する場合は読み込む
+    test -r "$HOME/.bashrc.local" && . "$HOME/.bashrc.local"
+}
