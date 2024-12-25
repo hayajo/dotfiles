@@ -1,0 +1,7 @@
+*~
+*.bak
+*.old
+*.log
+*.swp
+.vagrant*
+.DS_Store
