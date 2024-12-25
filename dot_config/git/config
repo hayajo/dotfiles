@@ -1,0 +1,95 @@
+[core]
+    editor       = vim
+    excludesfile = ~/.config/git/gitignore
+    autoCRLF     = false
+    ignorecase   = false
+    pager        = delta
+
+[alias]
+    alias                   = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
+    branch-clean            = "!git branch --merged | grep -v '*' | xargs -I % git branch -d %"
+    default-branch          = "!git symbolic-ref --short refs/remotes/origin/HEAD | awk -F '/' '{print $NF}'"
+    graph                   = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+    pull-clean              = "!git switch `git default-branch` && git pull --prune && git sfu && git branch-clean"
+    root                    = rev-parse --show-toplevel
+    sfu                     = submodule update --init --recursive
+    tarball                 = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
+    find-pr                 = "!git-find-pr.sh $(git log --oneline | fzf | awk '{ print $1 }') "
+    log-oneline             = "!git log --oneline"
+    log-oneline-name        = "!git log --oneline --name-only"
+    log-oneline-name-status = "!git log --oneline --name-status"
+    repo-view               = "!gh repo view -w --branch \"$(git branch --show-current)\""
+
+[push]
+    default = upstream
+
+[branch]
+    autosetuprebase = always
+
+[merge]
+    ff = false
+
+[pull]
+    rebase = false
+    ff = only
+
+[color]
+    diff        = auto
+    status      = auto
+    branch      = auto
+    interactive = auto
+    ui          = auto
+    pager       = true
+
+[color "advice"]
+    hint = green
+
+[commit]
+    template = ~/.config/git/template.txt
+	gpgsign  = true
+
+[github]
+    user = hayajo
+
+[user]
+    name       = hayajo
+    email      = 848587+hayajo@users.noreply.github.com
+    signingkey = ~/.ssh/id_ed25519_github.pub
+
+[init]
+    defaultBranch = main
+
+[pager]
+    diff   = delta
+    log    = delta
+    reflog = delta
+    show   = delta
+
+[delta]
+    plus-style   = "syntax #012800"
+    minus-style  = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate     = true
+    side-by-side = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[gpg]
+    format = ssh
+
+[fetch]
+	prune = true
+
+[rebase]
+	autostash  = true
+	autosquash = true
+
+[grep]
+	lineNumber = true
+
+[ghq]
+    root = ~/work
+
+[include]
+    path = ~/.config/git/config.local

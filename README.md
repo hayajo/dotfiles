@@ -1,11 +1,17 @@
 # dotfiles
 
-## Deploy
+## 1. Install chezmoi
 
-```shell
-./setup.sh
+[chezmoi \- chezmoi](https://www.chezmoi.io/)
+
+```sh-session
+brew install chezmoi
 ```
 
-## Vim
+## 2. Init dotfiles
 
-Run `:PlugInstall` to install plugins.
+```sh-session
+chezmoi init --apply --ssh hayajo
+```
+
+Please refer to [Daily operations \- chezmoi](https://www.chezmoi.io/user-guide/daily-operations/) for further operations.
