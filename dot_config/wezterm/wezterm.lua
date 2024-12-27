@@ -6,7 +6,7 @@ config.window_background_opacity    = 0.88
 -- config.macos_window_background_blur = 20
 
 -- config.font                      = wezterm.font("Monaco")
-config.font                      = wezterm.font("Menlo")
+config.font                      = wezterm.font("JetBrains Mono")
 config.font_size                 = 14.0
 config.command_palette_font_size = 18.0
 
