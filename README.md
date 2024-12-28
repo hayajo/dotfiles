@@ -1,14 +1,19 @@
 # dotfiles
 
-## 1. Install chezmoi
-
-[chezmoi \- chezmoi](https://www.chezmoi.io/)
+## 1. Setup Homebrew
 
 ```sh-session
-brew install chezmoi
+xcode-select --install
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-## 2. Init dotfiles
+## 2. Install packages
+
+```sh-session
+brew bundle --global --file /PATH/TO/dot_Brewfile
+```
+
+## 3. Init dotfiles w/ chezmoi
 
 ```sh-session
 chezmoi init --apply --ssh hayajo
