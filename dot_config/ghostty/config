@@ -1,0 +1,21 @@
+font-family  = "JetBrains Mono"
+font-size    = 13
+font-feature = -dlig
+font-feature = -calt
+font-feature = -liga
+
+background-opacity      = 0.90
+unfocused-split-opacity = 0.30
+
+keybind = ctrl+t>v=new_split:right
+keybind = ctrl+t>s=new_split:down
+
+keybind = ctrl+t>j=goto_split:bottom
+keybind = ctrl+t>k=goto_split:top
+keybind = ctrl+t>h=goto_split:left
+keybind = ctrl+t>l=goto_split:right
+keybind = ctrl+t>z=equalize_splits
+
+keybind = ctrl+t>c=new_tab
+keybind = ctrl+t>p=previous_tab
+keybind = ctrl+t>n=next_tab
