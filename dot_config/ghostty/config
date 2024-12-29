@@ -20,5 +20,3 @@ keybind = ctrl+t>z=equalize_splits
 keybind = ctrl+t>c=new_tab
 keybind = ctrl+t>p=previous_tab
 keybind = ctrl+t>n=next_tab
-
-# keybind = ctrl+t>w=write_scrollback_file:open
