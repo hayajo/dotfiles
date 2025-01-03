@@ -6,6 +6,11 @@
             "filetypes": ["terraform", "tf"],
             "initializationOptions": {},
             "settings": {}
+        },
+        "rust-analyzer": {
+            "check": {
+                "command": "clippy"
+            }
         }
     }
 }
