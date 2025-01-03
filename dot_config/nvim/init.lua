@@ -176,12 +176,9 @@ vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("n", "Y", "y$", { noremap = true })
 -- Split window and explore current directory
 vim.keymap.set("n", "\\E", ":vsplit<CR>:e %:p:h<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "¥E", ":vsplit<CR>:e %:p:h<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "\\e", ":e %:p:h<CR>",            { noremap = true, silent = true })
-vim.keymap.set("n", "¥e", ":e %:p:h<CR>",            { noremap = true, silent = true })
 -- Toggle line numbers
 vim.keymap.set("n", "\\n", ":set number!<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "¥n", ":set number!<CR>", { noremap = true, silent = true })
 -- Emacs-like keybindings for insert mode
 -- vim.keymap.set("i", "<C-p>", "<Up>",      { noremap = true })
 -- vim.keymap.set("i", "<C-n>", "<Down>",    { noremap = true })
