@@ -250,6 +250,6 @@ set_ft({ ".terraformrc", "terraform.rc" }, "hcl")
 set_ft({ "*.tf", "*.tfvars" }, "terraform")
 set_ft({ "*.tfstate", "*.tfstate.backup" }, "json")
 
-vim.g.terraform_fmt_on_save =1
-vim.g.terraform_align       =1
+vim.g.terraform_fmt_on_save = 1
+vim.g.terraform_align       = 1
 -- }}}
