@@ -1,4 +1,5 @@
 {
+    "coc.preferences.formatOnSave": true,
     "languageserver": {
         "terraform": {
             "command": "terraform-ls",
