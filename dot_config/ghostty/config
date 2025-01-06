@@ -1,10 +1,12 @@
+theme = tokyonight_night
+
 font-family  = "JetBrains Mono"
 font-size    = 13
 font-feature = -dlig
 font-feature = -calt
 font-feature = -liga
 
-background-opacity      = 0.90
+# background-opacity      = 0.90
 unfocused-split-opacity = 0.30
 
 keybind = ctrl+t>v=new_split:right
