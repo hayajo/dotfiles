@@ -20,9 +20,6 @@ require("lazy").setup({
     {
         "ibhagwan/fzf-lua",
         keys = {
-            -- {"<C-x><Space>", ":FzfLua builtin<CR>", mode = "n"},
-            -- {"<C-x><C-p>", ":FzfLua git_files<CR>", mode = "n"},
-            -- {"<C-x><C-f>", ":FzfLua live_grep { cmd = "git grep --line-number --column --color=always" }<CR>", mode = "n"},
             {"<C-x>P", ":FzfLua builtin<CR>",   mode = "n"},
             {"<C-x>p", ":FzfLua git_files<CR>", mode = "n"},
             {"<C-x>b", ":FzfLua buffers<CR>",   mode = "n"},
