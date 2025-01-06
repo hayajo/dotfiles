@@ -178,8 +178,6 @@ vim.keymap.set("n", "\\e", ":e %:p:h<CR>",            { noremap = true, silent =
 -- Toggle line numbers
 vim.keymap.set("n", "\\n", ":set number!<CR>", { noremap = true, silent = true })
 -- Emacs-like keybindings for insert mode
-vim.keymap.set("i", "<C-p>", "<Up>",      { noremap = true })
-vim.keymap.set("i", "<C-n>", "<Down>",    { noremap = true })
 vim.keymap.set("i", "<C-f>", "<Right>",   { noremap = true })
 vim.keymap.set("i", "<C-b>", "<Left>",    { noremap = true })
 vim.keymap.set("i", "ƒ",     "<C-Right>", { noremap = true }) -- Alt-f
@@ -189,12 +187,11 @@ vim.keymap.set("i", "<C-e>", "<End>",     { noremap = true })
 vim.keymap.set("i", "<C-d>", "<Del>",     { noremap = true })
 vim.keymap.set("i", "<C-h>", "<BS>",      { noremap = true })
 vim.keymap.set("i", "<C-k>", "<C-o>C",    { noremap = true })
--- vim.keymap.set("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]],     { expr = true })
--- vim.keymap.set("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
-vim.keymap.set("i", "<C-p>",   [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"]],      { expr = true })
-vim.keymap.set("i", "<C-n>",   [[coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"]],      { expr = true })
-vim.keymap.set("i", "<Tab>",   [[coc#pum#visible() ? coc#pum#confirm() : "\<Tab>"]],    { expr = true })
-vim.keymap.set("i", "<Enter>", [[coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"]],  { expr = true })
+vim.keymap.set("i", "<C-o>", "<C-o>O",    { noremap = true }) -- Insert a new line above the current line
+vim.keymap.set("i", "<C-p>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#prev(1)") or "<Up>" end, { silent = true, expr = true, noremap = true })
+vim.keymap.set("i", "<C-n>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#next(1)") or "<Down>" end, { silent = true, expr = true, noremap = true })
+vim.keymap.set("i", "<Tab>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Tab>" end, { silent = true, expr = true, noremap = true })
+vim.keymap.set("i", "<Enter>", function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Enter>" end, { silent = true, expr = true, noremap = true })
 -- Emacs-like keybindings for command-line mode
 vim.keymap.set("c", "<C-p>", "<Up>",    { noremap = true })
 vim.keymap.set("c", "<C-n>", "<Down>",  { noremap = true })
