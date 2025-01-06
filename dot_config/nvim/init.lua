@@ -116,7 +116,8 @@ vim.g.copilot_filetypes = {
     gitcommit = true,
     markdown  = true,
     yaml      = true,
-    text      = true
+    text      = true,
+    rust      = true,
 }
 
 vim.cmd[[colorscheme tokyonight-night]]
