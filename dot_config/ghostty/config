@@ -1,7 +1,7 @@
 theme = tokyonight_night
 
 font-family  = "JetBrains Mono"
-font-size    = 13
+font-size    = 14
 font-feature = -dlig
 font-feature = -calt
 font-feature = -liga
