@@ -15,9 +15,9 @@
     sfu                     = submodule update --init --recursive
     tarball                 = "!f() { PREFIX=$(basename `pwd`); git archive --format=tar --prefix ${PREFIX}/ HEAD | gzip > ${PREFIX}-HEAD.tar.gz ; }; `f` && echo 'archived HEAD'"
     find-pr                 = "!git-find-pr.sh $(git log --oneline | fzf | awk '{ print $1 }') " ; https://gist.github.com/hayajo/d391e31513dfb11d419fa28ce2224d02
-    log-oneline             = "!git log --oneline"
-    log-oneline-name        = "!git log --oneline --name-only"
-    log-oneline-name-status = "!git log --oneline --name-status"
+    log-oneline             = log --oneline
+    log-oneline-name        = log --oneline --name-only
+    log-oneline-name-status = log --oneline --name-status
     repo-view               = "!gh repo view -w --branch \"$(git branch --show-current)\""
 
 [push]
