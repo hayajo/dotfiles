@@ -17,7 +17,7 @@ keybind = ctrl+t>j=goto_split:bottom
 keybind = ctrl+t>k=goto_split:top
 keybind = ctrl+t>h=goto_split:left
 keybind = ctrl+t>l=goto_split:right
-keybind = ctrl+t>z=equalize_splits
+keybind = ctrl+t>equal=equalize_splits
 
 keybind = ctrl+t>c=new_tab
 keybind = ctrl+t>p=previous_tab
