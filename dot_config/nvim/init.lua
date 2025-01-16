@@ -190,7 +190,7 @@ vim.keymap.set("i", "<C-k>", "<C-o>C",    { noremap = true })
 vim.keymap.set("i", "<C-o>", "<C-o>O",    { noremap = true }) -- Insert a new line above the current line
 vim.keymap.set("i", "<C-p>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#prev(1)") or "<Up>" end, { silent = true, expr = true, noremap = true })
 vim.keymap.set("i", "<C-n>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#next(1)") or "<Down>" end, { silent = true, expr = true, noremap = true })
-vim.keymap.set("i", "<Tab>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Tab>" end, { silent = true, expr = true, noremap = true })
+-- vim.keymap.set("i", "<Tab>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Tab>" end, { silent = true, expr = true, noremap = true })
 vim.keymap.set("i", "<Enter>", function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Enter>" end, { silent = true, expr = true, noremap = true })
 -- Emacs-like keybindings for command-line mode
 vim.keymap.set("c", "<C-p>", "<Up>",    { noremap = true })
