@@ -54,7 +54,7 @@
 [user]
     name       = hayajo
     email      = 848587+hayajo@users.noreply.github.com
-    signingkey = ~/.ssh/id_ed25519_github.pub
+    signingkey = ~/.ssh/id_ed25519_github_personal_sign.pub
 
 [init]
     defaultBranch = main
