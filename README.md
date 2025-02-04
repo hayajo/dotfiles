@@ -10,7 +10,7 @@ xcode-select --install
 ## 2. Install packages
 
 ```sh-session
-brew bundle --global --file /PATH/TO/dot_Brewfile
+brew bundle --file /PATH/TO/dot_Brewfile
 ```
 
 ## 3. Init dotfiles w/ chezmoi
