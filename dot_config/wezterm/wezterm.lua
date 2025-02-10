@@ -10,6 +10,12 @@ config.font                      = wezterm.font("JetBrains Mono")
 config.font_size                 = 14.0
 config.command_palette_font_size = 18.0
 
+config.harfbuzz_features = {
+    "calt=0",
+    "liga=0",
+    "dlig=0",
+}
+
 config.initial_rows      = 50
 config.initial_cols      = 100
 config.enable_scroll_bar = true
