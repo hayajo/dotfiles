@@ -109,6 +109,7 @@ require("lazy").setup({
         end
     },
     "hashivim/vim-terraform",
+    "google/vim-jsonnet",
 })
 -- }}}
 

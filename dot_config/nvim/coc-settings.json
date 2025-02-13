@@ -3,8 +3,13 @@
     "languageserver": {
         "terraform": {
             "command": "terraform-ls",
-            "args": ["serve"],
-            "filetypes": ["terraform", "tf"],
+            "args": [
+                "serve"
+            ],
+            "filetypes": [
+                "terraform",
+                "tf"
+            ],
             "initializationOptions": {},
             "settings": {}
         },
@@ -12,6 +17,20 @@
             "check": {
                 "command": "clippy"
             }
+        },
+        "jsonnet": {
+            "command": "jsonnet-language-server",
+            "args": [
+                "-t"
+            ],
+            "rootPatterns": [
+                ".git/",
+                "jsonnetfile.json"
+            ],
+            "filetypes": [
+                "jsonnet",
+                "libsonnet"
+            ]
         }
     }
 }
