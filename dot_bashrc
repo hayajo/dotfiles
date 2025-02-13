@@ -138,3 +138,15 @@ function vscode {
     preexec_functions+=(__prompt_preexec)
     precmd_functions+=(__prompt_precmd)
 }
+
+# Krew のパスを追加する
+# NOTE:
+# - mise でインストールできるが `kubectl-krew` ではないので `kubectl` がプラグインとして認識できない
+# - そのため公式の手順でインストールする
+#   - https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+# - asdf を使用してインストールする場合は `kubectl-krew` でインストールされるのでこちらの設定は不要となる
+: "Setup Krew" && {
+    type kubectl &>/dev/null && test -d "${KREW_ROOT:-$HOME/.krew}/bin" && {
+        export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+    }
+}
