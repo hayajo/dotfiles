@@ -23,7 +23,7 @@ require("lazy").setup({
             {"<C-x>P", ":FzfLua builtin<CR>",   mode = "n"},
             {"<C-x>p", ":FzfLua git_files<CR>", mode = "n"},
             {"<C-x>b", ":FzfLua buffers<CR>",   mode = "n"},
-            {"<C-x>f", ":FzfLua live_grep { cmd = 'git grep --line-number --column --color=always' }<CR>", mode = "n"},
+            {"<C-x>f", ":FzfLua live_grep { cmd = 'git grep --line-number --column --color=always --no-index', cwd = vim.fn.system('git rev-parse --show-toplevel') }<CR>", mode = "n"},
         },
     },
     {
