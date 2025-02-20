@@ -83,6 +83,14 @@ config.key_tables = {
           act.CopyMode 'Close',
       }
     },
+    {
+      key = '[',
+      mods = 'CTRL',
+      action = act.Multiple {
+          act.CopyMode 'ClearPattern',
+          act.CopyMode 'Close',
+      }
+    },
     { key = 'n',         mods = 'CTRL',  action = act.CopyMode 'NextMatch' },
     { key = 'p',         mods = 'CTRL',  action = act.CopyMode 'PriorMatch' },
     { key = 'r',         mods = 'CTRL',  action = act.CopyMode 'CycleMatchType' },
