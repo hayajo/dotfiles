@@ -47,7 +47,7 @@ function vscode {
 
     alias yless='jless --yaml'
 
-    alias memo='vim ~/Dropbox/memo.md'
+    alias memo='vim ~/Desktop/memo.md'
 }
 
 : "Setup Completions" && {
