@@ -86,7 +86,13 @@ require("lazy").setup({
             },
         },
     },
-    "fatih/vim-go",
+    {
+        "fatih/vim-go",
+        config = function()
+            -- diasble run `godoc` with `K`
+            vim.g.go_doc_keywordprg_enabled = 0
+        end
+    },
     "github/copilot.vim",
     "tpope/vim-fugitive",
     "tpope/vim-rhubarb",
@@ -209,6 +215,8 @@ vim.keymap.set("c", "<C-k>", [[<C-\>estrpart(getcmdline(), 0, getcmdpos()-1)<CR>
 vim.keymap.set("n", "<Leader>bd", ":bdelete<CR>", { noremap = true, silent = true })
 -- Coc jump to definition with vertical split
 vim.keymap.set("n", "gv", "<Cmd>call CocAction('jumpDefinition', 'vsplit')<CR>", { noremap = true, silent = true })
+-- Coc doHover to show documentation
+vim.keymap.set("n", "K", "<Cmd>call CocActionAsync('doHover')<CR>", { noremap = true, silent = true })
 -- }}}
 
 local plugin_statues = table.concat({
