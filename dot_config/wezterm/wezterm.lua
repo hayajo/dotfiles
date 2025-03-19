@@ -45,7 +45,7 @@ config.use_ime                            = true
 config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 
 -- config.disable_default_key_bindings = true
-config.leader = { key = 't', mods = 'CTRL', timeout_milliseconds = 1000  }
+config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000  }
 config.keys   = {
   { key = 'v',         mods = 'LEADER',      action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
   { key = 's',         mods = 'LEADER',      action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
