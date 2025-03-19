@@ -5,6 +5,13 @@
   test -r /etc/bashrc && . /etc/bashrc
 }
 
+: "mise" && {
+    # mise がインストールされている場合は mise をロードする
+    type mise &>/dev/null && {
+        eval "$(mise activate bash)"
+    }
+}
+
 function vscode {
     { test $# -eq 1 && test -n "$1"; } || return
     VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@"

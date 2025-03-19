@@ -32,8 +32,8 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
         test -d "$ASDF_PREFIX" && . "$ASDF_PREFIX/libexec/asdf.sh"
 
         # mise の環境変数を設定する
-        ASDF_PREFIX=$(brew --prefix mise)
-        test -d "$ASDF_PREFIX" && eval "$(mise activate bash)"
+        MISE_PREFIX=$(brew --prefix mise)
+        test -d "$MISE_PREFIX" && eval "$(mise activate --shims)"
 
         # coreutils の libexec/gnubin を PATH に追加する
         COREUTILS_PREFIX=$(brew --prefix coreutils)
