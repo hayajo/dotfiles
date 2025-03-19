@@ -6,6 +6,8 @@ font-feature = -dlig
 font-feature = -calt
 font-feature = -liga
 
+cursor-color = #9ECE6A
+
 # background-opacity      = 0.90
 unfocused-split-opacity = 0.30
 
