@@ -38,7 +38,6 @@ function color-palette {
     alias mv='mv -i'
     alias ls='ls -FG --color'
     alias diff='diff --color'
-    alias tmux="tmux attach -d || tmux"
     alias ag="ag -S --pager='less -R'"
 
     alias vim='nvim'
@@ -168,5 +167,14 @@ function color-palette {
 : "Setup Krew" && {
     type kubectl &>/dev/null && test -d "${KREW_ROOT:-$HOME/.krew}/bin" && {
         export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+    }
+}
+
+: "Run tmux" && {
+    which tmux &>/dev/null && {
+        # tmux が起動していない場合は起動する
+        if [[ -z "$TMUX" ]]; then
+            tmux attach -d 2>/dev/null || tmux
+        fi
     }
 }
