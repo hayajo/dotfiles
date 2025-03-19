@@ -17,6 +17,15 @@ function vscode {
     VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@"
 }
 
+function color-palette {
+    for i in {0..255}; do
+        printf "\x1b[38;5;${i}m%3d " $i
+        if (( (i + 1) % 16 == 0 )); then
+            echo
+        fi
+    done
+}
+
 : "Set keybinds" && {
     # Ctrl+w をファイル名に基づく単語削除に変更する
     stty werase undef
