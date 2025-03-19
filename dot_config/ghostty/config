@@ -25,6 +25,4 @@ unfocused-split-opacity = 0.30
 # keybind = ctrl+t>p=previous_tab
 # keybind = ctrl+t>n=next_tab
 
-keybind = ctrl+t>c=new_tab
-keybind = ctrl+t>p=previous_tab
-keybind = ctrl+t>n=next_tab
+macos-option-as-alt = true
