@@ -81,6 +81,4 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 : "Load .bashrc" && {
     # .bashrc が存在する場合は読み込む
     test -r "$HOME/.bashrc" && . "$HOME/.bashrc"
-    # .bashrc.local が存在する場合は読み込む
-    test -r "$HOME/.bashrc.local" && . "$HOME/.bashrc.local"
 }

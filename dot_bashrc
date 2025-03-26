@@ -170,6 +170,11 @@ function color-palette {
     }
 }
 
+: "Load .bashrc.local" && {
+    # .bashrc.local が存在する場合は読み込む
+    test -r "$HOME/.bashrc.local" && . "$HOME/.bashrc.local"
+}
+
 : "Run tmux" && {
     which tmux &>/dev/null && {
         # tmux が起動していない場合は起動する
