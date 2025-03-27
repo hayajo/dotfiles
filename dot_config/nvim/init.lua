@@ -198,10 +198,10 @@ vim.keymap.set("i", "<C-h>", "<BS>",      { noremap = true })
 vim.keymap.set("i", "<C-k>", "<C-o>C",    { noremap = true })
 vim.keymap.set("i", "<C-o>", "<C-o>O",    { noremap = true }) -- Insert a new line above the current line
 vim.keymap.set("i", "<C-l>", "<Esc>b~gi", { noremap = true }) -- Change case of the word under the cursor
-vim.keymap.set("i", "<C-p>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#prev(1)") or "<Up>" end, { silent = true, expr = true, noremap = true })
-vim.keymap.set("i", "<C-n>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#next(1)") or "<Down>" end, { silent = true, expr = true, noremap = true })
--- vim.keymap.set("i", "<Tab>",   function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Tab>" end, { silent = true, expr = true, noremap = true })
-vim.keymap.set("i", "<Enter>", function() return vim.fn.eval("coc#pum#visible()") == 1 and vim.fn.eval("coc#pum#confirm()") or "<Enter>" end, { silent = true, expr = true, noremap = true })
+vim.api.nvim_set_keymap('i', '<C-p>', 'coc#pum#visible() ? coc#pum#prev(1) : "<Up>"', { noremap = true, silent = true, expr = true })
+vim.api.nvim_set_keymap('i', '<C-n>', 'coc#pum#visible() ? coc#pum#next(1) : "<Down>"', { noremap = true, silent = true, expr = true })
+vim.api.nvim_set_keymap('i', '<Tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<Tab>"', { noremap = true, silent = true, expr = true })
+vim.api.nvim_set_keymap('i', '<Enter>', 'coc#pum#visible() ? coc#pum#confirm() : "<Enter>"', { noremap = true, silent = true, expr = true })
 -- Emacs-like keybindings for command-line mode
 vim.keymap.set("c", "<C-p>", "<Up>",    { noremap = true })
 vim.keymap.set("c", "<C-n>", "<Down>",  { noremap = true })
