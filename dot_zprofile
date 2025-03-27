@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+
+# DEBUG
+# echo "[DEBUG] eval .zprofile"
+
+: "Setup Homebrew" && {
+    BREW_PATH="/opt/homebrew/bin/brew"
+    test -x "$BREW_PATH" && {
+        # Homebrew の環境変数を設定する
+        eval "$($BREW_PATH shellenv zsh)"
+
+        # upgrade や install の際の自動アップデートを無効にする
+        export HOMEBREW_NO_AUTO_UPDATE=1
+
+        # asdf の環境変数を設定する
+        ASDF_PREFIX=$(brew --prefix asdf)
+        test -d "$ASDF_PREFIX" && . "$ASDF_PREFIX/libexec/asdf.sh"
+
+        # mise の環境変数を設定する
+        MISE_PREFIX=$(brew --prefix mise)
+        test -d "$MISE_PREFIX" && eval "$(mise activate --shims)"
+
+        # coreutils の libexec/gnubin を PATH に追加する
+        COREUTILS_PREFIX=$(brew --prefix coreutils)
+        test -d "$COREUTILS_PREFIX" && export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
+    }
+}
+
+: "Configure PATH" && {
+    # type /opt/homebrew/opt/socket_vmnet/bin/socket_vmnet && PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket_vmnet のパスを追加する。lima の `--network="lima:shared` で使用する。
+    PATH="$HOME/bin:$PATH" # 自作スクリプトのパスを追加する
+    PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+    export PATH
+}
+
+: "XDG_BASE_DIRS" && {
+    # see. https://wiki.archlinux.jp/index.php/XDG_Base_Directory
+    export XDG_CONFIG_HOME="$HOME/.config"
+    export XDG_CACHE_HOME="$HOME/.cache"
+    export XDG_DATA_HOME="$HOME/.local/share"
+    export XDG_STATE_HOME="$HOME/.local/state"
+    export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+    export XDG_CONFIG_DIRS="/etc/xdg"
+}
+
+: "Startup" && {
+    # ssh-agent が起動していない場合は起動する
+    test -z "$SSH_AUTH_SOCK" && eval "$(ssh-agent)"
+}

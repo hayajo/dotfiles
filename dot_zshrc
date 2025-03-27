@@ -1,0 +1,162 @@
+# DEBUG
+# cat <<'EOF'
+# ------------------------------------------
+# [DEBUG] eval .zshrc
+# see. https://wiki.archlinux.org/title/Zsh
+# ------------------------------------------
+# EOF
+
+setopt share_history
+
+: "Setup keybinds" && {
+    # like 'unix-filename-rubout' in bash
+    autoload -U select-word-style
+    select-word-style bash
+
+    bindkey -d # clear all key bindings
+    bindkey -e # set emacs key bindings
+}
+
+: "Setup Completion" && {
+    # zsh-completions
+    # see. https://github.com/zsh-users/zsh-completions
+    if type brew &>/dev/null; then
+        FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+        source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+        source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+        bindkey '^ ' autosuggest-accept # Use Ctrl+Space to accept the suggestion
+    fi
+
+    autoload -U compinit && compinit # load completions
+    zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[-_.]=**' # case-insensitive completion
+}
+
+: "Setup Prompt" && {
+    autoload -Uz add-zsh-hook
+
+    current_rprompt() {
+        RPROMPT=""
+    }
+    add-zsh-hook precmd current_rprompt
+
+    # show datetime of command execution in RPROMPT
+    update-rprompt-accept-line() {
+        RPROMPT='%D{%y/%m/%d %H:%M:%S}'
+        zle .reset-prompt
+        zle .accept-line
+    }
+    zle -N accept-line update-rprompt-accept-line
+
+    # show git status
+    {
+        autoload -Uz vcs_info
+        add-zsh-hook precmd vcs_info
+        setopt prompt_subst
+        zstyle ':vcs_info:git:*' check-for-changes true
+        # zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+        zstyle ':vcs_info:git:*' stagedstr "!" # `!`: staged files indicator
+        # zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+        zstyle ':vcs_info:git:*' unstagedstr "+" # `+`: unstaged files indicator
+
+        # show untracked files
+        zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+        +vi-git-untracked() {
+          if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+             git status --porcelain | grep -m 1 '^??' &>/dev/null
+          then
+            hook_com[misc]='?' # `?`: untracked files indicator
+          fi
+        }
+
+        zstyle ':vcs_info:*' formats "%F{green}[%b]%c%u%m%f"
+        zstyle ':vcs_info:*' actionformats '%F{green}[%b|%a]%c%u%m%f'
+    }
+
+    kubectl-current-context() {
+        psvar[1]="$(kubectl config current-context 2>/dev/null || echo 'none')"
+    }
+    add-zsh-hook precmd kubectl-current-context
+
+    export PROMPT="%F{blue}[%1v]%f"'${vcs_info_msg_0_} %(4~|%-1~/.../%3~|%~) %(!.#.$) ' # %v1: value of psvar[1]
+}
+
+: "Define Aiases" && {
+    alias rm='rm -i'
+    alias cp='cp -i'
+    alias mv='mv -i'
+    alias ls='ls -FG --color'
+    alias diff='diff --color'
+    alias ag="ag -S --pager='less -R'"
+
+    alias vim='nvim'
+
+    alias v="view"
+    alias vi="vim -u NONE -N"
+    alias e='edit'
+    alias edit='vim'
+
+    alias g='git'
+    alias d='docker'
+    alias k='kubectl'
+    alias kx='kubectl ctx'
+
+    alias r='cd "$(ghq list -p | fzf --ansi)"'
+    alias v='vscode "$(ghq list -p | fzf --ansi)"'
+
+    alias temp='cd "$(mktemp -d -p ~/Desktop)"'
+    alias t='cd "$(find ~/Desktop -maxdepth 1 -type d -name "tmp.*" | fzf --ansi)"'
+
+    alias beep='for i in {1..3}; do afplay -t 0.33 /System/Library/Sounds/Ping.aiff; done'
+
+    alias yless='jless --yaml'
+
+    alias memo='vim ~/Desktop/memo.md'
+}
+
+: "mise" && {
+    # mise がインストールされている場合は mise をロードする
+    type mise &>/dev/null && {
+        eval "$(mise activate zsh)"
+    }
+}
+
+: "Setup fzf" && {
+    type fzf &>/dev/null && [[ $- == *i* ]] && {
+        eval "$(fzf --zsh)"
+        export FZF_DEFAULT_OPTS="--height 40% --border --color=dark"
+        # NOTE: for >= 0.36.0
+        export RUNEWIDTH_EASTASIAN=0
+    }
+}
+
+: "Setup direnv" && {
+    type direnv &>/dev/null && {
+        eval "$(direnv hook zsh)"
+    }
+}
+
+# Krew のパスを追加する
+# NOTE:
+# - mise でインストールできるが `kubectl-krew` ではないので `kubectl` がプラグインとして認識できない
+# - そのため公式の手順でインストールする
+#   - https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+# - asdf を使用してインストールする場合は `kubectl-krew` でインストールされるのでこちらの設定は不要となる
+: "Setup Krew" && {
+    type kubectl &>/dev/null && test -d "${KREW_ROOT:-$HOME/.krew}/bin" && {
+        export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+    }
+}
+
+: "Load local settings" && {
+    test -r "$HOME/.zshrc.local" && . "$HOME/.zshrc.local"
+}
+
+: "Run tmux" && {
+    type tmux &>/dev/null && {
+        # tmux が起動していない場合は起動する
+        if [[ -z "$TMUX" ]]; then
+            tmux attach -d 2>/dev/null || tmux
+        fi
+    }
+}
