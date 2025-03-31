@@ -37,19 +37,6 @@ setopt share_history
 : "Setup Prompt" && {
     autoload -Uz add-zsh-hook
 
-    current_rprompt() {
-        RPROMPT=""
-    }
-    add-zsh-hook precmd current_rprompt
-
-    # show datetime of command execution in RPROMPT
-    update-rprompt-accept-line() {
-        RPROMPT='%D{%y/%m/%d %H:%M:%S}'
-        zle .reset-prompt
-        zle .accept-line
-    }
-    zle -N accept-line update-rprompt-accept-line
-
     # show git status
     {
         autoload -Uz vcs_info
@@ -80,7 +67,19 @@ setopt share_history
     }
     add-zsh-hook precmd kubectl-current-context
 
-    export PROMPT="%F{blue}[%1v]%f"'${vcs_info_msg_0_} %(4~|%-1~/.../%3~|%~) %(!.#.$) ' # %v1: value of psvar[1]
+    PROMPT_BASE="%F{blue}[%1v]%f"'${vcs_info_msg_0_} %(4~|%-1~/.../%3~|%~)' # %v1: value of psvar[1]
+
+    update-prompt-accept-line() {
+        PROMPT="${PROMPT_BASE} [%D{%y/%m/%d %H:%M:%S}] %(!.#.$) " # Add the date to the prompt ran
+        zle .reset-prompt
+        zle .accept-line
+    }
+    zle -N accept-line update-prompt-accept-line
+
+    current_prompt() {
+        PROMPT="${PROMPT_BASE} %(!.#.$) "
+    }
+    add-zsh-hook precmd current_prompt
 }
 
 : "Define Aiases" && {
