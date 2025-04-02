@@ -99,7 +99,7 @@ require("lazy").setup({
     {
         "neoclide/coc.nvim",
         branch = "release",
-        build = "npm ci",
+        -- build = "npm ci",
         config = function()
             vim.g.coc_global_extensions = {
                 "coc-spell-checker",
