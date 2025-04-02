@@ -67,17 +67,17 @@ setopt share_history
     }
     add-zsh-hook precmd kubectl-current-context
 
-    PROMPT_BASE="%F{blue}[%1v]%f"'${vcs_info_msg_0_} %(4~|%-1~/.../%3~|%~)' # %v1: value of psvar[1]
+    PROMPT_BASE="%F{blue}[%1v]%f"'${vcs_info_msg_0_} %(4~|%-1~/.../%3~|%~) %(!.#.$) ' # %v1: value of psvar[1]
 
     update-prompt-accept-line() {
-        PROMPT="${PROMPT_BASE} [%D{%y/%m/%d %H:%M:%S}] %(!.#.$) " # Add the date to the prompt ran
+        PROMPT="[%D{%y/%m/%d %H:%M:%S}] ${PROMPT_BASE}" # Add the date to the prompt ran
         zle .reset-prompt
         zle .accept-line
     }
     zle -N accept-line update-prompt-accept-line
 
     current_prompt() {
-        PROMPT="${PROMPT_BASE} %(!.#.$) "
+        PROMPT="${PROMPT_BASE}"
     }
     add-zsh-hook precmd current_prompt
 }
