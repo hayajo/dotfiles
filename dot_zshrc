@@ -31,11 +31,9 @@
     if type brew &>/dev/null; then
         FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
         source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-        export ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
-        bindkey '^ ' autosuggest-accept # Use Ctrl+Space to accept the suggestion
+        # source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        # export ZSH_AUTOSUGGEST_STRATEGY=(completion)
+        # bindkey '^ ' autosuggest-accept # Use Ctrl+Space to accept the suggestion
     fi
 
     autoload -U compinit && compinit # load completions
