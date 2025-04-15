@@ -25,6 +25,17 @@ require("lazy").setup({
             {"<C-x>b", ":FzfLua buffers<CR>",   mode = "n"},
             {"<C-x>f", ":FzfLua live_grep { cmd = 'git grep --line-number --column --color=always --no-index', cwd = vim.fn.system('git rev-parse --show-toplevel') }<CR>", mode = "n"},
         },
+        opts = {
+            -- winopts = {
+            --     preview = {
+            --         layout  = "vertical",
+            --         vertical = "up:70%",
+            --     },
+            -- },
+            -- fzf_opts = {
+            --     ["--layout"] = "reverse",
+            -- },
+        },
     },
     {
       "folke/tokyonight.nvim",
