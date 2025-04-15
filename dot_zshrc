@@ -6,7 +6,15 @@
 # ------------------------------------------
 # EOF
 
-setopt share_history
+: "Setup history" && {
+    setopt share_history
+    setopt hist_ignore_dups
+    setopt extended_history
+
+    export HISTFILE=~/.zsh_history
+    export HISTSIZE=10000
+    export SAVEHIST=100000
+}
 
 : "Setup keybinds" && {
     # like 'unix-filename-rubout' in bash
