@@ -169,7 +169,7 @@
 }
 
 : "Run tmux" && {
-    type tmux &>/dev/null && {
+    type tmux &>/dev/null && test "$TERM_PROGRAM" != "vscode" && {
         # tmux が起動していない場合は起動する
         if [[ -z "$TMUX" ]]; then
             tmux attach -d 2>/dev/null || tmux
