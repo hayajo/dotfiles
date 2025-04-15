@@ -159,6 +159,11 @@
     }
 }
 
+: "stty settings" && {
+    stty stop undef # default: C-s
+    stty start undef # default: C-q
+}
+
 : "Load local settings" && {
     test -r "$HOME/.zshrc.local" && . "$HOME/.zshrc.local"
 }
