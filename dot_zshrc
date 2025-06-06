@@ -123,6 +123,8 @@
 
     alias memo='vim ~/Desktop/memo.md'
     alias pbcopy-echo='tee >(pbcopy)'
+
+    alias perl-repl='perl -d -e 0'
 }
 
 : "mise" && {
