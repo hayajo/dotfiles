@@ -127,6 +127,7 @@ require("lazy").setup({
     },
     "hashivim/vim-terraform",
     "google/vim-jsonnet",
+    "towolf/vim-helm",
 })
 -- }}}
 
