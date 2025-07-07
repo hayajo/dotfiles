@@ -20,6 +20,7 @@
     log-oneline-name-status = log --oneline --name-status
     open-repo               = "!gh repo view -w --branch \"$(git branch --show-current)\""
     show-commit             = "!git show $(git log --oneline | fzf | cut -d' ' -f1)"
+    current-hash            = "!git show --format='%h' --no-patch"
 
 [push]
     default = upstream
