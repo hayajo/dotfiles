@@ -28,6 +28,7 @@
 
 : "Configure PATH" && {
     # type /opt/homebrew/opt/socket_vmnet/bin/socket_vmnet && PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket_vmnet のパスを追加する。lima の `--network="lima:shared` で使用する。
+    PATH="$HOME/.local/bin:$PATH" # `pipx` などでツールをインストールされるパスを追加する
     PATH="$HOME/bin:$PATH" # 自作スクリプトのパスを追加する
     PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
     export PATH
