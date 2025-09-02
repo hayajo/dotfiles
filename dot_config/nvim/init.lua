@@ -275,3 +275,7 @@ set_ft({ "*.tfstate", "*.tfstate.backup" }, "json")
 vim.g.terraform_fmt_on_save = 1
 vim.g.terraform_align       = 1
 -- }}}
+
+-- for Google Apps Script {{{
+set_ft("*.gs", "javascript")
+-- }}
